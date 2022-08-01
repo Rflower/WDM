@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class IndexController {
 
 	@GetMapping("main")
-	public String index() {
+	public String index(){
 		return "main";
 	}
 	
