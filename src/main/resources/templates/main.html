@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>우리동네 맛집을 소개합니다.</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="/bootstrap/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/bootstrap/css/style.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
+            <a href="main" class="navbar-brand ml-lg-3">
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav m-auto py-0">
+                    <a href="login" class="nav-item nav-link active">로그인</a>
+                    <a href="contact" class="nav-item nav-link">회원가입</a>
+                </div>
+                <!--  <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Get A Quote</a>-->
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid mb-5" style="height: 650px">
+        <div class="container text-center py-5">
+            <h1 class="text-primary mb-4"></h1>
+            <h1 class="text-white display-3 mb-5">&nbsp;</h1>
+             <form method="post" th:action="restrantList">
+	            <div class="mx-auto" style="width: 100%; max-width: 600px;">
+	                <div class="input-group">
+	                    <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="장소 또는 메뉴를 입력하세요">
+	                    <div class="input-group-append">
+	                        <button class="btn btn-primary px-3">검색</button>
+	                    </div>
+	                </div>
+	            </div>
+          
+            </form>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Testimonial Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="text-center pb-2" style="padding-bottom: 20px">
+                <h6 class="text-primary text-uppercase font-weight-bold">Testimonial</h6>
+                <h1 class="mb-4">추천이 가장 많은 맛집</h1>
+                <a th:href="@{/insertRestaurant}"><button class="btn btn-primary px-3">내가 직접 소개하기</button></a>
+            </div>
+            <div class="owl-carousel testimonial-carousel">
+                <div class="position-relative bg-secondary p-4">
+    
+                    <div class="d-flex align-items-center mb-3">
+                        <img class="img-fluid rounded-circle" src="/bootstrap/img/GRKB.jpg" style="width: 300px; height: 350px;" alt="">
+   
+                    </div>
+                     <h6 class="font-weight-semi-bold m-0">구름김밥</h6>
+                     <small>- 신림동 분식집</small>
+                    <p class="m-0">신림동 골목 안쪽에 위치한 분식집.</p>
+                </div>
+                <div class="position-relative bg-secondary p-4">
+                    
+                    <div class="d-flex align-items-center mb-3">
+                        <img class="img-fluid rounded-circle" src="bootstrap/img/이목구비.jpg" style="width: 300px; height: 350px;" alt="">
+      
+                    </div>
+                    <h6 class="font-weight-semi-bold m-0">이목구비</h6>
+                    <small>- 영등포 수제맥주집</small>
+                    <p class="m-0">영등포 골목 안쪽에 위치한 수제맥주집. 시멘틱에러 촬영지 </p>
+                </div>
+                <div class="position-relative bg-secondary p-4">
+              
+                    <div class="d-flex align-items-center mb-3">
+                        <img class="img-fluid rounded-circle" src="bootstrap/img/samsamsam.png" style="width: 300px; height: 350px;" alt="">
+    
+                    </div>
+                    <h6 class="font-weight-semi-bold m-0">SAM SAM SAM</h6>
+                    <small>- 용산삼각지 샌프란시스코 가정집</small>
+                    <p class="m-0">용리단길에 위치한 샌스판시스코 가정집. 뇨끼와 라자냐 </p>
+                </div>
+                <div class="position-relative bg-secondary p-4">
+            
+                    <div class="d-flex align-items-center mb-3">
+                        <img class="img-fluid rounded-circle" src="bootstrap/img/닭칼.png" style="width: 300px; height: 350px;" alt="">
+                    </div>
+                    <h6 class="font-weight-semi-bold m-0">닭칼</h6>
+                    <small>- 안국동 닭칼국수 집. </small>
+                    <p class="m-0">불떡콩이라는 즉석 떡볶이가 Best!</p>
+                </div>
+            </div>
+
+        </div>
+         	
+    </div>
+    <!-- Testimonial End -->
+ 
+    <!-- Footer Start -->
+
+    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: #3E3E4E !important;">
+        <div class="row">
+            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0 text-white">&copy; <a href="#">우동맛</a>. All Rights Reserved. 
+				
+				<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+				Designed by <a href="https://htmlcodex.com">HTML Codex</a>
+                </p>
+            </div>
+            <div class="col-lg-6 text-center text-md-right">
+                <ul class="nav d-inline-flex">
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="mypage">마이페이지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="admin">관리자</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="QnA">문의하기</a>
+                    </li>                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap/lib/easing/easing.min.js"></script>
+    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="bootstrap/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="bootstrap/js/main.js"></script>
+</body>
+
+</html>

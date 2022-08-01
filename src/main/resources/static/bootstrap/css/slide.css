@@ -1,0 +1,22 @@
+
+#container100{ width: 640px; margin: 0 auto;}
+.album100{height: 400px; width: 100%; overflow: hidden;} /* overflow 되면 숨긴다*/
+.images100{ 
+    display: flex; height: 400px; width: 2560px;
+    transition-property: transform; /* transform 속성에대해, js코드에 의해 transform 스타일 추가된다*/
+    transition-duration: 1s; /* transition 지속시간 */
+}
+.image100{width: 640px; height: 400px;}
+.image100:nth-child(1){background-color: tomato;}
+.image100:nth-child(2){background-color: teal;}
+.image100:nth-child(3){background-color: orange;}
+.image100:nth-child(4){background-color: green;}
+button{
+    width: 100px; height: 30px; border:none;
+    color: white; background-color: blueviolet;
+}
+button:disabled{ /* disabled 된 버튼 */
+    background-color: gray;
+}
+.prev100{ float:left}
+.next100{ float:right}
