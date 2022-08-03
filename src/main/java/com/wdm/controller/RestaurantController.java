@@ -106,6 +106,8 @@ public class RestaurantController {
 		return "redirect:restrantList";
 	}
 
+	// 깃허브 머지 테스트
+	//22222어ㅏㅁ농ㄻ홒륨아ㅣ로ㅓㅏㅁㄴ
 }
 
 	
