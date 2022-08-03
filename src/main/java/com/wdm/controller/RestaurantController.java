@@ -108,6 +108,8 @@ public class RestaurantController {
 	
 	// 김보애 컨트롤러 테스트 깃허브 병합
 
+	// 깃허브 머지 테스트
+	//22222어ㅏㅁ농ㄻ홒륨아ㅣ로ㅓㅏㅁㄴ
 }
 
 	
