@@ -55,12 +55,12 @@
         <div class="container text-center py-5">
             <h1 class="text-primary mb-4"></h1>
             <h1 class="text-white display-3 mb-5"></h1>
-            <form method="post" th:action="restrantList">
+            <form method="GET" th:action="restaurantList">
             <div class="mx-auto" style="width: 100%; max-width: 600px;">
                 <div class="input-group">
-                    <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="장소 또는 메뉴를 입력하세요">
+                    <input type="text" name = "searchKeyword" class="form-control border-light" style="padding: 30px;" placeholder="장소 또는 메뉴를 입력하세요">
                     <div class="input-group-append">
-                        <button class="btn btn-primary px-3">검색</button>
+                        <button type ="submit" class="btn btn-primary px-3">검색</button>
                     </div>
                 </div>
             </div>
@@ -69,29 +69,25 @@
     </div>
     <!-- Header End -->
 
-    <!-- Team Start -->
+    <!-- Restaurant Start -->
     <div class="container-fluid pt-5">
         <div class="container">
-            <div class="text-center pb-2">
-
-				<h6 class="text-primary text-uppercase font-weight-bold" style="display: inline; border-right: 1px solid; padding-right: 8px; "><a href="#">전체</a></h6>
-                <h6 class="text-primary text-uppercase font-weight-bold" style="display: inline; border-right: 1px solid; padding-right: 8px;"><a href="#">한식</a></h6>
-                <h6 class="text-primary text-uppercase font-weight-bold" style="display: inline; border-right: 1px solid; padding-right: 8px;"><a href="#">중식</a></h6>
-                <h6 class="text-primary text-uppercase font-weight-bold" style="display: inline; border-right: 1px solid; padding-right: 8px;"><a href="#">양식</a></h6>
-                <h6 class="text-primary text-uppercase font-weight-bold" style="display: inline;"><a href="#">일식</a></h6>
-                <br>
-				<h6 class="text-primary text-uppercase font-weight-bold" style="display: inline;"><a href="#">추천순</a></h6>
-                <h6 class="text-primary text-uppercase font-weight-bold" style="display: inline;  "><a href="#">최신순</a></h6>
+            <div class="pagination pagination-lg mb-0">
+				<h5 class="text-primary text-uppercase font-weight-bold">
+					<a class="page-link" th:href="@{/restaurantList? (searchKeyword = ${param.searchKeyword}, orderby=likescnt) }">추천순</a></h5>
+												
+                <h5 class="text-primary text-uppercase font-weight-bold">
+                	<a class="page-link" th:href="@{/restaurantList? (searchKeyword = ${param.searchKeyword}, orderby=rseq ) }">최신순</a></h5>
 
             </div>
             <div class="row" >
-                <div class="col-lg-3 col-md-6" th:each ="restaurant : ${restestaurantList}">
+                <div class="col-lg-3 col-md-6" th:each ="restaurant : ${restaurantList}">
                     <div class="team card position-relative overflow-hidden border-0 mb-5">
                         <img class="card-img-top" th:src="@{/bootstrap/img/}+${restaurant.image1}" height="250" width="190" alt="">
                         <div class="card-body text-center p-0">
                             <div class="team-text d-flex flex-column justify-content-center bg-secondary">
                                 <h5 class="font-weight-bold"><span th:text="${restaurant.name}"></span></h5>
-                                <span>Designation</span>
+                                <span th:text="${restaurant.menu}"></span>
                             </div>
                             <div class="team-social d-flex align-items-center justify-content-center bg-primary">
                                <h5 class="font-weight-bold"> <a href="detail" style="color: black;">맛집 보러가기<h2 class="btn btn-outline-dark btn-social">-></h2></a></h5>
@@ -104,24 +100,31 @@
             </div>
         </div> 
     </div>
-    <!-- Team End -->
+    <!-- Restaurant End -->
     
     <!-- 페이징 처리 -->
-                <div class="row">
+				<div class="row">
                     <div class="col-12">
                         <nav aria-label="Page navigation">
-                          <ul class="pagination pagination-lg justify-content-center mb-0">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" aria-label="Previous">
+                          <ul class="pagination pagination-lg justify-content-center mb-0"
+                          	th:with="start=${(restaurantList.number/maxPage)*maxPage + 1},
+                  end=(${(restaurantList.totalPages == 0) ? 1 : (start + (maxPage - 1) < restaurantList.totalPages ? start + (maxPage - 1) : restaurantList.totalPages)})">
+
+                            <li class="page-item" th:classappend="${!restaurantList.hasPrevious} ? 'disabled'">
+                              <a class="page-link" th:href="@{/restaurantList(page=${restaurantList.number-1})}"  aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
                               </a>
                             </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Next">
+                            
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" >
+                            <a class="page-link" th:if="${page != nowPage}" th:href="@{/restaurantList?(page=${page-1}, searchKeyword = ${param.searchKeyword})}"  th:text="${page}"></a> 
+                            	<strong class="page-link" th:if="${page==nowPage}"  th:text="${page}" style="color : red"></strong>
+                          
+                            </li>
+
+                            <li class="page-item" th:classappend="${!restaurantList.hasNext} ? 'disabled'">
+                              <a class="page-link" th:href="@{/restaurantList(page=${restaurantList.number+1})}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
                               </a>
