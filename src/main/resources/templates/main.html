@@ -52,12 +52,12 @@
         <div class="container text-center py-5">
             <h1 class="text-primary mb-4"></h1>
             <h1 class="text-white display-3 mb-5">&nbsp;</h1>
-             <form method="post" th:action="restrantList">
+             <form method="GET" th:action="restaurantList">
 	            <div class="mx-auto" style="width: 100%; max-width: 600px;">
 	                <div class="input-group">
-	                    <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="장소 또는 메뉴를 입력하세요">
+	                    <input type="text" name = "searchKeyword" class="form-control border-light" style="padding: 30px;" placeholder="장소 또는 메뉴를 입력하세요">
 	                    <div class="input-group-append">
-	                        <button class="btn btn-primary px-3">검색</button>
+	                        <button type="submit" class="btn btn-primary px-3">검색</button>
 	                    </div>
 	                </div>
 	            </div>

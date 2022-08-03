@@ -1,7 +1,5 @@
 package com.wdm.persistence;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -11,14 +9,14 @@ import com.wdm.domain.Restaurant;
 
 public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 	
+	//관리자 전체 페이지 보기
+	@Query("SELECT r FROM Restaurant r ORDER BY r.rseq ASC")
+	Page<Restaurant> getRestaurantListPaging(Pageable paging);
+	
 
-	@Query(value="SELECT rseq FROM Restaurant WHERE dong like '%'||?1||'%' ORDER BY seq DESC", nativeQuery=true)
-	List<Restaurant> getRestaurantList(String keyword);
+	//동,메뉴로 검색 및 추천순, 최신순 orderby
+	@Query(value="SELECT * FROM restaurant  WHERE MENU LIKE '%'||?1||'%' OR DONG LIKE'%'||?1||'%' ", nativeQuery=true)
+	Page<Restaurant> getSearchCategoryList(String searchKeyword, Pageable pageable);
 	
-	//관리자 화면에서 전체 글 불러오기 할때 필요
-	@Query(value ="select * From restaurant ", nativeQuery = true)
-	List<Restaurant> getRestaurantListAll();
-	
-	@Query("SELECT b FROM Board b ORDER BY b.seq DESC")
-	Page<Restaurant> getBoardList(Pageable paging);
+
 }
