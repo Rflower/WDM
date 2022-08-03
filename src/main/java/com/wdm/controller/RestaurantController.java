@@ -105,6 +105,8 @@ public class RestaurantController {
 		
 		return "redirect:restrantList";
 	}
+	
+	// 김보애 컨트롤러 테스트 깃허브 병합
 
 }
 
