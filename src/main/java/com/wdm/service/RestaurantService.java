@@ -2,16 +2,24 @@ package com.wdm.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.wdm.domain.Restaurant;
 
 public interface RestaurantService {
 
-	List<Restaurant> getRestaurantList();
-
+	//상세보기
 	Restaurant getRestBoard(Restaurant restaurant);
 	
-	//void insertRestaurant(Restaurant restaurant, MultipartFile image1) throws Exception;
+	//맛집등록하기
 	void insertRestaurant(Restaurant restaurant);
 	
 	//boolean confirmAddress(String address_name);
+	
+	//관리자 화면 불러오기
+	Page<Restaurant> getRestaurantListPaging(Pageable paging);
+	
+	//검색 리스트
+	Page<Restaurant> getSearchCategoryList( String searchKeyword,String orderby,Pageable pageable);
 }
