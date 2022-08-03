@@ -4,7 +4,7 @@
  
  let curPos= 0; // 현재 보고 있는 이미지의 인덱스 번호!
 let position = 0; // 현재 .images 의 위치값!
-const IMAGE_WIDTH = 640; // 한번 움직일 때 이동해야 할 거리!
+const IMAGE_WIDTH = 550; // 한번 움직일 때 이동해야 할 거리!
 
 // 요소 선택
 const prevBtn = document.querySelector(".prev100")
