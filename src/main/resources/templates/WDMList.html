@@ -90,7 +90,7 @@
                                 <span th:text="${restaurant.menu}"></span>
                             </div>
                             <div class="team-social d-flex align-items-center justify-content-center bg-primary">
-                               <h5 class="font-weight-bold"> <a href="detail" style="color: black;">맛집 보러가기<h2 class="btn btn-outline-dark btn-social">-></h2></a></h5>
+                               <h5 class="font-weight-bold"> <a th:href="@{/WDMDetail(rseq=${restaurant.rseq})}" style="color: black;">맛집 보러가기<h2 class="btn btn-outline-dark btn-social">-></h2></a></h5>
                               
                             </div>
                         </div>
