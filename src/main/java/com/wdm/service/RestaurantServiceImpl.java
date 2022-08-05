@@ -55,11 +55,22 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
+	public int nameChk(String name) {
+		int cnt = restRepo.nameChk(name);
+		return cnt;
+	}
+
+	@Override
+	public void deleteRestaurant(Restaurant restaurant) {
+		
+		restRepo.deleteById(restaurant.getRseq());
+	}
+
+	@Override
 	public List<Restaurant> getBestLikescntList() {
 	
 
 		return restRepo.getBestLikescntList();
 	}
-	
-	
+
 }
