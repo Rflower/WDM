@@ -78,7 +78,6 @@
 	</div>
     <script src="static/bootstrap/js/slide.js"></script>
      <!-- 이미지 슬라이드 종료 -->                   
-
     <!-- Blog Start -->
     <form> 
     <div class="container py-5" >
@@ -115,8 +114,40 @@
 						    </dl>
 						    	<input type="hidden" id="address_name"  th:value="${restaurant.address_name}"/>
 						        <div id="map" style="width:550px;height:350px;"></div><br>
-						   
-						    
+    <!-- RestaurantDetail Start -->
+
+	   	<div class="container py-5" >
+	      		<div class="row2">
+	           <!-- Blog Grid Start -->
+	           	<div class="col-lg-8">
+	               	<div class="row">
+	              			<div class="col-md-12 mb-3">
+	                       	<div class="bg-secondary2 mb-3" style="padding: 3px 30px;">
+	                       <!-- 추천하기 버튼 -->
+		                        <div class="likes100">
+		                        	<a href="#" class="likes"><img src="/bootstrap/img/like.png" style="width:50px; height:50px;"></a>
+		                        </div>
+		                        <br><br>
+	                       <!-- 추천하기 버튼 끝 -->
+	                       <!-- 맛집 소개 상세내용 -->
+	                       <!--  <h4 class="font-weight-bold mb-3">Kasd tempor diam sea justo dolor</h4>-->
+	                            <p th:name="content" th:text="${restaurant.content}" style="color:black"></p>
+	                        	<br>
+	                        	<br>
+	                       	
+		                        	<div class="boardText">
+			                        	<dl>
+			                        		<dt th:text="맛집이름"></dt>
+									        <dd th:text=${restaurant.name}></dd>
+									        <dt th:text="대표메뉴"></dt>
+									        <dd th:text=${restaurant.menu}></dd>
+									        <dt th:text="맛집주소"></dt>
+									        <dd th:text=${restaurant.address_name}></dd>	        
+									    </dl>
+									</div>
+				    			<input type="hidden" id="address_name"  th:value="${restaurant.address_name}"/>
+				        		<div id="map" style="width:550px;height:350px;"></div><br>
+                    
 						    <!-- 지도 들어갈 자리 -->
 						
 						    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=111f39b26e9c286f54f9f87c0547d3fe&libraries=services"></script>
@@ -163,34 +194,19 @@
 								});    
 								/*]]>*/
 								</script>
-<!-- Comment Form Start -->
-                <div class="bg-secondary mb-3" style="padding: 30px; width:550px">
-                    <h3 class="mb-4">댓글남기기</h3>
-                    <form method="post" action="">
-                        <div class="form-group">           
-                            <input type="text" class="form-control border-0" id="name">
-                        </div>
-                        <div class="form-group mb-0">
-                            <input type="submit" value="Leave a comment"
-                                class="btn btn-primary font-weight-semi-bold py-2 px-3">
-                        </div>
-                    </form>
-                </div>
- <!-- Comment Form End -->
-  
-						    <div>
-                        </div>
+					<!-- Comment Form Start -->
+					<th:block th:replace="~{WDMcomment :: part1}"></th:block>
+	 				<!-- Comment Form End -->
+ 
                        </div> 	               
-                    </div>
-                </div>
-            </div>
-            </div>
-            <!-- Blog Grid End -->
+                   </div>
+               </div>
+           </div>
+           <!-- Blog Grid End -->
+	
+			</div>
+    	</div>
 
-            </div>
-        </div>
-
-    </form>
     <!-- Blog End -->
 
 

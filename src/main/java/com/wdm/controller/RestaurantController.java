@@ -2,6 +2,7 @@ package com.wdm.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,11 +25,21 @@ public class RestaurantController {
 
 	@Autowired
 	private RestaurantService restaurantService;
-	 
-	@GetMapping("/insertRestaurant")
-	public String insertRestaurantView() {
-		return "WDMInsert";
+	//맛집 상위 4개 불러오기
+	@GetMapping("/main")
+	public String mainView(Model model) {
+		
+		List<Restaurant> likesTop4 = restaurantService.getBestLikescntList();
+		
+		for(Restaurant list : likesTop4) {
+			System.out.println(list);
+		}
+		model.addAttribute("likesTop4", likesTop4);
+	
+		return "main";
+
 	}
+	
 	
 	@GetMapping("/WDMDetail")
 	public String wdmDetail(Restaurant restaurant, Model model) {
@@ -37,7 +48,11 @@ public class RestaurantController {
 		
 		return "WDMDetail";
 	}
-	
+	@GetMapping("/insertRestaurant")
+	public String insertRestaurantView() {
+		return "WDMInsert";
+	}
+
 	@PostMapping("/insertRestaurant")
 	public String insertRestaurant(@RequestParam(value="upload_image1", required=false)MultipartFile uploadFile1,
 								   @RequestParam(value="upload_image2", required=false)MultipartFile uploadFile2,
@@ -146,9 +161,10 @@ public class RestaurantController {
 //		return "WDMList";
 //	}
 	
-	
+
+	//검색창 검색시 불러오는 리스트 처리
 	@GetMapping("/restaurantList")
-	public String getDongAndMenuSearchList(@RequestParam(required = false, defaultValue = "rseq", value = "orderby")String orderby,
+	public String getDongAndMenuSearchList(@RequestParam(required = false, defaultValue = "regdate", value = "orderby")String orderby,
 										  @RequestParam(required = false, value = "searchKeyword") String searchKeyword,
 										  Model model, Pageable pageable) {
 				
@@ -174,7 +190,7 @@ public class RestaurantController {
 		
 		return "WDMList";
 	}
-	
+
 	/*
 	 * 삭제하기
 	 */
@@ -185,16 +201,47 @@ public class RestaurantController {
 		
 		return "forward:restaurantList";
 	}
-
-
 }
 
+	/*
+	@GetMapping("/categoryList")
+	public String getSearchCategoryList(@RequestParam(required = false, value = "searchKeyword") String searchKeyword,
+										@RequestParam(required = false, value = "orderby")String orderby,
+										Model model, Pageable pageable) {
+		
+		Page<Restaurant> restaurantList = restaurantService.getSearchCategoryList(searchKeyword, orderby, pageable);
+
+		for(Restaurant item : restaurantList) {
+			System.out.println(item);
+		}	
+		int nowPage = restaurantList .getPageable().getPageNumber() + 1;
+		model.addAttribute("restaurantList", restaurantList);
+		model.addAttribute("maxPage", 3);
+		model.addAttribute("nowPage", nowPage);
+		
+		return "WDMList";
+	}
+	*/
 	
+	/*
+	@GetMapping("/{category_name}")
+	public String getSearchCategoryList(@PathVariable(required = false)String category_name,
+										@RequestParam(required = false, value = "searchKeyword") String searchKeyword,
+										@RequestParam(required = false, value = "orderby")String orderby,
+										Model model, Pageable pageable) {
+		
+		Page<Restaurant> restaurantList = restaurantService.getSearchCategoryList(category_name, searchKeyword,orderby, pageable);
+
+		for(Restaurant item : restaurantList) {
+			System.out.println(item);
+		}	
+		int nowPage = restaurantList .getPageable().getPageNumber() + 1;
+		model.addAttribute("restaurantList", restaurantList);
+		model.addAttribute("maxPage", 3);
+		model.addAttribute("nowPage", nowPage);
+		
+		return "WDMList";
+	}
+	*/
 	
-	
-	
-	
-	
-	
-	
-	
+}

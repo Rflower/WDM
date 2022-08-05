@@ -15,16 +15,17 @@ public interface RestaurantService {
 	void insertRestaurant(Restaurant restaurant);
 	
 	//boolean confirmAddress(String address_name);
-	
-	//관리자 화면 불러오기
+
 	Page<Restaurant> getRestaurantListPaging(Pageable paging);
 	
-	//검색 리스트
 	Page<Restaurant> getSearchCategoryList( String searchKeyword,String orderby,Pageable pageable);
-	
-	
+
 	int nameChk(String name);
 	
 	//삭제하기
 	void deleteRestaurant(Restaurant restaurant);
+
+	//추천 상위 4개 맛집 출력
+	List<Restaurant> getBestLikescntList();
+
 }
