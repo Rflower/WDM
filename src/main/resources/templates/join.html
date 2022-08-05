@@ -26,41 +26,6 @@
 </head>
 
 <body>
-    <!-- Topbar Start -->
-    <!--
-    <div class="container-fluid bg-dark">
-        <div class="row py-2 px-lg-5">
-            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
-                <div class="d-inline-flex align-items-center text-white">
-                    <small><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</small>
-                    <small class="px-3">|</small>
-                    <small><i class="fa fa-envelope mr-2"></i>info@example.com</small>
-                </div>
-            </div>
-            <div class="col-lg-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
-                    <a class="text-white px-2" href="">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="text-white px-2" href="">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a class="text-white px-2" href="">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a class="text-white px-2" href="">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a class="text-white pl-2" href="">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
-    <!-- Topbar End -->
-
 
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
@@ -68,28 +33,6 @@
             <a href="main" class="navbar-brand ml-lg-3">
                 <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>
-            <!--  
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                <div class="navbar-nav m-auto py-0">
-                    <a href="main.html" class="nav-item nav-link">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="service.html" class="nav-item nav-link">Service</a>
-                    <a href="price.html" class="nav-item nav-link">Price</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                            <a href="single.html" class="dropdown-item">Blog Detail</a>
-                        </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link active">Contact</a>
-                </div>
-                <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Get A Quote</a>
-            </div>
-            -->
         </nav>
     </div> 
     <!-- Navbar End -->
@@ -113,12 +56,6 @@
     <div class="container-fluid py-5">
         <div class="container">
             <div class="row">
-            <!--  
-                <div class="col-lg-5 pb-4 pb-lg-0">
-                    <div class="bg-primary text-dark text-center p-4">
-                        <h4 class="m-0"><i class="fa fa-map-marker-alt text-white mr-2"></i>123 Street, New York, USA</h4>
-                    </div>
--->
                 </div>
                 <div class="col-lg-7">
                     <h6 class="text-primary text-uppercase font-weight-bold">회원가입</h6>
@@ -135,14 +72,16 @@
                             </div>
                             <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="nickname" placeholder="별명을 입력해주세요."
-                                    required="required" data-validation-required-message="Please enter your nickname" />
-                                <button class="btn btn-primary px-3">중복조회</button>
+                                    required oninput="checkNickname()" data-validation-required-message="Please enter your nickname" />
+                                <input type="hidden" class="btn btn-primary px-3" value="중복 검사" />
+                                <span id="resultNickname"></span>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="id" placeholder="ID를 입력해주세요"
-                                    required="required" data-validation-required-message="Please enter your id" />
-                               	<button class="btn btn-primary px-3">중복조회</button>
+                                    required oninput="checkId()" data-validation-required-message="Please enter your id" />
+                               	<input type="hidden" class="btn btn-primary px-3" value="중복 검사" />
+                          		<span id="resultId"></span>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
@@ -157,9 +96,10 @@
                             </div>                           
                             <div class="control-group">
                                 <input type="email" class="form-control border-0 p-4" id="email" placeholder="Email을 입력해주세요"
-                                    required="required" data-validation-required-message="Please enter your email" />
-                               	<button class="btn btn-primary px-3">중복조회</button> 	
+                                   required oninput="checkEmail()" data-validation-required-message="Please enter your email" />
                                	<button class="btn btn-primary px-3">인증하기</button>
+                               	<input type="hidden" class="btn btn-primary px-3" value="중복 검사" />
+                               	<span id="resultEmail"></span>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
@@ -189,6 +129,68 @@
                                 <button class="btn btn-primary py-3 px-4" type="submit" id="sendButton">회원가입</button>
                             </div>
                         </form>
+                        <script type="text/javascript">
+								function checkNickname(){
+							        var nickname = $('#nickname').val();
+							        $.ajax({
+							            url:'/nicknameCheck', 
+							            type:'post', 
+							            data:{nickname:nickname},
+							            success:function(cnt){
+											if(cnt == '0'){
+												$('#resultNickname').text('사용 가능한 닉네임입니다.').css("color", "#757575");
+								            }else{
+												$('#resultNickname').text('이미 사용중인 닉네임입니다.').css("color", "red");
+											}
+							                
+								        },
+								        error:function(){
+								            alert("에러입니다");
+								        }
+								    });
+								};
+								
+								function checkId(){
+							        var id = $('#id').val();
+							        $.ajax({
+							            url:'/idCheck', 
+							            type:'post', 
+							            data:{id:id},
+							            success:function(cnt){
+											if(cnt == '0'){
+												$('#resultId').text('사용 가능한 아이디입니다.').css("color", "#757575");
+								            }else{
+												$('#resultId').text('이미 사용중인 아이디입니다.').css("color", "red");
+											}
+							                
+								        },
+								        error:function(){
+								            alert("에러입니다");
+								        }
+								    });
+								};
+								
+								function checkEmail(){
+							        var email = $('#email').val();
+							        $.ajax({
+							            url:'/emailCheck', 
+							            type:'post', 
+							            data:{email:email},
+							            success:function(cnt){
+											if(cnt == '0'){
+												$('#resultEmail').text('사용 가능한 이메일입니다.').css("color", "#757575");
+								            }else{
+												$('#resultEmail').text('이미 사용중인 이메일입니다.').css("color", "red");
+											}
+							                
+								        },
+								        error:function(){
+								            alert("에러입니다");
+								        }
+								    });
+								};
+								
+								</script>
                     </div>
                 </div>
             </div>

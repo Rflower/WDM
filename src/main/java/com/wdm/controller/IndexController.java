@@ -6,16 +6,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
-
-	@GetMapping("contact")
-	public String contact() {
-		return "join";
+	@GetMapping("main")
+	public String index(){
+		return "main";
 	}
 	
-	@GetMapping("login")
-	public String login() {
-		return "login";
-	}
+//	@GetMapping("contact")
+//	public String contact() {
+//		return "join";
+//	}
+//	
+//	@GetMapping("login")
+//	public String login() {
+//		return "login";
+//	}
 	
 	@GetMapping("mypage")
 	public String mypage() {
