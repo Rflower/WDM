@@ -11,15 +11,15 @@ public class IndexController {
 		return "main";
 	}
 	
-	@GetMapping("contact")
-	public String contact() {
-		return "join";
-	}
-	
-	@GetMapping("login")
-	public String login() {
-		return "login";
-	}
+//	@GetMapping("contact")
+//	public String contact() {
+//		return "join";
+//	}
+//	
+//	@GetMapping("login")
+//	public String login() {
+//		return "login";
+//	}
 	
 	@GetMapping("mypage")
 	public String mypage() {
