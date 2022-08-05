@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -37,8 +38,14 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav m-auto py-0">
-                    <a href="login" class="nav-item nav-link active">로그인</a>
-                    <a href="contact" class="nav-item nav-link">회원가입</a>
+                	
+					<a href="#" class="nav-item nav-link" th:text="${session.loginMember.nickname}" sec:authorize="isAuthenticated()"></a>
+					
+                    <a href="login" class="nav-item nav-link active" sec:authorize="!isAuthenticated()">로그인</a>
+                    <a href="contact" class="nav-item nav-link" sec:authorize="!isAuthenticated()">회원가입</a>
+                    
+                    <a href="/system/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">로그 아웃</a>
+               
                 </div>
                 <!--  <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Get A Quote</a>-->
             </div>
@@ -52,6 +59,7 @@
         <div class="container text-center py-5">
             <h1 class="text-primary mb-4"></h1>
             <h1 class="text-white display-3 mb-5">&nbsp;</h1>
+
              <form method="GET" th:action="restaurantList">
 	            <div class="mx-auto" style="width: 100%; max-width: 600px;">
 	                <div class="input-group">
@@ -61,7 +69,6 @@
 	                    </div>
 	                </div>
 	            </div>
-          
             </form>
         </div>
     </div>
@@ -73,7 +80,7 @@
             <div class="text-center pb-2" style="padding-bottom: 20px">
                 <h6 class="text-primary text-uppercase font-weight-bold">Testimonial</h6>
                 <h1 class="mb-4">추천이 가장 많은 맛집</h1>
-                <a th:href="@{/insertRestaurant}"><button class="btn btn-primary px-3">내가 직접 소개하기</button></a>
+                <a href="insert"><button class="btn btn-primary px-3">내가 직접 소개하기</button></a>
             </div>
             <div class="owl-carousel testimonial-carousel">
                 <div class="position-relative bg-secondary p-4">
