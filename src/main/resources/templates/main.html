@@ -10,7 +10,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="/bootstrap/img/favicon.ico" rel="icon">
+    <link href="static/bootstrap/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -20,10 +20,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="/bootstrap/css/style.css" rel="stylesheet"/>
+    <link href="static/bootstrap/css/style.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
             <a href="main" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,7 @@
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav m-auto py-0">
                 	
-					<a href="#" class="nav-item nav-link" th:text="${session.loginMember.nickname}" sec:authorize="isAuthenticated()"></a>
+					<a href="#" class="nav-item nav-link" sec:authorize="isAuthenticated()"></a>
 					
                     <a href="login" class="nav-item nav-link active" sec:authorize="!isAuthenticated()">로그인</a>
                     <a href="contact" class="nav-item nav-link" sec:authorize="!isAuthenticated()">회원가입</a>
@@ -88,7 +88,7 @@
             <div class="owl-carousel testimonial-carousel" >
                 <div class="position-relative bg-secondary p-4" th:each="likes : ${likesTop4}">
                     <div class="d-flex align-items-center mb-3">
-                       <a th:href="@{/WDMDetail(rseq=${likes.rseq})}"><img class="img-fluid rounded-circle" th:src="@{/bootstrap/img/}+${likes.image1}" style="width: 300px; height: 350px;" alt=""></a> 
+                       <a th:href="@{/WDMDetail(rseq=${likes.rseq})}"><img class="img-fluid rounded-circle" th:src="@{static/bootstrap/img/}+${likes.image1}" style="width: 300px; height: 350px;" alt=""></a> 
                     			
                     </div>
                      <h6 class="font-weight-semi-bold m-0"><span th:text ="${likes.name}" ></span></h6>
@@ -137,17 +137,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="bootstrap/lib/easing/easing.min.js"></script>
-    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
-    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
-    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="static/bootstrap/lib/easing/easing.min.js"></script>
+    <script src="static/bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
-    <script src="bootstrap/mail/contact.js"></script>
+    <script src="static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/bootstrap/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="bootstrap/js/main.js"></script>
+    <script src="static/bootstrap/js/main.js"></script>
 </body>
 
 </html>
