@@ -1,6 +1,5 @@
 package com.wdm.service;
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,4 +21,10 @@ public interface RestaurantService {
 	
 	//검색 리스트
 	Page<Restaurant> getSearchCategoryList( String searchKeyword,String orderby,Pageable pageable);
+	
+	
+	int nameChk(String name);
+	
+	//삭제하기
+	void deleteRestaurant(Restaurant restaurant);
 }

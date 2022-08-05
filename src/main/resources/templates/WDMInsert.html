@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -9,7 +9,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="/bootstrap/img/favicon.ico" rel="icon">
+    <link href="static/bootstrap/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,10 +19,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="/bootstrap/css/style.css" rel="stylesheet"/>
+    <link href="static/bootstrap/css/style.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
             <a href="main" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>
             <!-- 
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -91,8 +91,10 @@
                         <form th:action="insertRestaurant" method="post" enctype="multipart/form-data" novalidate="novalidate">
                        
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" name="name" placeholder="상호명을 입력해주세요"
-                                    required="required" data-validation-required-message="Please enter your name" />                	
+                                <input type="text" class="form-control border-0 p-4" id= "name" name="name" placeholder="상호명을 입력해주세요 (영문 및 띄어쓰기 금지)"
+                                    required oninput="nameChk()" data-validation-required-message="Please enter your name" />  
+                                    <input type="hidden" class="btn btn-primary px-3" value="중복 검사"/>
+                                <span id="resultName"></span>              	
                                 <p class="help-block text-danger"></p>
                 
                             </div>
@@ -118,16 +120,15 @@
                                     required="required" data-validation-required-message="Please enter your address" />
                                 <p class="help-block text-danger"></p>
                             </div>
+                            
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="address_detail" name="address_detail" placeholder="상세주소"
                                     required="required" data-validation-required-message="Please enter your address detail" />
-                                <button class="btn btn-primary px-3" type="button" onclick="addressChk()" >중복조회</button>
-                                <span id="olmessage"></span>
                                 <p class="help-block text-danger"></p>
                             </div>  
                               <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="dong" name="dong" placeholder="무슨동인지 적어주세요. ex)신림동"
-                                    required="required" data-validation-required-message="Please enter your address detail" />
+                                    required="required" data-validation-required-message="Please enter your dong" />
                                 <p class="help-block text-danger"></p>
                             </div>                                                                        
                              <div class="control-group">
@@ -159,8 +160,8 @@
                                 </div>
                             </div> 
                             
-							<script th:inline="javascript">
-								/*<![CDATA[*/
+							<script type="text/javascript">
+								
 								var fileTarget = $('.filebox .file1');
 								fileTarget.on('change', function(){ // 값이 변경되면
 								
@@ -205,10 +206,67 @@
 								$(this).siblings('.image3').val(filename);							
 								});
 								
-								/*]]>*/
+								
+								function nameChk(){
+									var name = $('#name').val();
+									$.ajax({
+										url:'/nameChk',
+										type:'post',
+										data:{name:name},
+										success:function(cnt){
+											if(cnt == '0'){
+												$('#resultName').text('등록 가능한 맛집입니다.').css("color", "#757575");
+											}else{
+											$('#resultName').text('이미 등록된 맛집입니다.').css("color", "red");
+										}
+										},
+										 error:function(){
+											alert("에러입니다");
+										}
+									 });
+									};
+
 							</script>                           
                             <div>
-                                <button class="btn btn-primary py-3 px-4" type="submit" id="sendButton">등록하기</button>
+                                <button class="btn btn-primary py-3 px-4" type="submit" id="sendButton" th:onclick="go_save()">등록하기</button>
+                                
+                                <script th:inline="javascript">
+                                /* <![CDATA[ */
+                                function go_save() {
+                                	
+                                	
+									if (document.getElementById("name").value == "") {
+										alert("맛집 이름을 입력해 주세요.");
+										document.getElementById("name").focus();
+										return false;
+									} else if (document.getElementById("menu").value == "") {
+										alert("메뉴를 입력해 주세요.");
+										document.getElementById("menu").focus();
+										return false;
+									} else if (document.getElementById("address_name").value == "") {
+										alert("주소를 입력해 주세요.");
+										document.getElementById("address_name").focus();
+										return false;
+									} else if (document.getElementById("dong").value == "") {
+										alert("동네 이름을 입력해 주세요.");
+										document.getElementById("dong").focus();
+										return false;
+									} else if (document.getElementById("content").value == "") {
+										alert("내용을 입력해 주세요.");
+										document.getElementById("content").focus();
+										return false;
+									} else if (document.getElementById("image1").value == "") {
+										alert("대표사진을 등록해 주세요.");
+										document.getElementById("image1").focus();
+										return false;
+									} else { // 모든 필수입력이 입력된 경우 URL 요청
+										document.getElementById("insertRestaurant").action = "insertRestaurant";
+										document.getElementById("insertRestaurant").submit();
+									}
+									
+								}
+                                /* ]]> */
+							</script>  
                             </div>
                         </form>
                     </div>
@@ -219,8 +277,8 @@
                <!-- Comment Form End -->
       	<!-- 카카오 도로명 주소 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script th:inline="javascript">
-		/*<![CDATA[*/
+		<script type="text/javascript">
+		
 		window.onload = function(){
 		    document.getElementById("address_name").addEventListener("click", function(){ //주소입력칸을 클릭하면
 		        //카카오 지도 발생
@@ -231,8 +289,8 @@
 		            }
 		        }).open();
 		    });
-		}
-		/*]]>*/
+		}	
+
 		</script>
 
             <!-- Sidebar End -->
@@ -277,17 +335,18 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="bootstrap/lib/easing/easing.min.js"></script>
-    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
-    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
-    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="static/bootstrap/lib/easing/easing.min.js"></script>
+    <script src="static/bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
-    <script src="bootstrap/mail/contact.js"></script>
+    <script src="static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/bootstrap/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="bootstrap/js/main.js"></script>
+    <script src="static/bootstrap/js/main.js"></script>
+    
 </body>
 
 </html>

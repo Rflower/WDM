@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -10,7 +10,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="/bootstrap/img/favicon.ico" rel="icon">
+    <link href="static/bootstrap/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -20,13 +20,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="/bootstrap/css/style.css" rel="stylesheet">
+    <link href="static/bootstrap/css/style.css" rel="stylesheet">
     
     <!-- slide 기능 -->
-    <link href="/bootstrap/css/slide.css" rel="stylesheet">
+    <link href="static/bootstrap/css/slide.css" rel="stylesheet">
 </head>
 
 <body>
@@ -36,7 +36,7 @@
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
             <a href="main" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -68,15 +68,15 @@
 	<div id="container100">
       	<div class="album100">
        		<div class="images100">
-       			<img class="image1001" th:src="@{/bootstrap/img/}+${restaurant.image1}" style="width: 550px; height: 400px;" alt="">
-       			<img class="image1001" th:src="@{/bootstrap/img/}+${restaurant.image2}" style="width: 550px; height: 400px;" alt="">
-       			<img class="image1001" th:src="@{/bootstrap/img/}+${restaurant.image3}" style="width: 550px; height: 400px;" alt="">
+       			<img class="image1001" th:src="@{/static/bootstrap/img/}+${restaurant.image1}" style="width: 550px; height: 400px;" alt="">
+       			<img class="image1001" th:src="@{/static/bootstrap/img/}+${restaurant.image2}" style="width: 550px; height: 400px;" alt="">
+       			<img class="image1001" th:src="@{/static/bootstrap/img/}+${restaurant.image3}" style="width: 550px; height: 400px;" alt="">
        		</div>
        	</div>
       	<button class="prev100">PREV</button>
        	<button class="next100">NEXT</button>
 	</div>
-    <script src="/bootstrap/js/slide.js"></script>
+    <script src="static/bootstrap/js/slide.js"></script>
      <!-- 이미지 슬라이드 종료 -->                   
 
     <!-- Blog Start -->
@@ -93,7 +93,7 @@
                         <div class="bg-secondary2 mb-3" style="padding: 3px 30px;">
                         <!-- 추천하기 버튼 -->
                         <div class="likes100">
-                          <a href="#" class="likes"><img src="/bootstrap/img/like.png" style="width:50px; height:50px;"></a>
+                          <a href="#" class="likes"><img src="static/bootstrap/img/like.png" style="width:50px; height:50px;"></a>
                         </div>
                         <br> <br>
                         <!-- 추천하기 버튼 끝 -->
@@ -230,17 +230,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="bootstrap/lib/easing/easing.min.js"></script>
-    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
-    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
-    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="static/bootstrap/lib/easing/easing.min.js"></script>
+    <script src="static/bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
-    <script src="bootstrap/mail/contact.js"></script>
+    <script src="static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/bootstrap/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="bootstrap/js/main.js"></script>
+    <script src="static/bootstrap/js/main.js"></script>
 </body>
 
 </html>

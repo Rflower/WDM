@@ -18,5 +18,11 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 	@Query(value="SELECT * FROM restaurant  WHERE MENU LIKE '%'||?1||'%' OR DONG LIKE'%'||?1||'%' ", nativeQuery=true)
 	Page<Restaurant> getDongAndMenuSearchList(String searchKeyword, Pageable pageable);
 	
+	@Query(value="SELECT COUNT(*) FROM restaurant WHERE name=?1", nativeQuery=true)
+	public int nameChk(String name);
+	
+	@Query(value="SELECT COUNT (*) From member WHERE id=?1", nativeQuery = true)
+	public int idCheck(String id);
+
 	//boolean existsByAddress_name(String address_name);
 }
