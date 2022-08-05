@@ -18,31 +18,22 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@SequenceGenerator(name = "RESTAURANT_SEQ_GENERATOR",
-sequenceName="RESTAURANT_SEQ",
+@SequenceGenerator(name = "RESTAURANT_COMMENT_SEQ_GENERATOR",
+sequenceName="RESTAURANT_COMMENT_SEQ",
 initialValue = 1,
 allocationSize = 1)
-public class Restaurant {
+public class Restaurant_Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-	generator = "RESTAURANT_SEQ_GENERATOR")
+	generator = "RESTAURANT_COMMENT_SEQ_GENERATOR")
+	private Long rcseq;
 	private Long rseq;
-	private String name;
-	private char kind;
-	private String menu;
-	private String address_name;
-	private String address_detail;
-	private String dong;
 	private String content;
-	private int likescnt;
-	
+	private String id;
+	private String nickname;
 	@Temporal(TemporalType.DATE)
 	private Date regdate = new Date();
-	private String image1;
-	private String image2;
-	private String image3;
-	private String id;
-	
+
 }
 

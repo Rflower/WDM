@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 
+
+</head>
+
+<body>
+
+						<!-- Comment Form Start -->
+						<div th:fragment="part1">
+
+		                <div class="bg-secondary mb-3" style="padding: 30px; width:550px">                
+		                    <h3 class="mb-4">댓글목록</h3>
+		                    <h6 class="text-primary text-uppercase font-weight-bold"><span id="cCnt">총댓글</span></h6>
+		                    <!-- 댓글 목록 들어갈 곳 -->
+							<form id="commentList" name="commentList" method="get">
+							<input  type="hidden" name="rseq" th:value="${restaurant.rseq}"/>
+		                    </form>
+		                    
+		                     <!-- 댓글 작성 -->
+		                    <form name="commentForm" id ="commentForm" method="post" action="/save">
+		                    	<input  type="hidden" name="rseq" th:value="${restaurant.rseq}"/>     
+			                    <!-- 로그인값 받아오면 주석  풀기
+			                    <input  type="hidden" name="id" th:value="${member.id}"/> 
+			                    <input  type="hidden" name="nickname" th:value="${member.nickname}"/> 
+			                    -->
+		                        <div class="form-group">  
+		                        	    
+		                            <input type="text" class="form-control border-0" id="content" name="content"/>
+		                        </div>
+		                        <div class="form-group mb-0">
+		                             <a href='#' th:onclick="save_comment('${restaurant.rseq}')" class="btn btn-primary font-weight-semi-bold py-2 px-3">댓글남기기</a>
+		                        </div>
+		                    </form>
+		                </div>
+			             
+			             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+			             <script type="text/javascript">
+			             
+			       
+			             $(document).ready(function(){    getCommentList();  });
+			             
+			         	
+			         	//  댓글 목록 불러오기
+			         	function getCommentList() {
+			         		
+			         		$.ajax({
+			         			type: 'GET',
+			         			url: 'comments/list',
+			         			dataType: 'json',
+			         			data:$("#commentForm").serialize(),
+			         			contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+			         			success: function(data) {
+			         				
+			         				
+			         				var commentList = data;
+			         				
+			         				showHTML(commentList);
+			         			},
+			         			error: function() {
+			         				alert("댓글 목록을 조회하지 못했습니다.")
+			         			}
+			         		});
+			         	}
+			         	
+			         	
+			         	function showHTML(commentList) {
+			        		var html = "";
+			        		var p_html = "";
+			        		
+			        		if (commentList.length > 0) {
+			        			// 상품평의 각 항목별로 HTML 생성
+			        			$.each(commentList, function(index, item){
+			        				html += "<div>";
+			        				html += "<div class=\"text-primary text-uppercase font-weight-bold\"> <strong>작성자: " + item.nickname + "</strong><br>";
+			        				//html += "<span id=\"write_date\">" + displayTime(item.regdate) + "</span><br>";
+			        				html += item.content+"<br></div><br>";
+			        				html += "</div>";
+			        			});
+			        			
+			        			// 페이징 버튼 출력
+			
+			        			
+			        		} else { // 조회된 상품평이 없을 경우
+			        			html += "<div>";
+			        			html += "<h5>등록된 상품평이 없습니다.</h5>";
+			        			html += "</div>";
+			        		}
+			        		
+			        		// 상품평 갯수 출력
+			        		//$("#cCnt").html("댓글 " + "<span style='color:#00f;'>" + totalCount+"</span>");
+			        		// 상품평 목록 출력
+			        		$("#commentList").html(html);
+			        		// 페이징 버튼 출력
+		
+			        	}
+					       	//상품평 등록
+					       	function save_comment(rseq) {
+								console.log("save_comment()");
+								$.ajax({
+									type:'POST',
+									url:'comments/save',
+									data:$("#commentForm").serialize(),
+									success: function(data) {
+										if (data=='success') {	// 상품평 등록 성공
+											getCommentList(); 	// 상품평 목록 요청함수 호출
+											$("#content").val("");
+										} else if (data=='fail') {
+											alert("상품평 등록이 실패하였습니다. 다시 시도해 주세요.");
+										} else if (data=='not_logedin') {
+											alert("상품평 등록은 로그인이 필요합니다.");
+										}
+									},
+									error: function(request, status, error) {
+										alert("error:" + error);
+									}
+								});
+							}
+					    </script>
+	        	 </div> 
+		                
+
+		 				<!-- Comment Form End -->
+
+</body>
+
+</html>
