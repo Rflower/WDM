@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,8 +44,12 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav m-auto py-0">
-                    <a href="login" class="nav-item nav-link">로그인</a>
-                    <a href="contact" class="nav-item nav-link active">회원가입</a>
+					<a href="#" class="nav-item nav-link" th:text="${session.loginMember.nickname}" sec:authorize="isAuthenticated()"></a>
+					
+                    <a href="login" class="nav-item nav-link active" sec:authorize="!isAuthenticated()">로그인</a>
+                    <a href="contact" class="nav-item nav-link" sec:authorize="!isAuthenticated()">회원가입</a>
+                    
+                    <a href="/system/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">로그 아웃</a>
                 </div>
             </div>
         </nav>
@@ -59,7 +64,7 @@
             <div class="d-inline-flex align-items-center text-white">
                 <p class="m-0"><a class="text-white" th:href="insertRestaurant">소개하기</a></p>
                 <i class="fa fa-circle px-3"></i>
-                <p class="m-0"><a class="text-white" th:href="@{/restrantList}">맛집목록보기</a></p>
+                <p class="m-0"><a class="text-white" href="restaurantList">맛집목록보기</a></p>
             </div>
         </div>
     </div>
@@ -78,42 +83,7 @@
 	</div>
     <script src="static/bootstrap/js/slide.js"></script>
      <!-- 이미지 슬라이드 종료 -->                   
-    <!-- Blog Start -->
-    <form> 
-    <div class="container py-5" >
-    
-        <div class="row2">
-            <!-- Blog Grid Start -->
-            <div class="col-lg-8">
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                          <!--    <img class="img-fluid w-100" src="/bootstrap/img/blog-1.jpg" alt=""> -->
 
-                        <div class="bg-secondary2 mb-3" style="padding: 3px 30px;">
-                        <!-- 추천하기 버튼 -->
-                        <div class="likes100">
-                          <a href="#" class="likes"><img src="/static/bootstrap/img/like.png" style="width:50px; height:50px;"></a>
-                        </div>
-                        <br> <br>
-                        <!-- 추천하기 버튼 끝 -->
-                        <!-- 맛집 소개 상세내용 -->
-                         <!--  <h4 class="font-weight-bold mb-3">Kasd tempor diam sea justo dolor</h4>-->
-                            <p th:name="content" th:text="${restaurant.content}" style="color:black"></p>
-                        	<br>
-                        	<br>
-                        	
-                        	<div class="boardText">
-                        	<dl>
-                   
-                        		<dt th:text="맛집이름"></dt>
-						        <dd th:text=${restaurant.name}></dd>
-						        <dt th:text="대표메뉴"></dt>
-						        <dd th:text=${restaurant.menu}></dd>
-						        <dt th:text="맛집주소"></dt>
-						        <dd th:text=${restaurant.address_name}></dd>	        
-						    </dl>
-						    	<input type="hidden" id="address_name"  th:value="${restaurant.address_name}"/>
-						        <div id="map" style="width:550px;height:350px;"></div><br>
     <!-- RestaurantDetail Start -->
 
 	   	<div class="container py-5" >
@@ -125,7 +95,7 @@
 	                       	<div class="bg-secondary2 mb-3" style="padding: 3px 30px;">
 	                       <!-- 추천하기 버튼 -->
 		                        <div class="likes100">
-		                        	<a href="#" class="likes"><img src="/bootstrap/img/like.png" style="width:50px; height:50px;"></a>
+		                        	<a href="#" class="likes"><img src="static/bootstrap/img/like.png" style="width:50px; height:50px;"></a>
 		                        </div>
 		                        <br><br>
 	                       <!-- 추천하기 버튼 끝 -->
@@ -230,7 +200,7 @@
                         <a class="nav-link text-white py-0" href="admin">관리자</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="QnA">문의하기</a>
+                        <a class="nav-link text-white py-0" href="/view">문의하기</a>
                     </li>                    
                 </ul>
             </div>

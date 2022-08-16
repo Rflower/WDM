@@ -25,6 +25,8 @@ public class JoinController {
 	public String join(Member member) {
 		memberService.joinMember(member);
 		
+		System.out.println(member.toString());
+		
 		return "redirect:login";
 	}
 	

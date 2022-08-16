@@ -26,14 +26,14 @@ public class IndexController {
 		return "adminpage";
 	}
 	
-	@GetMapping("QnA")
-	public String QnA() {
-		return "QnA";
-	}
+//	@GetMapping("QnA")
+//	public String QnA() {
+//		return "QnA";
+//	}
 	
 	@GetMapping("updateInfo")
 	public String updateInfo() {
-		return "updateInfo";
+		return "myUpdateInfo";
 	}
 	
 	@GetMapping("myList")

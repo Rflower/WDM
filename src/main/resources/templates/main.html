@@ -39,7 +39,7 @@
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav m-auto py-0">
                 	
-					<a href="#" class="nav-item nav-link" sec:authorize="isAuthenticated()"></a>
+					<a href="#" class="nav-item nav-link" th:text="${session.loginMember.nickname}" sec:authorize="isAuthenticated()"></a>
 					
                     <a href="login" class="nav-item nav-link active" sec:authorize="!isAuthenticated()">로그인</a>
                     <a href="contact" class="nav-item nav-link" sec:authorize="!isAuthenticated()">회원가입</a>

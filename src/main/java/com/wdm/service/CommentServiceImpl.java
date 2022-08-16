@@ -1,8 +1,9 @@
 package com.wdm.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.wdm.domain.Restaurant_Comment;
@@ -22,17 +23,12 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<Restaurant_Comment> getcommentList(Long rseq) {
+	public Page<Restaurant_Comment> getcommentList(Long rseq,Pageable pageable) {
+		int page = pageable.getPageNumber();
+		Pageable paging = PageRequest.of(page, 7);
 		
-		return rcRepo.findByRseq(rseq);
+		Page<Restaurant_Comment> getCommentList = rcRepo.findByRseqOrderByRcseqDesc(rseq, paging);
+		return getCommentList;
 	}
-	
-	//맛집의 총 댓글 갯수
-	@Override
-	public Long countByRseq(Long Rseq) {
-		
-		return rcRepo.countByRseq(Rseq);
-	}
-
 
 }

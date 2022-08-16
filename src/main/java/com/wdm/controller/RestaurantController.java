@@ -9,18 +9,23 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wdm.config.SecurityUser;
+import com.wdm.domain.Member;
 import com.wdm.domain.Restaurant;
 import com.wdm.service.RestaurantService;
 
 @Controller
+@SessionAttributes("loginMember")
 public class RestaurantController {
 
 	@Autowired
@@ -31,9 +36,6 @@ public class RestaurantController {
 		
 		List<Restaurant> likesTop4 = restaurantService.getBestLikescntList();
 		
-		for(Restaurant list : likesTop4) {
-			System.out.println(list);
-		}
 		model.addAttribute("likesTop4", likesTop4);
 	
 		return "main";
@@ -48,6 +50,7 @@ public class RestaurantController {
 		
 		return "WDMDetail";
 	}
+	
 	@GetMapping("/insertRestaurant")
 	public String insertRestaurantView() {
 		return "WDMInsert";
@@ -57,7 +60,10 @@ public class RestaurantController {
 	public String insertRestaurant(@RequestParam(value="upload_image1", required=false)MultipartFile uploadFile1,
 								   @RequestParam(value="upload_image2", required=false)MultipartFile uploadFile2,
 								   @RequestParam(value="upload_image3", required=false)MultipartFile uploadFile3,
+								   @AuthenticationPrincipal SecurityUser principal,
 								   Restaurant restaurant, HttpSession session) {
+		
+		Member member = principal.getMember();
 		String image_path = session.getServletContext().getRealPath("/static/bootstrap/img/");
 		//String image_path = "C:/Users/Admin/images/";
 		System.out.println("image_path: " + image_path);
@@ -102,7 +108,7 @@ public class RestaurantController {
 				e.printStackTrace();
 			}
 		}
-		restaurant.setId("sslee");
+		restaurant.setId(member.getId());
 		System.out.println("restaurant:" + restaurant);
 		
 		restaurantService.insertRestaurant(restaurant);
@@ -177,11 +183,9 @@ public class RestaurantController {
 			restaurantList = restaurantService.getSearchCategoryList(searchKeyword,orderby,pageable);
 		}
 		
-		for(Restaurant item : restaurantList) {
-			System.out.println(item);
-		}
+
 		
-		int nowPage = restaurantList .getPageable().getPageNumber() + 1;
+		int nowPage = restaurantList .getNumber() + 1;
 		model.addAttribute("restaurantList", restaurantList);
 		model.addAttribute("maxPage", 3);
 		model.addAttribute("nowPage", nowPage);
