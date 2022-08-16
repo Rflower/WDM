@@ -74,9 +74,9 @@ public class MemberController {
 		return "mypage";
 	}
 	
-	@GetMapping("updateInfo")
-	public String updateInfo() {
-		return "updateInfo";
+	@GetMapping("myUpdateInfo")
+	public String myUpdateInfo() {
+		return "myUpdateInfo";
 	}
 	
 	@PostMapping("updateMember")
