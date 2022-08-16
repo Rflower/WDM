@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>FASTER - Logistics Company Website Template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>맛집 상세보기 페이지</title>
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="/bootstrap/img/favicon.ico" rel="icon">
+    <link href="static/bootstrap/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,33 +21,35 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="/bootstrap/css/style.css" rel="stylesheet">
+    <link href="static/bootstrap/css/style.css" rel="stylesheet">
     
     <!-- slide 기능 -->
-    <link href="/bootstrap/css/slide.css" rel="stylesheet">
+    <link href="static/bootstrap/css/slide.css" rel="stylesheet">
 </head>
 
 <body>
-
+<input name="rseq" type="hidden" th:value="${restaurant.rseq}"/>
 
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
             <a href="main" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav m-auto py-0">
-                    <a href="login" class="nav-item nav-link">로그인</a>
-                    <a href="contact" class="nav-item nav-link active">회원가입</a>
-
-               
+					<a href="#" class="nav-item nav-link" th:text="${session.loginMember.nickname}" sec:authorize="isAuthenticated()"></a>
+					
+                    <a href="login" class="nav-item nav-link active" sec:authorize="!isAuthenticated()">로그인</a>
+                    <a href="contact" class="nav-item nav-link" sec:authorize="!isAuthenticated()">회원가입</a>
+                    
+                    <a href="/system/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">로그 아웃</a>
                 </div>
             </div>
         </nav>
@@ -56,101 +60,123 @@
     <!-- Header Start -->
     <div class="jumbotron jumbotron-fluid mb-5">
         <div class="container text-center py-5">
-            <h1 class="text-white display-3">맛집 이름</h1>
+            <h1 class="text-white display-3" th:text="${restaurant.name}"></h1>
             <div class="d-inline-flex align-items-center text-white">
-                <p class="m-0"><a class="text-white" href="insert">소개하기</a></p>
+                <p class="m-0"><a class="text-white" th:href="insertRestaurant">소개하기</a></p>
                 <i class="fa fa-circle px-3"></i>
-                <p class="m-0"><a class="text-white" href="main">Home</a></p>
+                <p class="m-0"><a class="text-white" href="restaurantList">맛집목록보기</a></p>
             </div>
         </div>
     </div>
     <!-- Header End -->
+   <!-- 이미지 슬라이드 -->
+	<div id="container100">
+      	<div class="album100">
+       		<div class="images100">
+       			<img class="image1001" th:src="@{/static/bootstrap/img/}+${restaurant.image1}" style="width: 550px; height: 400px;" alt="">
+       			<img class="image1001" th:src="@{/static/bootstrap/img/}+${restaurant.image2}" style="width: 550px; height: 400px;" alt="">
+       			<img class="image1001" th:src="@{/static/bootstrap/img/}+${restaurant.image3}" style="width: 550px; height: 400px;" alt="">
+       		</div>
+       	</div>
+      	<button class="prev100">PREV</button>
+       	<button class="next100">NEXT</button>
+	</div>
+    <script src="static/bootstrap/js/slide.js"></script>
+     <!-- 이미지 슬라이드 종료 -->                   
 
+    <!-- RestaurantDetail Start -->
 
-    <!-- Blog Start -->
-    <div class="container py-5">
-        <div class="row2">
-            <!-- Blog Grid Start -->
-            <div class="col-lg-8">
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                          <!--    <img class="img-fluid w-100" src="/bootstrap/img/blog-1.jpg" alt=""> -->
-                          <div id="container100">
-                          	<div class="album100">
-                          		<div class="images100">
-                          			<div class="image100"></div>
-                          			<div class="image100"></div>
-                          			<div class="image100"></div>
-                          			<div class="image100"></div>
+	   	<div class="container py-5" >
+	      		<div class="row2">
+	           <!-- Blog Grid Start -->
+	           	<div class="col-lg-8">
+	               	<div class="row">
+	              			<div class="col-md-12 mb-3">
+	                       	<div class="bg-secondary2 mb-3" style="padding: 3px 30px;">
+	                       <!-- 추천하기 버튼 -->
+		                        <div class="likes100">
+		                        	<a href="#" class="likes"><img src="static/bootstrap/img/like.png" style="width:50px; height:50px;"></a>
+		                        </div>
+		                        <br><br>
+	                       <!-- 추천하기 버튼 끝 -->
+	                       <!-- 맛집 소개 상세내용 -->
+	                       <!--  <h4 class="font-weight-bold mb-3">Kasd tempor diam sea justo dolor</h4>-->
+	                            <p th:name="content" th:text="${restaurant.content}" style="color:black"></p>
+	                        	<br>
+	                        	<br>
+	                       	
+		                        	<div class="boardText">
+			                        	<dl>
+			                        		<dt th:text="맛집이름"></dt>
+									        <dd th:text=${restaurant.name}></dd>
+									        <dt th:text="대표메뉴"></dt>
+									        <dd th:text=${restaurant.menu}></dd>
+									        <dt th:text="맛집주소"></dt>
+									        <dd th:text=${restaurant.address_name}></dd>	        
+									    </dl>
+									</div>
+				    			<input type="hidden" id="address_name"  th:value="${restaurant.address_name}"/>
+				        		<div id="map" style="width:550px;height:350px;"></div><br>
                     
-                          		</div>
-                          	</div>
-                          	<button class="prev100">PREV</button>
-                          	<button class="next100">NEXT</button>
-                          </div>
-                          	<script src="/bootstrap/js/slide.js"></script>
-                        </div>
-                       
-                        <div class="bg-secondary2 mb-3" style="padding: 30px;">
-                         <button class="btn btn-primary px-3">추천하기</button>
-                         <br>
-                         <br>
-                         <!--  <h4 class="font-weight-bold mb-3">Kasd tempor diam sea justo dolor</h4>-->
-                            <p>대에ㅔ에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에에엥에에에에에에에에ㅔ에엥에에에에에에에엥에에ㅔ에에ㅔㅇ에에ㅔㅇ에ㅔ에에ㅔㅇ충 가게설명</p>
-                        	<br>
-                        	<br>
-                        	<br>
-                        	<div class="boardText">
-                        	<dl>
-                        		<dt>이름</dt>
-						        <dd>하하하하하</dd>
-						      	<dt>전화 번호</dt>
-						        <dd>111-111-111</dd>
-						      	<dt>이용시간</dt>
-						        <dd>12121212</dd>
-						        <dt>메뉴</dt>
-						        <dd>아 배고파~</dd>
-						        <dt>주소</dt>
-						        <dd>대충 건중빌딩</dd>
-						    </dl>
-						 
-						    <hr>
-						    
 						    <!-- 지도 들어갈 자리 -->
-						    <div>
-                        </div>
+						
+						    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=111f39b26e9c286f54f9f87c0547d3fe&libraries=services"></script>
+						    <script th:inline="javascript">
+						    /*<![CDATA[*/
+								var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+								    mapOption = {
+								        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표https://apis.map.kakao.com/web/documentation
+								        level: 3 // 지도의 확대 레벨
+								    };  
+								
+								// 지도를 생성합니다    
+								var map = new kakao.maps.Map(mapContainer, mapOption); 
+								
+								// 주소-좌표 변환 객체를 생성합니다
+								var geocoder = new kakao.maps.services.Geocoder();
+								
+								// 입력된 주소 불러오기
+								var address = /*[[${restaurant.address_name}]]*/
+								
+								// 주소로 좌표를 검색합니다
+								geocoder.addressSearch(address, function(result, status) {
+								
+								    // 정상적으로 검색이 완료됐으면 
+								     if (status === kakao.maps.services.Status.OK) {
+								
+								        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+								
+								        // 결과값으로 받은 위치를 마커로 표시합니다
+								        var marker = new kakao.maps.Marker({
+								            map: map,
+								            position: coords
+								        });
+								
+								        // 인포윈도우로 장소에 대한 설명을 표시합니다
+								        var infowindow = new kakao.maps.InfoWindow({
+								            content: '<div style="width:150px;text-align:center;padding:6px 0;">[[${restaurant.name}]]</div>'
+								        });
+								        infowindow.open(map, marker);
+								
+								        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+								        map.setCenter(coords);
+								    } 
+								});    
+								/*]]>*/
+								</script>
+					<!-- Comment Form Start -->
+					<th:block th:replace="~{WDMcomment :: part1}"></th:block>
+	 				<!-- Comment Form End -->
+ 
                        </div> 	               
-                    </div>
-                </div>
-             <!--   <div class="row">
-                    <div class="col-12">
-                         <nav aria-label="Page navigation">
-                          <ul class="pagination pagination-lg justify-content-center mb-0">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                              </a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav> 
-                    </div>
-                </div>-->
-            </div>
-            <!-- Blog Grid End -->
+                   </div>
+               </div>
+           </div>
+           <!-- Blog Grid End -->
+	
+			</div>
+    	</div>
 
-            </div>
-        </div>
-    </div>
     <!-- Blog End -->
 
 
@@ -174,7 +200,7 @@
                         <a class="nav-link text-white py-0" href="admin">관리자</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="QnA">문의하기</a>
+                        <a class="nav-link text-white py-0" href="/view">문의하기</a>
                     </li>                    
                 </ul>
             </div>
@@ -190,17 +216,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="bootstrap/lib/easing/easing.min.js"></script>
-    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
-    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
-    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="static/bootstrap/lib/easing/easing.min.js"></script>
+    <script src="static/bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
-    <script src="bootstrap/mail/contact.js"></script>
+    <script src="static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/bootstrap/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="bootstrap/js/main.js"></script>
+    <script src="static/bootstrap/js/main.js"></script>
 </body>
 
 </html>

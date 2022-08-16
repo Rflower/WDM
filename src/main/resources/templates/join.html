@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-lang="en">
-
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -22,10 +19,10 @@ lang="en">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="bootstrap/css/style.css" rel="stylesheet">
+    <link href="static/bootstrap/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,8 +31,8 @@ lang="en">
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
             <a href="main" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
-            </a>          
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
+            </a>
         </nav>
     </div> 
     <!-- Navbar End -->
@@ -65,43 +62,41 @@ lang="en">
                     <h1 class="mb-4">회원가입하기</h1>
                     <div class="contact-form bg-secondary" style="padding: 30px;">
                         <div id="success"></div>
-                        <form action="/join" method="post" name="join" id="join">
+                        <form name="join" id="join" method="POST" action="/join" novalidate="novalidate">
                        
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="name" name="name" placeholder="이름은 한글만 입력 가능합니다."
-                                    required="required" />                	
+                                <input type="text" class="form-control border-0 p-4" id="name" name="name" placeholder="이름을 입력해주세요"
+                                    required="required" data-validation-required-message="Please enter your name" />                	
                                 <p class="help-block text-danger"></p>
                 
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="nickname" name="nickname" placeholder="닉네임은 한글, 영문, 숫자 포함 2~20 자리 가능합니다."
-                                    required oninput="checkNickname()"/>
-                                <input type="hidden" class="btn btn-primary px-3" value="중복 검사"/>
+                                <input type="text" class="form-control border-0 p-4" id="nickname" name="nickname" placeholder="별명을 입력해주세요."
+                                    required oninput="checkNickname()" data-validation-required-message="Please enter your nickname" />
+                                <input type="hidden" class="btn btn-primary px-3" value="중복 검사" />
                                 <span id="resultNickname"></span>
-                                
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="id" name="id" placeholder="아이디는 영문 시작 + 숫자, 언더바/하이픈 4~20자리 가능합니다."
-                                     required oninput="checkId()"  />
+                                <input type="text" class="form-control border-0 p-4" id="id" name="id" placeholder="ID를 입력해주세요"
+                                    required oninput="checkId()" data-validation-required-message="Please enter your id" />
                                	<input type="hidden" class="btn btn-primary px-3" value="중복 검사" />
-                          			<span id="resultId"></span>
-								
+                          		<span id="resultId"></span>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="pwd" name="pwd" placeholder="비밀번호는 특수문자, 문자, 숫자 포함 8~20 자리 가능합니다."
-                                    required="required" />
+                                <input type="text" class="form-control border-0 p-4" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요"
+                                    required="required" data-validation-required-message="Please enter your password" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="pwd_chk" name="pwd_chk" placeholder="비밀번호를 다시 확인해주세요"
-                                    required="required" />
+                                    required="required" data-validation-required-message="Please enter your password check" />
                                 <p class="help-block text-danger"></p>
                             </div>                           
                             <div class="control-group">
                                 <input type="email" class="form-control border-0 p-4" id="email" name="email" placeholder="Email을 입력해주세요"
-                                    required oninput="checkEmail()"  />	
+                                   required oninput="checkEmail()" data-validation-required-message="Please enter your email" />
                                	<button class="btn btn-primary px-3">인증하기</button>
                                	<input type="hidden" class="btn btn-primary px-3" value="중복 검사" />
                                	<span id="resultEmail"></span>
@@ -109,34 +104,32 @@ lang="en">
                             </div>
                             <div class="control-group">
                                  <select name="gender" class="form-control border-0 p-4" size="1" >
-				                    <option value="3">선택안함</option>
-				                    <option value="2">여자</option>
 				                    <option value="1">남자</option>
+				                    <option value="2">여자</option>
+				                    <option value="3">선택안함</option>
 				                   </select>
                                 <p class="help-block text-danger"></p>
                             </div>
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="address" name="address" placeholder="주소를 입력해주세요"
-                                    required="required"  />
+                                    required="required" data-validation-required-message="Please enter your address" />
                                 <p class="help-block text-danger"></p>
                             </div>
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="address_detail" name="address_detail" placeholder="상세주소"
-                                    required="required" />
+                                    required="required" data-validation-required-message="Please enter your address detail" />
                                 <p class="help-block text-danger"></p>
                             </div>                                              
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="phone" name="phone" placeholder="010-0000-0000"
-                                    required="required" />
-                                    <span id="resultEmail"></span>
+                                    required="required" data-validation-required-message="Please enter your phone" />
                                 <p class="help-block text-danger"></p>
                             </div>  
                             <div>
-                                <button class="btn btn-primary py-3 px-4" onclick="checkJoin()" type="submit" id="sendButton" disabled="disabled">회원가입</button>
+                                <button class="btn btn-primary py-3 px-4" type="submit" id="sendButton">회원가입</button>
                             </div>
                         </form>
                         <script type="text/javascript">
-                       				 /* id, email, nickname 중복 검사*/
 								function checkNickname(){
 							        var nickname = $('#nickname').val();
 							        $.ajax({
@@ -146,13 +139,8 @@ lang="en">
 							            success:function(cnt){
 											if(cnt == '0'){
 												$('#resultNickname').text('사용 가능한 닉네임입니다.').css("color", "#757575");
-												$(".btn").removeAttr("disabled");
 								            }else{
 												$('#resultNickname').text('이미 사용중인 닉네임입니다.').css("color", "red");
-												$(".btn").attr("disabled", "disabled");
-											}if(nickname ==""){
-												$('#resultNickname').text('');
-												$(".btn").attr("disabled", "disabled");
 											}
 							                
 								        },
@@ -171,13 +159,8 @@ lang="en">
 							            success:function(cnt){
 											if(cnt == '0'){
 												$('#resultId').text('사용 가능한 아이디입니다.').css("color", "#757575");
-												$(".btn").removeAttr("disabled");
 								            }else{
 												$('#resultId').text('이미 사용중인 아이디입니다.').css("color", "red");
-												$(".btn").attr("disabled", "disabled");
-								            }if(id ==""){
-												$('#resultId').text('');
-												$(".btn").attr("disabled", "disabled");
 											}
 							                
 								        },
@@ -196,13 +179,8 @@ lang="en">
 							            success:function(cnt){
 											if(cnt == '0'){
 												$('#resultEmail').text('사용 가능한 이메일입니다.').css("color", "#757575");
-												$(".btn").removeAttr("disabled");
 								            }else{
 												$('#resultEmail').text('이미 사용중인 이메일입니다.').css("color", "red");
-												$(".btn").attr("disabled", "disabled");
-											}if(email ==""){
-												$('#resultEmail').text('');
-												$(".btn").attr("disabled", "disabled");
 											}
 							                
 								        },
@@ -212,76 +190,11 @@ lang="en">
 								    });
 								};
 								
-								/* 유효성 검사  */
-								function checkJoin(){
-									var name = document.getElementById("name");
-									var nickname = document.getElementById("nickname");
-									var id = document.getElementById("id");
-									var pwd = document.getElementById("pwd");
-									var pwd_chk = document.getElementById("pwd_chk");
-									var email = document.getElementById("email");
-									var phone = document.getElementById("phone");
-									
-									/* 정규식 */
-									var nameCheck = /^[가-힣]+$/;		/* 한글만 가능 */
-									var nicknameCheck = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,20}$/;		/* 한글, 영문, 숫자만 2~20 자리 가능*/	
-									var idCheck = /^[A-Za-z]{1}[A-Za-z0-9_-]{3,20}$/;		/* 영문 시작 숫자 , 언더바/하이픈 허용 4~20자리 */
-									var pwdCheck = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;	/* 특수문자, 문자, 숫자 포함 형태의  8~20 자리 */
-									var emailCheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;		/* 이메일 형식 */ 
-									var phoneCheck = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;	/* 핸드폰 번호 형식 */
-									
-									/* 이름 유효성 검사 */
-									if(name.value == "" || !nameCheck.test(name.value)){
-										alert("이름은 한글만 입력 가능합니다.");
-										name.focus();
-										return false;
-									};
-							
-									if(nickname.value == "" || !nicknameCheck.test(nickname.value)){
-										alert("닉네임은 한글, 영문, 숫자 포함 2~20 자리 가능합니다.");
-										nickname.focus();
-										return false;
-									};
-									
-									if(id.value == "" || !idCheck.test(id.value)){
-										alert("아이디는 영문 시작 + 숫자, 언더바/하이픈 4~20자리 가능합니다.");
-										id.focus();
-										return false;
-									};
-									
-									if(pwd.value == "" || !pwdCheck.test(pwd.value)){
-										alert("비밀번호는 특수문자, 문자, 숫자 포함 8~20 자리 가능합니다.");
-										pwd.focus();
-										return false;
-									};
-									
-									if(pwd_chk.value !== pwd.value){
-										alert("비밀번호가 일치하지 않습니다.");
-										pwd_chk.focus();
-										return false;
-									};
-									
-									if(email.value == "" || !emailCheck.test(email.value)){
-										alert("이메일 형식으로 입력해주세요");
-										email.focus();
-										return false;
-									};
-									
-									if(phone.value == "" || !phoneCheck.test(phone.value)){
-										alert("핸드폰 번호 형식으로 입력해주세요.");
-										phone.focus();
-										return false;
-									};
-								}
-								
-								
 								</script>
                     </div>
                 </div>
             </div>
         </div>
-        
-        
 	<!-- 카카오 도로명 주소 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
@@ -336,17 +249,17 @@ lang="en">
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="bootstrap/lib/easing/easing.min.js"></script>
-    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
-    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
-    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="static/bootstrap/lib/easing/easing.min.js"></script>
+    <script src="static/bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
-    <script src="bootstrap/mail/contact.js"></script>
+    <script src="static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/bootstrap/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="bootstrap/js/main.js"></script>
+    <script src="static/bootstrap/js/main.js"></script>
 </body>
 
 </html>
