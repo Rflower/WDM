@@ -12,21 +12,26 @@
 						<!-- Comment Form Start -->
 						<div th:fragment="part1">
 
-		                <div class="bg-secondary mb-3" style="padding: 30px; width:550px">                
+		                <div class="bg-secondary mb-3" style="padding: 30px; width:1000px">                
 		                    <h3 class="mb-4">댓글목록</h3>
-		                    <h6 class="text-primary text-uppercase font-weight-bold"><span id="cCnt">총댓글</span></h6>
+		                    <h6 class="text-primary text-uppercase font-weight-bold">
+		                    <span id="cCnt" style ="border-radius: 3px; border: 1px solid #000;padding: 5px;"></span></h6>
+		                    
 		                    <!-- 댓글 목록 들어갈 곳 -->
 							<form id="commentList" name="commentList" method="get">
-							<input  type="hidden" name="rseq" th:value="${restaurant.rseq}"/>
+							<input  type="hidden" name="rseq" th:value="${restaurant.rseq}"/> 
 		                    </form>
 		                    
+		                    <!-- 페이지 처리 영역 -->
+						    <div>
+								<ul id="pagination">
+								
+								</ul>
+							</div>
+		                                 
 		                     <!-- 댓글 작성 -->
 		                    <form name="commentForm" id ="commentForm" method="post" action="/save">
 		                    	<input  type="hidden" name="rseq" th:value="${restaurant.rseq}"/>     
-			                    <!-- 로그인값 받아오면 주석  풀기
-			                    <input  type="hidden" name="id" th:value="${member.id}"/> 
-			                    <input  type="hidden" name="nickname" th:value="${member.nickname}"/> 
-			                    -->
 		                        <div class="form-group">  
 		                        	    
 		                            <input type="text" class="form-control border-0" id="content" name="content"/>
@@ -35,6 +40,7 @@
 		                             <a href='#' th:onclick="save_comment('${restaurant.rseq}')" class="btn btn-primary font-weight-semi-bold py-2 px-3">댓글남기기</a>
 		                        </div>
 		                    </form>
+
 		                </div>
 			             
 			             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
@@ -55,74 +61,147 @@
 			         			contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 			         			success: function(data) {
 			         				
-			         				
-			         				var commentList = data;
-			         				
-			         				showHTML(commentList);
+			         				var totalCount = data.totalCount;
+			         				var commentList = data.commentList;
+			         				var pageInfo = data.pageInfo;
+			         				var rseq = data.rseq;
+			        			         				
+			         				showHTML(commentList,totalCount,pageInfo,rseq);
 			         			},
 			         			error: function() {
 			         				alert("댓글 목록을 조회하지 못했습니다.")
 			         			}
 			         		});
 			         	}
+			         	//페이징 처리
+						function getCommentPaging(page,rseq) {
+							$.ajax({
+								type: 'GET',
+								url: 'comments/list',
+								dataType: 'json',
+								data:{"page": page,
+									  "rseq": rseq},
+								contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+								success: function(data) {
+									
+									var totalCount = data.totalCount;
+									var commentList = data.commentList;
+									var pageInfo = data.pageInfo;
+									var rseq = data.rseq;
+									
+			         				showHTML(commentList,totalCount,pageInfo,rseq);
+								},
+								error: function() {
+									alert("댓글 목록을 조회하지 못했습니다.")
+								}
+							});
+						}
 			         	
-			         	
-			         	function showHTML(commentList) {
+			         	function showHTML(commentList,totalCount,pageInfo,rseq) {
 			        		var html = "";
 			        		var p_html = "";
-			        		
+			        		var maxPage = 3;
+							var start = (parseInt(pageInfo.number/maxPage)*maxPage)+1;
+			        		var end = pageInfo.totalPages == 0 ? 1 : (start + (maxPage-1) < pageInfo.totalPages ? start + (maxPage - 1) : pageInfo.totalPages);
+
 			        		if (commentList.length > 0) {
 			        			// 상품평의 각 항목별로 HTML 생성
-			        			$.each(commentList, function(index, item){
-			        				html += "<div>";
-			        				html += "<div class=\"text-primary text-uppercase font-weight-bold\"> <strong>작성자: " + item.nickname + "</strong><br>";
-			        				//html += "<span id=\"write_date\">" + displayTime(item.regdate) + "</span><br>";
-			        				html += item.content+"<br></div><br>";
+			        			$.each(commentList, function(index,item){
+			        				
+			        				html += "<div><br>";
+			        				html += "<div class=\"text-primary text-uppercase\"><strong>작성자: " + item.nickname + "</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			        				html += "<strong>"+displayTime(item.regdate)+"</storng><br>";
+			        				
+			        				html += "<strong>"+item.content+"</storng></div><hr>";
 			        				html += "</div>";
 			        			});
 			        			
 			        			// 페이징 버튼 출력
-			
+			        			if (pageInfo.first == false) {
+			        				
+			        				p_html += "<a href='javascript:getCommentPaging("
+			        					  + (pageInfo.number-1) +","+rseq +")'>[이전]</a></li>";
+			        			} 
+			        			
+			        			for(var i=start; i<=end; i++){
+			        				
+			        				p_html += "<a href='javascript:getCommentPaging("
+			        					  + (i - 1) +","+rseq+")'>["+i+"]</a>";	 
+			        			}
+			        			     			
+			        			if (pageInfo.last == false) {
+			        				
+			        				p_html += "<a href='javascript:getCommentPaging("
+			        					  + (pageInfo.number + 1) +"," + rseq + ")'>[다음]</a></li>";
+			        			}
 			        			
 			        		} else { // 조회된 상품평이 없을 경우
 			        			html += "<div>";
-			        			html += "<h5>등록된 상품평이 없습니다.</h5>";
+			        			html += "<h5>등록된 댓글이 없습니다.</h5>";
 			        			html += "</div>";
 			        		}
 			        		
-			        		// 상품평 갯수 출력
-			        		//$("#cCnt").html("댓글 " + "<span style='color:#00f;'>" + totalCount+"</span>");
-			        		// 상품평 목록 출력
+			        		// 댓글 갯수 출력
+			        		$("#cCnt").html("댓글 " + "<span style='color:red;'>" + totalCount+"</span>개");
+			        		// 댓글 목록 출력
 			        		$("#commentList").html(html);
 			        		// 페이징 버튼 출력
-		
+			        		$("#pagination").html(p_html);
 			        	}
-					       	//상품평 등록
-					       	function save_comment(rseq) {
-								console.log("save_comment()");
-								$.ajax({
-									type:'POST',
-									url:'comments/save',
-									data:$("#commentForm").serialize(),
-									success: function(data) {
-										if (data=='success') {	// 상품평 등록 성공
-											getCommentList(); 	// 상품평 목록 요청함수 호출
-											$("#content").val("");
-										} else if (data=='fail') {
-											alert("상품평 등록이 실패하였습니다. 다시 시도해 주세요.");
-										} else if (data=='not_logedin') {
-											alert("상품평 등록은 로그인이 필요합니다.");
-										}
-									},
-									error: function(request, status, error) {
-										alert("error:" + error);
+			         	
+					    //댓글 등록
+				       	function save_comment(rseq) {
+							console.log("save_comment()");
+							$.ajax({
+								type:'POST',
+								url:'comments/save',
+								data:$("#commentForm").serialize(),
+								success: function(data) {
+									if (data=='success') {	
+										getCommentList(); 	
+										$("#content").val("");
+									} else if (data=='fail') {
+										alert("댓글 등록이 실패하였습니다. 다시 시도해 주세요.");
+									} else if (data=='not_logedin') {
+										alert("댓글 등록은 로그인이 필요합니다.");
 									}
-								});
-							}
+								},
+								error: function(request, status, error) {
+									alert("error:" + error);
+								}
+							});
+						}
+					       	
+					    
+				    	function displayTime(timeValue) {
+				    		var today = new Date();
+				    		
+				    		// 현재시간에서 댓글등록시간을 빼줌
+				    		var timeGap = today.getTime() - timeValue;
+				    		
+				    		// timeValue를 Date객체로 변환
+				    		var dateObj = new Date(timeValue);
+				    		
+				    		// timeGap이 24시간 이내인지 판단
+				    		if (timeGap < (1000 * 60 * 60 * 24)) {  // 시, 분, 초를 구함
+				    			var hh = dateObj.getHours();
+				    			var mi = dateObj.getMinutes();
+				    			var ss = dateObj.getSeconds();
+				    			
+				    			//return hh + ':' + mi + ':' + ss;
+				    			return [(hh>9 ? '':'0')+hh, ':', (mi>9 ? '':'0')+mi, ':', 
+				    				    (ss>9 ? '':'0')+ss].join('');
+				    		} else {
+				    			var yy = dateObj.getFullYear();
+				    			var mm = dateObj.getMonth() + 1;
+				    			var dd = dateObj.getDate();
+				    			
+				    			//return yy + "-" + mm + "-" + dd;
+				    			return [yy, '/', (mm>9 ? '':'0')+mm, '/', (dd>9 ? '':'0')+dd].join('');
+				    		}
+				    	}
 					    </script>
-	        	 </div> 
-		                
-
+	        	 </div> 		                
 		 				<!-- Comment Form End -->
 
 </body>

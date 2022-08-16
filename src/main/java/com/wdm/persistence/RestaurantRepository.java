@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.wdm.domain.Likes;
 import com.wdm.domain.Restaurant;
 
 public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
@@ -22,12 +24,21 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 	@Query(value="SELECT * FROM (SELECT * from restaurant order by likescnt desc) WHERE rownum<=4", nativeQuery=true)
 	List<Restaurant> getBestLikescntList();
 	
-	
 	@Query(value="SELECT COUNT(*) FROM restaurant WHERE name=?1", nativeQuery=true)
 	public int nameChk(String name);
 	
 	@Query(value="SELECT COUNT (*) From member WHERE id=?1", nativeQuery = true)
 	public int idCheck(String id);
 
-	//boolean existsByAddress_name(String address_name);
+	@Query(value="SELECT new Likes(a.lseq, a.id, a.rseq) FROM com.wdm.domain.Likes a WHERE a.rseq=?1 AND a.id=?2")
+	Likes findLikes(Long rseq, String id);
+
+	@Modifying
+	@Query(value="UPDATE restaurant SET likescnt = likescnt + 1 WHERE rseq=?1", nativeQuery=true)
+	void plusLikes(Long rseq);
+	
+	@Modifying
+	@Query(value="UPDATE restaurant SET likescnt = likescnt - 1 WHERE rseq=?1", nativeQuery=true)
+	void minusLikes(Long rseq);	
+
 }

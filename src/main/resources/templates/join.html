@@ -62,10 +62,11 @@
                     <h1 class="mb-4">회원가입하기</h1>
                     <div class="contact-form bg-secondary" style="padding: 30px;">
                         <div id="success"></div>
-                        <form action="/join" method="post" name="join" id="join" novalidate="novalidate">
+
+                        <form name="join" id="join" method="POST" action="/join" novalidate="novalidate">
                        
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="name" placeholder="이름을 입력해주세요"
+                                <input type="text" class="form-control border-0 p-4" id="name" name="name" placeholder="이름을 입력해주세요"
                                     required="required" data-validation-required-message="Please enter your name" />                	
                                 <p class="help-block text-danger"></p>
                 
