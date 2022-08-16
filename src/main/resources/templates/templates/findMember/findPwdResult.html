@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+lang="en">
+<head>
+<meta charset="UTF-8">
+<title>비밀번호 찾기</title>
+<style type="text/css">
+body {
+  margin: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #F3B340;
+  text-align: left;
+  background-color: #F2F2F4 ;
+}
+h1{
+	margin-bottom: 0px;
+	margin-top: 10px;
+}
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #757575;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #F3B340;
+  border-color: #F3B340;
+}
+
+</style>
+<script type="text/javascript">
+function idok(){
+  self.close();
+}
+</script>
+</head>
+<body>
+<div id="wrap">
+  <h1>비밀번호 찾기 결과</h1>
+  <form method=post name=formm id="pwd_ok" style="margin-right:0" >
+    User ID <input class="form-control" type=text name="id" id="id" th:value="${id}">   
+    <div style="margin-top: 20px">   
+      <div th:if="${message == 1}">
+      	<label>Password</label> 
+        <input class="form-control" type="password"  name="pwd" id="pwd" placeholder="비밀번호는 특수문자, 문자, 숫자 포함 8~20 자리 가능합니다."><br> 
+        <label>Retype Password</label> 
+        <input class="form-control" type="password"  name="pwd_chk" id="pwd_chk"><br> 
+        <input class="btn btn-primary" type="button" value="확인" onclick="changePassword()">
+      </div>
+      <div th:if="${message==-1}">
+             잘못된 사용자 정보입니다.
+         <input type="button" value="확인" class="cancel" onclick="idok()">
+      </div>
+    </div>
+    
+  </form>
+</div>  
+<script type="text/javascript">
+var pwdCheck = /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;	/* 특수문자, 문자, 숫자 포함 형태의  8~20 자리 */
+
+function changePassword() {
+	if (document.getElementById("pwd").value == "" || !pwdCheck.test(document.getElementById("pwd").value)) {
+		alert("비밀번호를 입력해 주세요");
+		document.getElementById("pwd").focus();
+		return false;
+	}else if (document.getElementById("pwd_chk").value != document.getElementById("pwd").value) {
+		alert("비밀번호가 맞지 않습니다. 다시 입력해 주세요.");
+		document.getElementById("pwd").focus();
+		return false;
+	} else {
+		document.getElementById("pwd_ok").action="changePwd";
+		document.getElementById("pwd_ok").submit();
+	}
+
+}
+</script>
+</body>
+</html>

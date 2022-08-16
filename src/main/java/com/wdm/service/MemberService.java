@@ -12,6 +12,10 @@ public interface MemberService {
 
 	int emailCheck(String email);
 
+	String findIdResult(String id, String email);
 
+	String findPwdResult(String id, String name, String email);
 
+	void changePwd(String pwd, String id);
+	
 }

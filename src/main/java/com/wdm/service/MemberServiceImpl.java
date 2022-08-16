@@ -1,5 +1,7 @@
 package com.wdm.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,5 +50,29 @@ public class MemberServiceImpl implements MemberService {
 		return cnt;
 	}
 
+	@Override
+	public String findIdResult(String id, String email) {
+		String resultId = memberRepo.findIdResult(id, email);
+		
+		return resultId;
+	}
+
+	@Override
+	public String findPwdResult(String id, String name, String email) {
+		String resultPwd = memberRepo.findPwdResult(id, name, email);
+		
+		return resultPwd;
+	}
+
+	@Override
+	public void changePwd(String pwd, String id) {
+		
+		Optional<Member> findId = memberRepo.findById(id);
+		Member member = findId.get();
+		member.setPwd(pwd);
+		
+		memberRepo.save(member);
+		
+	}
 
 }

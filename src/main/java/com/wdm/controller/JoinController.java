@@ -31,9 +31,8 @@ public class JoinController {
 	@PostMapping("/idCheck")
 	@ResponseBody
 	public int idCheck(@RequestParam("id") String id) {
-		System.out.println(id);
+		
 		int cnt = memberService.idCheck(id);
-		System.out.println(cnt);
 		
 		return cnt;
 	}
@@ -41,9 +40,8 @@ public class JoinController {
 	@PostMapping("/nicknameCheck")
 	@ResponseBody
 	public int nicknameCheck(@RequestParam("nickname") String nickname) {
-		System.out.println(nickname);
+		
 		int cnt = memberService.nicknameCheck(nickname);
-		System.out.println(cnt);
 		
 		return cnt;
 	}
@@ -51,9 +49,8 @@ public class JoinController {
 	@PostMapping("/emailCheck")
 	@ResponseBody
 	public int emailCheck(@RequestParam("email") String email) {
-		System.out.println(email);
+
 		int cnt = memberService.emailCheck(email);
-		System.out.println(cnt);
 		
 		return cnt;
 	}

@@ -20,7 +20,7 @@ public class SecurityUser extends User {
 		//테이블에서 검색한 member 정보를 SecurityUser 클래스 전달 
 		super(member.getId(), member.getPwd(), 
 			AuthorityUtils.createAuthorityList(member.getRole().toString()));
-			//이뉴멀레이션 타입이기 때문에 toString 을 하지 않으면 내부적으로 일부만 알수있게 표현된다.
+
 		this.member = member;
 	}
 
