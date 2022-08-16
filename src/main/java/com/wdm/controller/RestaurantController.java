@@ -80,6 +80,8 @@ public class RestaurantController {
 		
 	}
 
+	//수정
+	
 	@PostMapping("/insertRestaurant")
 	public String insertRestaurant(@RequestParam(value="upload_image1", required=false)MultipartFile uploadFile1,
 								   @RequestParam(value="upload_image2", required=false)MultipartFile uploadFile2,
