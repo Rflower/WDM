@@ -4,7 +4,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.wdm.config.SecurityUser;
@@ -20,10 +19,6 @@ public class SecurityController {
 		
 	}
 	
-//	@GetMapping("/system/loginSuccess")
-//	public void loginSuccess() {
-//		
-//	}
 
 	@GetMapping("/loginSuccess")
 	public String loginSuccess(@AuthenticationPrincipal SecurityUser principal, Model model) {
@@ -43,5 +38,9 @@ public class SecurityController {
 	public void accessDenied() {
 	}
 	
+	@GetMapping("/failLogin")
+	public void failLogin() {
+		
+	}
 
 }
