@@ -17,10 +17,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	@Autowired
 	private RestaurantRepository restRepo;
+
 	
 	//rseq값으로 맛집 상세보기
 	@Override
-	public Restaurant getRestBoard(Restaurant restaurant) {
+	public Restaurant WDMDetail(Restaurant restaurant) {
 		
 		return restRepo.findById(restaurant.getRseq()).get();
 	}
@@ -69,8 +70,39 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public List<Restaurant> getBestLikescntList() {
 	
-
 		return restRepo.getBestLikescntList();
 	}
 
+	@Override
+	public void updateRestaurant(Restaurant restaurant) {
+
+		Restaurant findRest = restRepo.findById(restaurant.getRseq()).get();
+		
+		findRest.setName(restaurant.getName());
+		findRest.setKind(restaurant.getKind());
+		findRest.setMenu(restaurant.getMenu());
+		findRest.setAddress_name(restaurant.getAddress_name());
+		findRest.setAddress_detail(restaurant.getAddress_detail());
+		findRest.setDong(restaurant.getDong());
+		findRest.setContent(restaurant.getContent());
+		findRest.setImage1(restaurant.getImage1());
+		findRest.setImage2(restaurant.getImage2());
+		findRest.setImage3(restaurant.getImage3());
+		
+		System.out.println("findRest: " + findRest);
+		restRepo.save(findRest);
+		
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+

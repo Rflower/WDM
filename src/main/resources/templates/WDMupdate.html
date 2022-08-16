@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>우리동네 맛집 등록하기</title>
+    <title>우리동네 맛집 수정하기</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -27,6 +27,10 @@
 </head>
 
 <body>
+ <input name="rseq" type="hidden" th:value="${restaurant.rseq}"/>
+ <input type="hidden" name="nonmakeImg" value="${restaurant.image1}">
+ <input type="hidden" name="nonmakeImg" value="${restaurant.image2}">
+ <input type="hidden" name="nonmakeImg" value="${restaurant.image3}">
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
@@ -47,6 +51,7 @@
                     <a href="/system/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">로그 아웃</a>
                
                 </div>
+              
             </div>
         </nav>
     </div>
@@ -56,7 +61,7 @@
     <!-- Header Start -->
     <div class="jumbotron jumbotron-fluid mb-5">
         <div class="container text-center py-5">
-            <h1 class="text-white display-3">소개하기</h1>
+            <h1 class="text-white display-3">수정하기</h1>
             <div class="d-inline-flex align-items-center text-white">
                 <i class="fa fa-circle px-3"></i>
                 <p class="m-0"><a class="text-white" href="main">Home</a></p>
@@ -72,15 +77,14 @@
         <div class="container">
 
                 <div class="col-lg-7">
-                    <h1 class="mb-4">우리동네 맛집 소개하기</h1>
+                    <h1 class="mb-4">우리동네 맛집 수정하기</h1>
                     <div class="contact-form bg-secondary" style="padding: 30px;">
                         <div id="success"></div>
-                        <form th:action="insertRestaurant" name="insertForm" method="post" enctype="multipart/form-data">
+                        <form th:action="updateRestaurant" method="post" enctype="multipart/form-data">
                        
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id= "name" name="name" placeholder="상호명을 입력해주세요"
-                                    required oninput="nameChk()" data-validation-required-message="Please enter your name" />  
-                                    <p>중복 등록 방지를 위해 띄어쓰기 없이 한글로만 입력해주세요 :)</p>
+                                <input type="text" class="form-control border-0 p-4" id= "name" name="name" placeholder="상호명을 입력해주세요 (영문 및 띄어쓰기 금지)"
+                                    required oninput="nameChk()" data-validation-required-message="Please enter your name" value="${restaurant.name}"/>  
                                     <input type="hidden" class="btn btn-primary px-3" value="중복 검사"/>
                                 <span id="resultName"></span>              	
                                 <p class="help-block text-danger"></p>
@@ -93,35 +97,35 @@
 				                    <option th:value="3">중식</option>
 				                    <option th:value="4">일식</option>
 				                    <option th:value="5">카페&디저트</option>
-				                   </select>
+				                 </select>
                                 <p>선택하지 않으면 한식으로 자동 등록됩니다.</p>
                             </div>
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="menu" name="menu" placeholder="맛있는 메뉴를 등록해주세요."
-                                    required="required" data-validation-required-message="Please enter menu" />                	
+                                    required="required" data-validation-required-message="Please enter menu" value="${restaurant.menu}"/>                	
                                 <p class="help-block text-danger"></p>
                 
                             </div>                           
 
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="address_name" name="address_name" placeholder="주소를 입력해주세요"
-                                    required="required" data-validation-required-message="Please enter your address" />
+                                    required="required" data-validation-required-message="Please enter your address" value="${restaurant.address_name}"/>
                                 <p class="help-block text-danger"></p>
                             </div>
                             
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="address_detail" name="address_detail" placeholder="상세주소"
-                                    required="required" data-validation-required-message="Please enter your address detail" />
+                                    required="required" data-validation-required-message="Please enter your address detail" value="${restaurant.address_detail}"/>
                                 <p class="help-block text-danger"></p>
                             </div>  
                               <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="dong" name="dong" placeholder="무슨동인지 적어주세요. ex)신림동"
-                                    required="required" data-validation-required-message="Please enter your dong" />
+                                    required="required" data-validation-required-message="Please enter your dong" value="${restaurant.dong}"/>
                                 <p class="help-block text-danger"></p>
                             </div>                                                                        
                              <div class="control-group">
-                                <textarea class="form-control border-0 py-3 px-4" rows="3" name="content" placeholder="소개하고싶은 내용을 적어주세요"
-                                    required="required" data-validation-required-message="Please enter your message"></textarea>
+                                <input type="text" class="form-control border-0 py-3 px-4" name="content" placeholder="소개하고싶은 내용을 적어주세요"
+                                    required="required" data-validation-required-message="Please enter your message" value="${restaurant.content}"/>
                                 <p class="help-block text-danger"></p>
                             </div> 
                             
@@ -132,18 +136,21 @@
                              	<label for="file1" class="btn btn-primary px-3" >사진등록</label>
                                 <input type="file" id="file1" name="upload_image1" required="required" accept="image/*" style="position:absolute; clip:rect(0, 0, 0, 0);"  
                                 	onchange="javascript:document.getElementById('image1').value = this.value" />
+                                <input type="hidden" name="image" value="${restaurant.image1}">
                                 	
 								<input type="text" class="form-control border-0 p-4" name="image2" id="image2" placeholder="추가사진을 올려주세요." >
                              	<!-- <input type="file" class="form-control border-0 p-4" name="imageList[]" > -->
                              	<label for="file2" class="btn btn-primary px-3" >사진등록</label>
                                 <input type="file" id="file2" name="upload_image2" required="required" accept="image/*" style="position:absolute; clip:rect(0, 0, 0, 0);"  
                                 	onchange="javascript:document.getElementById('image2').value = this.value" />
+                                <input type="hidden" name="image" value="${restaurant.image2}">
                                 	
                                 <input type="text" class="form-control border-0 p-4" name="image3" id="image3" placeholder="추가사진을 올려주세요." >
                              	<!-- <input type="file" class="form-control border-0 p-4" name="imageList[]" > -->
                              	<label for="file3" class="btn btn-primary px-3" >사진등록</label>
                                 <input type="file" id="file3" name="upload_image3" required="required" accept="image/*" style="position:absolute; clip:rect(0, 0, 0, 0);"  
                                 	onchange="javascript:document.getElementById('image3').value = this.value" />
+                                <input type="hidden" name="image" value="${restaurant.image3}">
                                 <p class="help-block text-danger"></p>
                                 </div>
                             </div> 
@@ -204,13 +211,8 @@
 										success:function(cnt){
 											if(cnt == '0'){
 												$('#resultName').text('등록 가능한 맛집입니다.').css("color", "#757575");
-												$(".btn").removeAttr("disabled");
 											}else{
 											$('#resultName').text('이미 등록된 맛집입니다.').css("color", "red");
-											$(".btn").attr("disabled", "disabled");
-										}if(name == "") {
-											$('#resultName').text('');
-											$(".btn").attr("disabled", "disabled");
 										}
 										},
 										 error:function(){
@@ -221,7 +223,7 @@
 
 							</script>                           
                             <div>
-                                <button class="btn btn-primary py-3 px-4" type="submit" id="sendButton" th:onclick="go_save()" disabled="disabled">등록하기</button>
+                                <button class="btn btn-primary py-3 px-4" type="submit" id="sendButton" th:onclick="go_save()">등록하기</button>
                                 
                                 <script th:inline="javascript">
                                 function go_save() {
@@ -251,8 +253,8 @@
 									document.getElementById("image1").focus();
 									return false;
 								} else { // 모든 필수입력이 입력된 경우 URL 요청
-									document.getElementById("insertRestaurant").action = "insertRestaurant";
-									document.getElementById("insertRestaurant").submit();
+									document.getElementById("updateRestaurant").action = "updateRestaurant";
+									document.getElementById("updateRestaurant").submit();
 								}
                                 }
 							</script>  
@@ -308,7 +310,7 @@
                         <a class="nav-link text-white py-0" href="admin">관리자</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="/view">문의하기</a>
+                        <a class="nav-link text-white py-0" href="QnA">문의하기</a>
                     </li>                    
                 </ul>
             </div>
