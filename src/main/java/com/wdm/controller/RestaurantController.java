@@ -84,82 +84,61 @@ public class RestaurantController {
 	//수정
 	
 	@PostMapping("/insertRestaurant")
-	public String insertRestaurant(@RequestParam(value="upload_image1", required=false)MultipartFile uploadFile1,
-								   @RequestParam(value="upload_image2", required=false)MultipartFile uploadFile2,
-								   @RequestParam(value="upload_image3", required=false)MultipartFile uploadFile3,
-								   @AuthenticationPrincipal SecurityUser principal,
-
-								   Restaurant restaurant, HttpSession session) {
-		
-		Member member = principal.getMember();
-		String image_path = session.getServletContext().getRealPath("/static/bootstrap/img/");
-		//String image_path = "C:/Users/Admin/images/";
-		System.out.println("image_path: " + image_path);
-		File saveFolder = new File(image_path);
-		
-		if (!saveFolder.exists()) {
-			saveFolder.mkdirs();
-		}
-		
-		if(!uploadFile1.isEmpty()) {
-			String fileName1 = uploadFile1.getOriginalFilename();
-			restaurant.setImage1(fileName1);
-
-								   Restaurant restaurant) {
-	
-			String image_path = "C:/Users/Admin/images/";
-			System.out.println("image_path: " + image_path);
-			File saveFolder = new File(image_path);
-
-			
-			if (!saveFolder.exists()) {
-				saveFolder.mkdirs();
-			}
-			
-			if(!uploadFile1.isEmpty()) {
-				String fileName1 = uploadFile1.getOriginalFilename();
-				restaurant.setImage1(fileName1);
-				
-				try {
-					uploadFile1.transferTo(new File(image_path + fileName1));
-				} catch (IllegalStateException | IOException e){
-					e.printStackTrace();
-				}
-			}
-			
-			if(!uploadFile2.isEmpty()) {
-				String fileName2 = uploadFile2.getOriginalFilename();
-				restaurant.setImage2(fileName2);
-				
-				try {
-					uploadFile2.transferTo(new File(image_path+fileName2));
-				} catch (IllegalStateException | IOException e){
-					e.printStackTrace();
-				}
-			}
-			
-			if(!uploadFile3.isEmpty()) {
-				String fileName3 = uploadFile3.getOriginalFilename();
-				restaurant.setImage3(fileName3);
-				
-				try {
-					uploadFile3.transferTo(new File(image_path+fileName3));
-				} catch (IllegalStateException | IOException e){
-					e.printStackTrace();
-				}
-			}
-
-		}
-		restaurant.setId(member.getId());
-		System.out.println("restaurant:" + restaurant);
-		
-			restaurant.setId(principal.getUsername());
-			
-			System.out.println("restaurant:" + restaurant);
-			
-			restaurantService.insertRestaurant(restaurant);
-		
-		return "redirect:restaurantList";
+  	public String insertRestaurant(@RequestParam(value="upload_image1", required=false)MultipartFile uploadFile1,
+                           @RequestParam(value="upload_image2", required=false)MultipartFile uploadFile2,
+                           @RequestParam(value="upload_image3", required=false)MultipartFile uploadFile3,
+                           @AuthenticationPrincipal SecurityUser principal,
+                           Restaurant restaurant) {
+   
+         String image_path = "C:/Users/Admin/images/";
+         System.out.println("image_path: " + image_path);
+         File saveFolder = new File(image_path);
+         
+         if (!saveFolder.exists()) {
+            saveFolder.mkdirs();
+         }
+         
+         if(!uploadFile1.isEmpty()) {
+            String fileName1 = uploadFile1.getOriginalFilename();
+            restaurant.setImage1(fileName1);
+            
+            try {
+               uploadFile1.transferTo(new File(image_path + fileName1));
+            } catch (IllegalStateException | IOException e){
+               e.printStackTrace();
+            }
+         }
+         
+         if(!uploadFile2.isEmpty()) {
+            String fileName2 = uploadFile2.getOriginalFilename();
+            restaurant.setImage2(fileName2);
+            
+            try {
+               uploadFile2.transferTo(new File(image_path+fileName2));
+            } catch (IllegalStateException | IOException e){
+               e.printStackTrace();
+            }
+         }
+         
+         if(!uploadFile3.isEmpty()) {
+            String fileName3 = uploadFile3.getOriginalFilename();
+            restaurant.setImage3(fileName3);
+            
+            try {
+               uploadFile3.transferTo(new File(image_path+fileName3));
+            } catch (IllegalStateException | IOException e){
+               e.printStackTrace();
+            }
+        }
+        //Member member = principal.getMember();
+      
+        restaurant.setId(principal.getUsername());
+         
+        System.out.println("restaurant:" + restaurant);
+        
+        restaurantService.insertRestaurant(restaurant);
+      
+	return "redirect:restaurantList";
 	}
 	
 	
