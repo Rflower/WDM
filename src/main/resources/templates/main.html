@@ -88,8 +88,9 @@
             <div class="owl-carousel testimonial-carousel" >
                 <div class="position-relative bg-secondary p-4" th:each="likes : ${likesTop4}">
                     <div class="d-flex align-items-center mb-3">
+
                        <a th:href="@{/WDMDetail(rseq=${likes.rseq})}"><img class="img-fluid rounded-circle" th:src="@{static/bootstrap/img/}+${likes.image1}" style="width: 300px; height: 350px;" alt=""></a> 
-                    			
+             			
                     </div>
                      <h6 class="font-weight-semi-bold m-0"><span th:text ="${likes.name}" ></span></h6>
                      <small th:text ="${likes.dong}+${likes.menu}"></small>
