@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org"
 		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 
@@ -75,12 +76,14 @@
                     <h1 class="mb-4">우리동네 맛집 소개하기</h1>
                     <div class="contact-form bg-secondary" style="padding: 30px;">
                         <div id="success"></div>
+
                         <form th:action="insertRestaurant" name="insertForm" method="post" enctype="multipart/form-data">
                        
                             <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id= "name" name="name" placeholder="상호명을 입력해주세요"
                                     required oninput="nameChk()" data-validation-required-message="Please enter your name" />  
                                     <p>중복 등록 방지를 위해 띄어쓰기 없이 한글로만 입력해주세요 :)</p>
+
                                     <input type="hidden" class="btn btn-primary px-3" value="중복 검사"/>
                                 <span id="resultName"></span>              	
                                 <p class="help-block text-danger"></p>
@@ -211,6 +214,7 @@
 										}if(name == "") {
 											$('#resultName').text('');
 											$(".btn").attr("disabled", "disabled");
+
 										}
 										},
 										 error:function(){
@@ -221,6 +225,7 @@
 
 							</script>                           
                             <div>
+
                                 <button class="btn btn-primary py-3 px-4" type="submit" id="sendButton" th:onclick="go_save()" disabled="disabled">등록하기</button>
                                 
                                 <script th:inline="javascript">
@@ -255,6 +260,7 @@
 									document.getElementById("insertRestaurant").submit();
 								}
                                 }
+
 							</script>  
                             </div>
                         </form>
@@ -308,7 +314,7 @@
                         <a class="nav-link text-white py-0" href="admin">관리자</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="QnA">문의하기</a>
+                        <a class="nav-link text-white py-0" href="/view">문의하기</a>
                     </li>                    
                 </ul>
             </div>
