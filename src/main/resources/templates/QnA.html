@@ -125,7 +125,7 @@
 		      <span id="QnAList"></span> -->
 				</dd>	
               </dl>
-              <dl th:Each = "qnaList:${qnaList}" th:if="${qnaListId.qseq == qnaList.qgrp}" style="padding-left:40px;">
+              <dl th:Each = "qnaList:${qnaList}" th:if="${qnaListId.qseq == qnaList.qgrp And qnaListId.id ne qnaList.id}" style="padding-left:40px;">
               <dt>
               	<img src ="/static/bootstrap/img/icon-right.png">
 				<b id='qnaNickname' th:text=${qnaList.nickname}></b>
