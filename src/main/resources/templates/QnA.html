@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="/static/bootstrap/img/favicon.ico" rel="icon">
+    <link href="/bootstrap/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,28 +19,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="/static/bootstrap/css/style.css" rel="stylesheet"/>
-<style>
-.container ul{
-		padding: 0;
-		margin: 0;
-		list-style-type: none;
-}
-
-
-/* 댓글에 댓글을 다는 폼과 수정폼을 일단 숨긴다. */
-.comment-insert-form{
-	display: none;
-}
-.comment{
-	position: relative;
-}
-
-</style>
-
+    <link href="/bootstrap/css/style.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -49,24 +31,8 @@
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
             <a href="main" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
-                
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>
-             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                <div class="navbar-nav m-auto py-0">
-                	
-					<a href="#" class="nav-item nav-link" th:text="${session.loginMember.nickname}" sec:authorize="isAuthenticated()"></a>
-					
-                    <a href="login" class="nav-item nav-link active" sec:authorize="!isAuthenticated()">로그인</a>
-                    <a href="contact" class="nav-item nav-link" sec:authorize="!isAuthenticated()">회원가입</a>
-                    
-                    <a href="/system/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">로그 아웃</a>
-               
-                </div>
-             </div>
         </nav>
     </div>
     <!-- Navbar End -->
@@ -86,159 +52,70 @@
     <!-- Header End -->
 
 
-    <!-- QNA Start -->
-	<div class="container py-5">
-		
-		<ul id="rep_list" >
-		 
-        	<li id="Qna" th:Each = "qnaListId:${qnaListId}">    <!-- style="padding-left:50px;"  -->
-        	<!--<li id="Qna${qnaList.qseq}">-->
-			<input type = "hidden" id = "id" name ="id" th:value = "${session.loginMember.id}">
-			<input type = "hidden" id = "nickname" name ="nickname" th:value = "${session.loginMember.nickname}">
-			<!-- <input type = "hidden" id = "qseq" name="qseq" th:value=${qnaList.qseq}> -->
-			<dl>
-				<dt >
-				<b id='qnaNickname' th:text=${qnaListId.nickname}></b>
-				<span style='float:right;' align='right'id='qnaDate' th:text="${#dates.format(qnaListId.regdate,'yyyy-MM-dd')}"></span> <br>
-				</dt>
-				<dd>
-				<span style="clear:right;" id='qnaContent' th:text="${qnaListId.content}"></span><br>
-				
-				<!--  <a href='#' th:onclick="formShow()" class='replyBtn'  id='replyBtn+"${qnaList.qseq}"'>답글달기</a>-->
-				<a href='#' class='replyBtn'  id='replyBtn'>답글달기</a>
-				
-				<!-- 대댓글 입력 창 display: none -->
-              <form class = "comment-insert-form" method="get" action="/saveQnAReply" id="QnAReplyForm" name="QnAReplyForm">
-               <div class="bg-secondary mb-3" style="padding: 30px;">
-	              <input type = "hidden" id = "id" name ="id" th:value = "${session.loginMember.id}">
-	              <input type = "hidden" id = "nickname" name ="nickname" th:value = "${session.loginMember.nickname}">
-	                 
-	                      <input type="text" class="form-control border-0" id="content" name="content">
-	                  
-	                  
-	                      <button type ="submit"  class="btn btn-primary font-weight-semi-bold">답글남기기</button>     
-		      </div>      
-		      </form>
-		      <!-- 
-		      <span id="QnAList"></span> -->
-				</dd>	
-              </dl>
-              <dl th:Each = "qnaList:${qnaList}" th:if="${qnaListId.qseq == qnaList.qgrp}" style="padding-left:40px;">
-              <dt>
-              	<img src ="/static/bootstrap/img/icon-right.png">
-				<b id='qnaNickname' th:text=${qnaList.nickname}></b>
-				<span style='float:right;' align='right'id='qnaDate' th:text="${#dates.format(qnaList.regdate,'yyyy-MM-dd')}"></span> <br>
-				</dt>
-				<dd>
-				<span style="clear:right;" id='qnaContent' th:text="${qnaList.content}"></span><br>
-				</dd>
-              </dl>
-		     
-  			</li>
-  		</ul>
-    
-       			 <!-- QNACommnetList end -->
-	
-	       		 <!-- QNA Comment Form Start -->
-		         <div class="bg-secondary mb-3" style="padding: 30px;">
-		              <h3 class="mb-4">문의사항 남기기</h3>
-		              
-		              <form method="get" action="/saveQnA" id="QnAForm" name="QnAForm">
-		              <input type = "hidden" id = "id" name ="id" th:value = "${session.loginMember.id}">
-		              <input type = "hidden" id = "nickname" name ="nickname" th:value = "${session.loginMember.nickname}">
-		                  <div class="form-group">
-		                      <input type="text" class="form-control border-0" id="content" name="content">
-		                  </div>
-		                  <div class="form-group mb-0">
-		                      <button type ="submit" class="btn btn-primary font-weight-semi-bold py-2 px-3">문의사항남기기</button>
-		                  </div>
-		              </form>
-		           </div>
-	
-</div>
+    <!-- Blog Start -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+               
+                <!-- Comment List Start -->
+                <div class="bg-secondary" style="padding: 30px; margin-bottom: 30px;">
+                    <h3 class="mb-4">문의 내역</h3>
+                    <div class="media mb-4">
+                       
+                        <div class="media-body">
+                            <h6><a href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
+                            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
+                                accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.
+                                Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor
+                                consetetur at sit.</p>
+                            <button class="btn btn-sm btn-light">Reply</button>
+                        </div>
+                    </div>
+                    <div class="media">
+                       
+                        <div class="media-body">
+                            <h6><a href="">John Doe</a> <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
+                            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
+                                accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.
+                                Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor
+                                consetetur at sit.</p>
+                            <button class="btn btn-sm btn-light">Reply</button>
+                            <div class="media mt-4">
+                     
+                                <div class="media-body">
+                                    <h6><a href="">John Doe</a> <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
+                                    <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor
+                                        labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed
+                                        eirmod ipsum. Gubergren clita aliquyam consetetur sadipscing, at tempor amet
+                                        ipsum diam tempor consetetur at sit.</p>
+                                    <button class="btn btn-sm btn-light">Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comment List End -->
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script th:inline="javascript">
-$(document).ready(function(){ 
-    $("dd").on("click", ".replyBtn", function(e) {
-        console.log("테스트용 = "+e.target.tagName);
-        
-        if($(this).next().css("display")=='none'){
-       	 $(this).next().css("display", "block");
-        }else{
-        	$(this).next().css("display", "none")
-        }
-    })
- 
-	getQnAReplyList();
-});
+                <!-- Comment Form Start -->
+                <div class="bg-secondary mb-3" style="padding: 30px;">
+                    <h3 class="mb-4">문의사항 남기기</h3>
+                    <form method="post" action="">
+                        <div class="form-group">
+                    
+                            <input type="text" class="form-control border-0" id="name">
+                        </div>
+                        <div class="form-group mb-0">
+                            <input type="submit" value="Leave a comment"
+                                class="btn btn-primary font-weight-semi-bold py-2 px-3">
+                        </div>
+                    </form>
+                </div>
+                <!-- Comment Form End -->
 
-/*
-function getQnAReplyList() {
-
-
-	 $.ajax({
-			type: 'GET',
-	        url: 'replyQna/list',
-	     	dataType: "json",
-	     	traditional: true,
-	     	contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-	        data: {"id": $("#id").val() },
-	     	success: function (data)  {
-	     		console.log("data = ", data);
-	     		/*
-	     		let adminReply = data.adminReply0;
-	         	console.log("data = ", adminReply);
-	         	showHTML(adminReply);
-	         	*//*
-	         	let html ="";
-	         	for(var i = 0; i<data.length; i++){
-	         		
-	         		html += "<div class='media-body'>";
-	                html += "<input type='hidden' id='qseq' value='" + datai.get[i].qseq + "'>"; 
-	                html += "<b id='replyNickname' >" + datai.get[i].nickname  + "</b>";
-	                html += "<span style='float:right;' align='right'id='replyDate'> " + datai.get[i].regdate + " </span></div>";
-	                html += "<h5 id='replyComment'>" + datai.get[i].content + "</h5>";
-	             	html += "<hr></div>";
-	         	}
-	        	$("#QnAList").html(html);
-			},
-			
-			error: function() {
-				alert("댓글 목록을 조회하지 못했습니다.")
-			}
-		});
-	}
-
-/*
-function showHTML(adminReply) {
-	var html = "";
-	
-	if (adminReply.length > 0) {
-		// 각 항목별로 HTML 생성
-		 for (let i = 0; i < adminReply.length; i++) {
-			
-            html += "<div class='media-body'>";
-            html += "<input type='hidden' id='qseq' value='" + adminReply[i].qseq + "'>"; 
-            html += "<b id='replyNickname' >" + adminReply[i].nickname  + "</b>";
-            html += "<span style='float:right;' align='right'id='replyDate'> " + adminReply[i].regdate + " </span></div>";
-            html += "<h5 id='replyComment'>" + adminReply[i].content + "</h5>";
-         	html += "<hr></div>";
-		}
-		
-
-	} else { // 조회된 상품평이 없을 경우
-		html += "<div class='mb-2'>";
-		html += "<h5>등록된 댓글이 없습니다.</h5>";
-		html += "</div>";
-	}
-	$("#QnAList").html(html);
-}
-*/
-
-</script>
-
-    <!-- QNA End -->
+            </div>
+        </div>
+    </div>
+    <!-- Blog End -->
 
 
     <!-- Footer Start -->
@@ -277,17 +154,17 @@ function showHTML(adminReply) {
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="static/bootstrap/lib/easing/easing.min.js"></script>
-    <script src="static/bootstrap/lib/waypoints/waypoints.min.js"></script>
-    <script src="static/bootstrap/lib/counterup/counterup.min.js"></script>
-    <script src="static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="bootstrap/lib/easing/easing.min.js"></script>
+    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
-    <script src="static/bootstrap/mail/contact.js"></script>
+    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="bootstrap/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="static/bootstrap/js/main.js"></script>
+    <script src="bootstrap/js/main.js"></script>
 </body>
 
 </html>
