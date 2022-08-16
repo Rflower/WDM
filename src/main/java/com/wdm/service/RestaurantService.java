@@ -11,12 +11,10 @@ import com.wdm.domain.Restaurant;
 public interface RestaurantService {
 
 	//상세보기
-	Restaurant getRestBoard(Restaurant restaurant);
+	Restaurant WDMDetail(Restaurant restaurant);
 	
 	//맛집등록하기
 	void insertRestaurant(Restaurant restaurant);
-	
-	//boolean confirmAddress(String address_name);
 
 	Page<Restaurant> getRestaurantListPaging(Pageable paging);
 	
@@ -27,6 +25,9 @@ public interface RestaurantService {
 	//삭제하기
 	void deleteRestaurant(Restaurant restaurant);
 
+	// 수정하기
+	void updateRestaurant(Restaurant restaurant);
+	
 	//추천 상위 4개 맛집 출력
 	List<Restaurant> getBestLikescntList();
 
