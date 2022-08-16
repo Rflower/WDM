@@ -16,10 +16,10 @@ public class IndexController {
 //		return "login";
 //	}
 	
-	@GetMapping("mypage")
-	public String mypage() {
-		return "mypage";
-	}
+//	@GetMapping("mypage")
+//	public String mypage() {
+//		return "mypage";
+//	}
 	
 	@GetMapping("admin")
 	public String admin() {
@@ -31,10 +31,10 @@ public class IndexController {
 //		return "QnA";
 //	}
 	
-	@GetMapping("updateInfo")
-	public String updateInfo() {
-		return "myUpdateInfo";
-	}
+//	@GetMapping("updateInfo")
+//	public String updateInfo() {
+//		return "myUpdateInfo";
+//	}
 	
 	@GetMapping("myList")
 	public String myList() {
