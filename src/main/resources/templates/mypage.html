@@ -32,19 +32,6 @@
             <a href="main" class="navbar-brand ml-lg-3">
                 <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>
-             <!-- 
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- 
-            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                <div class="navbar-nav m-auto py-0">
-                    <a href="login" class="nav-item nav-link">로그인</a>
-                    <a href="contact" class="nav-item nav-link active">회원가입</a>
-
-               
-                </div>
-            </div>-->
         </nav>
     </div>
     <!-- Navbar End -->
@@ -69,7 +56,8 @@
         <div class="container" >
             <div class="text-center pb-2">
                 
-                <h1 class="mb-4">ooo님 환영합니다.</h1>
+                <h1 class="mb-4" th:text="${session.loginMember.nickname}" sec:authorize="isAuthenticated()"></h1>
+                <h1 class="mb-4">님 환영합니다.</h1>
             </div>
             <div class="row pb-3">
                <div class="col-lg-3 col-md-6 text-center mb-5">
