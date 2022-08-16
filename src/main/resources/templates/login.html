@@ -21,10 +21,10 @@ lang="en">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="static/bootstrap/css/style.css" rel="stylesheet">
+    <link href="bootstrap/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -33,9 +33,7 @@ lang="en">
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
             <a href="main" class="navbar-brand ml-lg-3">
-
-                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="/static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
-
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>         
         </nav>
     </div> 
@@ -62,30 +60,44 @@ lang="en">
             <div class="row">
                 </div>
                 <div class="col-lg-7">
-                    <h6 class="text-primary text-uppercase font-weight-bold">로그인</h6>
                     <h1 class="mb-4">로그인</h1>
                     <div class="contact-form bg-secondary" style="padding: 30px;">
                         <div id="success"></div>
-                        <form action="/login" method="post" name="login" id="login" novalidate="novalidate">
-
+                        <form action="/login" method="post" name="login" id="login">
+							<div th:if="${param.error}">
+						        <div style="color: red;">
+						           사용자ID 또는 비밀번호를 확인해 주세요.
+						        </div>
+						    </div>
                             <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" name="username" id="username" placeholder="ID"
-                                    required="required" data-validation-required-message="Please enter your id" />
+                                    required="required" />
 
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
                                 <input type="password" class="form-control border-0 p-4" name="password" id="password" placeholder="비밀번호"
-                                    required="required" data-validation-required-message="Please enter your password" />
+                                    required="required" />
                                 <p class="help-block text-danger"></p>
                             </div>
-
-                        
                             
                             <button class="btn btn-primary px-3" type="submit" id="sendButton">로그인</button>
                        
-							<button class="btn btn-primary px-3">ID찾기</button>
-							<button class="btn btn-primary px-3">비밀번호찾기</button>
+							<input class="btn btn-primary px-3" type="button" value="ID찾기" onclick="findIdForm()"></input>
+							<input class="btn btn-primary px-3" type="button" value="비밀번호 찾기" onclick="findPwdForm()" ></input>
+							
+							<script type="text/javascript">
+							function findIdForm(){
+								var url = "findIdForm";
+								window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=500, height=300");
+							}
+							
+							function findPwdForm(){
+								var url = "findPwdForm";
+								window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=600, height=450");
+							}
+							</script>
+							
 							<div> 
 							</div>
                         </form>
@@ -132,17 +144,17 @@ lang="en">
     
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="static/bootstrap/lib/easing/easing.min.js"></script>
-    <script src="static/bootstrap/lib/waypoints/waypoints.min.js"></script>
-    <script src="static/bootstrap/lib/counterup/counterup.min.js"></script>
-    <script src="static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="bootstrap/lib/easing/easing.min.js"></script>
+    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
-    <script src="static/bootstrap/mail/contact.js"></script>
+    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="bootstrap/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="static/bootstrap/js/main.js"></script>
+    <script src="bootstrap/js/main.js"></script>
 </body>
 
 </html>
