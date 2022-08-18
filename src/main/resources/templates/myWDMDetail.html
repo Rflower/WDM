@@ -6,7 +6,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>맛집 상세보기 페이지</title>
+<title>내가 쓴 맛집 상세보기</title>
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Free HTML Templates" name="keywords">
@@ -81,17 +81,13 @@
 			<h1 class="text-white display-3" th:text="${restaurant.name}"></h1>
 			<div class="d-inline-flex align-items-center text-white">
 				<p class="m-0">
-					<a class="text-white" th:href="insertRestaurant"
-						sec:authorize="isAuthenticated()" onclick="if (confirm('새로운 맛집을 소개 하시겠습니까?') == false) {return false;}">
-						소개하기</a>
+					<a class="text-white" th:href="@{/updateRestaurant(rseq=${restaurant.rseq})}"
+						sec:authorize="isAuthenticated()" onclick="if (confirm('수정 하시겠습니까?') == false) {return false;}">
+						수정하기</a>
 				</p>
 				<i class="fa fa-circle px-3"></i>
 				<p class="m-0">
-					<a class="text-white" th:href="@{/restaurantList}">맛집목록보기</a>
-				</p>
-				<p class="m-0">			
-				<a th:href="@{/deleteRestaurant(rseq=${restaurant.rseq})}" sec:authorize="hasRole('ROLE_ADMIN')"
-					onclick="if (confirm('정말 삭제 하시겠습니까? 한번 삭제한 자료는 복구할 수 없습니다.') == false) {return false;} alert('삭제 되었습니다.')"><i class="fa fa-circle px-3"></i>삭제하기</a>
+					<a class="text-white" th:href="@{/myList}">맛집목록보기</a>
 				</p>
 			</div>
 		</div>
@@ -128,18 +124,7 @@
 							<!-- 추천하기 버튼 -->
 							<div class="likes100">
 
-								<input class="likesChk1" type="hidden" id="likesChk" name="likesChk" th:value="${likes}">
-								<img id="likeImg" name="likeImg"
-									src="static/bootstrap/img/like_empty.png"
-									style="width: 70px; height: 70px; margin: 10px"
-									sec:authorize="isAuthenticated()"></a>
-									<a href="#"
-									onclick="if (confirm('추천하기는 로그인 후 가능합니다.') == false) {return false;}"
-									th:name="justlikeImg"> <img name="justlikeImg"
-									src="static/bootstrap/img/like_empty.png"
-									style="width: 70px; height: 70px; margin: 10px"
-									sec:authorize="!isAuthenticated()">
-								</a>
+								<a>추천수</a>
 								<p id="likescnt" th:name="likescnt"
 									th:text="${restaurant.likescnt}"
 									style="color: black; font-weight: 900;"></p>
@@ -148,8 +133,8 @@
 
 							</div>
 							<!-- 추천하기 버튼 끝 -->
-							
 							<!-- 맛집 소개 상세내용 -->
+							<!--  <h4 class="font-weight-bold mb-3">Kasd tempor diam sea justo dolor</h4>-->
 							<p th:name="content" th:text="${restaurant.content}"
 								style="color: black"></p>
 							<br> <br>
@@ -165,13 +150,12 @@
 								</dl>
 								<br>
 							</div>
-							
+							<hr>
 							<br> <input type="hidden" id="address_name"
 								th:value="${restaurant.address_name}" />
-								
 							<div id="map" style="width: 1000px; height: 550px;"></div>
 							<br>
-							
+
 							<!-- 지도 들어갈 자리 -->
 
 
@@ -286,64 +270,11 @@
 			        map.setCenter(coords);
 			    } 
 			});
-			
-		/////////////////////////////// 추천하기 구현 ///////////////////////////////
-		
-		   	var $like = $("#likesChk");
-		   	 
-		   	console.log("likeval=", $like.val());
-		
-		    const likeImg = document.getElementById("likeImg");
-		
-			if ($like.val() > 0) {
-			 
-			    likeImg.src = "static/bootstrap/img/like_click.png";
-			    
-			} else {
-			    likeImg.src = "static/bootstrap/img/like_empty.png";
-			    
-			}
 
-	        // 좋아요 버튼을 클릭 시 실행되는 코드
-	        $("#likeImg").on("click", function () {
-	   
-	        	var $like = $("#likesChk");
-	        	
-	        	if($like.val() == 0) {
-	        		 $.ajax({
-	 	                url: '/restaurant/likes',
-	 	                type: 'POST',
-	 	                data: {'rseq': $("#rseq").val()},
-	 	                success: function (data) {
-	 						console.log("추천 성공");
-	 	                    location.reload();
-	 	                    $like.val("1");
-	 	                }, error: function () {
-	 	                    console.log('오류입니다.');
-	 	                }
-	 	            });
-	        		$("#likeImg").css("src", "static/bootstrap/img/like_click.png");
-	        		alert("추천이 완료되었습니다! d=(´▽｀)");
-	        		
-	        	} else {
-	        		$.ajax({
-		 	            url: '/restaurant/likes',
-		 	            type: 'POST',
-		 	            data: {'rseq': $("#rseq").val()},
-		 	            success: function (data) {    
-		 	            	console.log("추천 취소");
-	 	                    location.reload();
-	 	                    $like.val("0");          
-		 	            }, error: function () {
-		 	                console.log('오류입니다.');
-		 	            }
-		 	        });
-	        		$("#likeImg").prop("src", "static/bootstrap/img/like_empty.png");
-	        		 alert("추천이 취소되었습니다 ( ĭ˄ĭ)=p");
-	        	}
-	        });
 	    });
-		
+
 	</script>
+
 </body>
+
 </html>

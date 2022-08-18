@@ -40,5 +40,8 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 	@Modifying
 	@Query(value="UPDATE restaurant SET likescnt = likescnt - 1 WHERE rseq=?1", nativeQuery=true)
 	void minusLikes(Long rseq);	
+	
+	@Query(value="SELECT * FROM restaurant WHERE id=?1", nativeQuery=true)
+	Page<Restaurant> getRestaurantMyList(String id, Pageable pageable);
 
 }

@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>우리동네 맛집 수정하기</title>
+    <title>우동맛 수정하기</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -27,10 +27,7 @@
 </head>
 
 <body>
- <input name="rseq" type="hidden" th:value="${restaurant.rseq}"/>
- <input type="hidden" name="nonmakeImg" value="${restaurant.image1}">
- <input type="hidden" name="nonmakeImg" value="${restaurant.image2}">
- <input type="hidden" name="nonmakeImg" value="${restaurant.image3}">
+
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
@@ -77,21 +74,27 @@
         <div class="container">
 
                 <div class="col-lg-7">
+                <h1 class="text-white display-3" th:text="${restaurant.name}"></h1>
                     <h1 class="mb-4">우리동네 맛집 수정하기</h1>
+                    
                     <div class="contact-form bg-secondary" style="padding: 30px;">
                         <div id="success"></div>
-                        <form th:action="updateRestaurant" method="post" enctype="multipart/form-data">
-                       
+						<form th:action="updateRestaurant" method="post" enctype="multipart/form-data">
+							<input name="rseq" type="hidden" th:value="${restaurant.rseq}"/>
+							<input type="hidden" name="nonmakeImg1" th:value="${restaurant.image1}">
+							<input type="hidden" name="nonmakeImg2" th:value="${restaurant.image2}">
+							<input type="hidden" name="nonmakeImg3" th:value="${restaurant.image3}"> <!-- 기존 이미지 저장  -->
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id= "name" name="name" placeholder="상호명을 입력해주세요 (영문 및 띄어쓰기 금지)"
-                                    required oninput="nameChk()" data-validation-required-message="Please enter your name" value="${restaurant.name}"/>  
+                                <input type="text" class="form-control border-0 p-4" id= "name" name="name"
+                                required oninput="nameChk()" data-validation-required-message="Please enter your name" th:value="${restaurant.name}"/>
+                                 <p>중복 등록 방지를 위해 띄어쓰기 없이 한글로만 입력해주세요 :)</p>  
                                     <input type="hidden" class="btn btn-primary px-3" value="중복 검사"/>
                                 <span id="resultName"></span>              	
                                 <p class="help-block text-danger"></p>
                 
                             </div>
                             <div class="control-group">
-                                 <select name="kind" class="form-control border-0 p-4" size="1" >
+                                 <select name="kind" class="form-control border-0 p-4" size="1" th:value="${restaurant.kind}">
 				                    <option th:value="1">한식</option>
 				                    <option th:value="2">양식</option>
 				                    <option th:value="3">중식</option>
@@ -102,105 +105,108 @@
                             </div>
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="menu" name="menu" placeholder="맛있는 메뉴를 등록해주세요."
-                                    required="required" data-validation-required-message="Please enter menu" value="${restaurant.menu}"/>                	
+                                    required="required" data-validation-required-message="Please enter menu" th:value="${restaurant.menu}"/>                	
                                 <p class="help-block text-danger"></p>
                 
                             </div>                           
 
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="address_name" name="address_name" placeholder="주소를 입력해주세요"
-                                    required="required" data-validation-required-message="Please enter your address" value="${restaurant.address_name}"/>
+                                    required="required" data-validation-required-message="Please enter your address" th:value="${restaurant.address_name}"/>
                                 <p class="help-block text-danger"></p>
                             </div>
                             
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="address_detail" name="address_detail" placeholder="상세주소"
-                                    required="required" data-validation-required-message="Please enter your address detail" value="${restaurant.address_detail}"/>
+                                    required="required" data-validation-required-message="Please enter your address detail" th:value="${restaurant.address_detail}"/>
                                 <p class="help-block text-danger"></p>
                             </div>  
                               <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="dong" name="dong" placeholder="무슨동인지 적어주세요. ex)신림동"
-                                    required="required" data-validation-required-message="Please enter your dong" value="${restaurant.dong}"/>
+                                    required="required" data-validation-required-message="Please enter your dong" th:value="${restaurant.dong}"/>
                                 <p class="help-block text-danger"></p>
                             </div>                                                                        
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 py-3 px-4" name="content" placeholder="소개하고싶은 내용을 적어주세요"
-                                    required="required" data-validation-required-message="Please enter your message" value="${restaurant.content}"/>
+                                    required="required" data-validation-required-message="Please enter your message" th:value="${restaurant.content}"/>
                                 <p class="help-block text-danger"></p>
                             </div> 
                             
                              <div class="control-group">
                              	<div class="filebox">
-                             	<input type="text" class="form-control border-0 p-4" name="image1" id="image1" placeholder="대표사진을 올려주세요." >
+                             	<input type="text" class="form-control border-0 p-4" name="image1" id="image1" 
+                             	th:text="${restaurant.image1}" placeholder="대표사진을 올려주세요.">
                              	<!-- <input type="file" class="form-control border-0 p-4" name="imageList[]" > -->
                              	<label for="file1" class="btn btn-primary px-3" >사진등록</label>
-                                <input type="file" id="file1" name="upload_image1" required="required" accept="image/*" style="position:absolute; clip:rect(0, 0, 0, 0);"  
-                                	onchange="javascript:document.getElementById('image1').value = this.value" />
-                                <input type="hidden" name="image" value="${restaurant.image1}">
+                                <input type="file" id="file1" name="upload_image1" accept="image/*" style="position:absolute; clip:rect(0, 0, 0, 0);" 
+                                	onchange="javascript:document.getElementById('image1').value = this.value"/>
+                                <input type="hidden" name="image" th:value="${restaurant.image1}">
                                 	
-								<input type="text" class="form-control border-0 p-4" name="image2" id="image2" placeholder="추가사진을 올려주세요." >
+								<input type="text" class="form-control border-0 p-4" name="image2" id="image2" 
+								th:text="${restaurant.image2}"placeholder="추가사진을 올려주세요." >
                              	<!-- <input type="file" class="form-control border-0 p-4" name="imageList[]" > -->
                              	<label for="file2" class="btn btn-primary px-3" >사진등록</label>
-                                <input type="file" id="file2" name="upload_image2" required="required" accept="image/*" style="position:absolute; clip:rect(0, 0, 0, 0);"  
-                                	onchange="javascript:document.getElementById('image2').value = this.value" />
-                                <input type="hidden" name="image" value="${restaurant.image2}">
+                                <input type="file" id="file2" name="upload_image2" accept="image/*" style="position:absolute; clip:rect(0, 0, 0, 0);"  
+                               		onchange="javascript:document.getElementById('image2').value = this.value"	/>
+                                <input type="hidden" name="image" th:value="${restaurant.image2}">
                                 	
-                                <input type="text" class="form-control border-0 p-4" name="image3" id="image3" placeholder="추가사진을 올려주세요." >
+                                <input type="text" class="form-control border-0 p-4" name="image3" id="image3"
+                                th:text="${restaurant.image3}" placeholder="추가사진을 올려주세요." >
                              	<!-- <input type="file" class="form-control border-0 p-4" name="imageList[]" > -->
                              	<label for="file3" class="btn btn-primary px-3" >사진등록</label>
-                                <input type="file" id="file3" name="upload_image3" required="required" accept="image/*" style="position:absolute; clip:rect(0, 0, 0, 0);"  
-                                	onchange="javascript:document.getElementById('image3').value = this.value" />
-                                <input type="hidden" name="image" value="${restaurant.image3}">
+                                <input type="file" id="file3" name="upload_image3" accept="image/*" style="position:absolute; clip:rect(0, 0, 0, 0);"  
+                               		onchange="javascript:document.getElementById('image3').value = this.value"	/>
+                                <input type="hidden" name="image" th:value="${restaurant.image3}">
+                                
                                 <p class="help-block text-danger"></p>
                                 </div>
                             </div> 
                             
-							<script type="text/javascript">
-								
-								var fileTarget = $('.filebox .file1');
-								fileTarget.on('change', function(){ // 값이 변경되면
-								
-								if(window.FileReader){ // modern browser
-								var filename = (this)[0].files[0].name;
-								 }
-								
-								else { // old IE							
-								 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출							
-								}  // 추출한 파일명 삽입
-								
-								$(this).siblings('.image1').val(filename);							
-								});	
+							<script type="text/javascript">;
+							var fileTarget = $('.filebox .file1');
+							fileTarget.on('change', function(){ // 값이 변경되면
+							
+							if(window.FileReader){ // modern browser
+							var filename = (this)[0].files[0].name;
+							 }
+							
+							else { // old IE							
+							 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출							
+							}  // 추출한 파일명 삽입
+							
+							$(this).siblings('.image1').val(filename);							
+							});	
 
-								
-								var fileTarget = $('.filebox .file2');
-								fileTarget.on('change', function(){ // 값이 변경되면
-								
-								if(window.FileReader){ // modern browser
-								var filename = (this)[0].files[0].name;
-								 }
-								
-								else { // old IE							
-								 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출							
-								}  // 추출한 파일명 삽입
-								
-								$(this).siblings('.image2').val(filename);							
-								});
-								
-								
-								var fileTarget = $('.filebox .file3');
-								fileTarget.on('change', function(){ // 값이 변경되면
-								
-								if(window.FileReader){ // modern browser
-								var filename = (this)[0].files[0].name;
-								 }
-								
-								else { // old IE							
-								 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출							
-								}  // 추출한 파일명 삽입
-								
-								$(this).siblings('.image3').val(filename);							
-								});
-								
+							
+							var fileTarget = $('.filebox .file2');
+							fileTarget.on('change', function(){ // 값이 변경되면
+							
+							if(window.FileReader){ // modern browser
+							var filename = (this)[0].files[0].name;
+							 }
+							
+							else { // old IE							
+							 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출							
+							}  // 추출한 파일명 삽입
+							
+							$(this).siblings('.image2').val(filename);							
+							});
+							
+							
+							var fileTarget = $('.filebox .file3');
+							fileTarget.on('change', function(){ // 값이 변경되면
+							
+							if(window.FileReader){ // modern browser
+							var filename = (this)[0].files[0].name;
+							 }
+							
+							else { // old IE							
+							 var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출							
+							}  // 추출한 파일명 삽입
+							
+							$(this).siblings('.image3').val(filename);							
+							});
+							
 								
 								function nameChk(){
 									var name = $('#name').val();
@@ -223,7 +229,7 @@
 
 							</script>                           
                             <div>
-                                <button class="btn btn-primary py-3 px-4" type="submit" id="sendButton" th:onclick="go_save()">등록하기</button>
+                                <button class="btn btn-primary py-3 px-4" type="submit" id="sendButton" th:onclick="go_save()">수정하기</button>
                                 
                                 <script th:inline="javascript">
                                 function go_save() {
@@ -255,6 +261,7 @@
 								} else { // 모든 필수입력이 입력된 경우 URL 요청
 									document.getElementById("updateRestaurant").action = "updateRestaurant";
 									document.getElementById("updateRestaurant").submit();
+									window.alert("수정되었습니다.");
 								}
                                 }
 							</script>  
