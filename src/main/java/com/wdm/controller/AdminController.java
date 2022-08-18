@@ -69,4 +69,9 @@ public class AdminController {
 		
 		return getCountById;
 	}
+	
+	@GetMapping("adminNotice")
+	public String adminNotice() {
+		return "adminNotice";
+	}
 }
