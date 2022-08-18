@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>로그인</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/static/bootstrap/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
+            <a href="main" class="navbar-brand ml-lg-3">
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="/static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
+            </a>         
+        </nav>
+    </div> 
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="jumbotron jumbotron-fluid mb-5">
+        <div class="container text-center py-5">
+            <h1 class="text-white display-3">로그인</h1>
+            <div class="d-inline-flex align-items-center text-white">
+                <p class="m-0"><a class="text-white" href="contact">회원가입</a></p>
+                <i class="fa fa-circle px-3"></i>
+                <p class="m-0"><a class="text-white" href="main">Home</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+                <div class="col-lg-7">
+                    <h1 class="mb-4">공지사항</h1>
+                    <div class="contact-form bg-secondary" style="padding: 30px;">
+                        <pre>
+		               	
+		               	
+안녕하세요.다양한 우동맛 서비스를 즐겨보세요.
+회원으로 가입하시면 우동맛 서비스를 보다 편리하게 이용할 수 있습니다.
+여러분이 제공한 콘텐츠를 소중히 다룰 것입니다.
+여러분의 개인정보를 소중히 보호합니다.
+타인의 권리를 존중해 주세요.
+우동맛 서비스 이용과 관련하여 몇 가지 주의사항이 있습니다.
+우동맛에서 제공하는 다양한 포인트를 요긴하게 활용해 보세요.
+부득이 서비스 이용을 제한할 경우 합리적인 절차를 준수합니다.
+일부 우동맛 서비스에는 광고가 포함되어 있습니다.
+언제든지 우동맛 서비스 이용계약을 해지하실 수 있습니다.
+서비스 중단 또는 변경 시 꼭 알려드리겠습니다.
+주요 사항을 잘 안내하고 여러분의 소중한 의견에 귀 기울이겠습니다.
+여러분이 쉽게 알 수 있도록 약관 및 운영정책을 게시하며 사전 공지 후 개정합니다.
+					</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Contact End -->
+
+
+    <!-- Footer Start -->
+
+    <th:block th:replace="~{footer :: footer1}"></th:block>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/bootstrap/lib/easing/easing.min.js"></script>
+    <script src="/static/bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="/static/bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="/static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/static/bootstrap/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/static/bootstrap/js/main.js"></script>
+</body>
+
+</html>

@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>회원가입</title>
+    <title>회원정보수정</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -43,7 +43,7 @@
     <!-- Header Start -->
     <div class="jumbotron jumbotron-fluid mb-5">
         <div class="container text-center py-5">
-            <h1 class="text-white display-3">회원가입</h1>
+            <h1 class="text-white display-3">회원정보수정</h1>
             <div class="d-inline-flex align-items-center text-white">
                 <p class="m-0"><a class="text-white" href="logout">로그아웃</a></p>
                 <i class="fa fa-circle px-3"></i>
@@ -60,21 +60,20 @@
             <div class="row">
                 </div>
                 <div class="col-lg-7">
-                    <h6 class="text-primary text-uppercase font-weight-bold">회원가입</h6>
-                    <h1 class="mb-4">회원가입하기</h1>
+                    <h1 class="mb-4">회원정보수정</h1>
                     <div class="contact-form bg-secondary" style="padding: 30px;">
                         <div id="success"></div>
                         <form action="updateMember" method="post" name="/updateMember" id="/updateMember">
                        
                             <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="name" name="name" placeholder="이름은 한글만 입력 가능합니다."
-                                    required="required" />                	
+                                    required="required" th:value="${session.loginMember.name}"/>                	
                                 <p class="help-block text-danger"></p>
                 
                             </div>
                             <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="nickname" name="nickname" placeholder="닉네임은 한글, 영문, 숫자 포함 2~20 자리 가능합니다."
-                                    required oninput="checkNickname()"/>
+                                    required oninput="checkNickname()" th:value="${session.loginMember.nickname}"/>
                                 <input type="hidden" class="btn btn-primary px-3" value="중복 검사"/>
                                 <span id="resultNickname"></span>
                                 
@@ -100,7 +99,7 @@
                             </div>                           
                             <div class="control-group">
                                 <input type="email" class="form-control border-0 p-4" id="email" name="email" placeholder="Email을 입력해주세요"
-                                    required oninput="checkEmail()"  />	
+                                    required oninput="checkEmail()" th:value="${session.loginMember.email}" />	
                                	<button class="btn btn-primary px-3">인증하기</button>
                                	<input type="hidden" class="btn btn-primary px-3" value="중복 검사" />
                                	<span id="resultEmail"></span>
@@ -116,17 +115,17 @@
                             </div>
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="address" name="address" placeholder="주소를 입력해주세요"
-                                    required="required"  />
+                                    required="required"  th:value="${session.loginMember.address}"/>
                                 <p class="help-block text-danger"></p>
                             </div>
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="address_detail" name="address_detail" placeholder="상세주소"
-                                    required="required" />
+                                    required="required" th:value="${session.loginMember.address_detail}"/>
                                 <p class="help-block text-danger"></p>
                             </div>                                              
                              <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="phone" name="phone" placeholder="010-0000-0000"
-                                    required="required" />
+                                    required="required" th:value="${session.loginMember.phone}"/>
                                     <span id="resultEmail"></span>
                                 <p class="help-block text-danger"></p>
                             </div>  
