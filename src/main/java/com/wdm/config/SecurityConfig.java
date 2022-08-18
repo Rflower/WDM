@@ -22,6 +22,7 @@ public class SecurityConfig  {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.authorizeRequests((authz) -> authz.antMatchers("/", "/system/**").permitAll());
+		http.authorizeRequests((authz) -> authz.antMatchers("/mypage", "/QnA").authenticated());
 		http.authorizeRequests((authz) -> authz.antMatchers("/admin/**").hasRole("ADMIN"));
 		
 		
