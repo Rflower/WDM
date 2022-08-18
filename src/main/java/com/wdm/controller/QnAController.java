@@ -1,19 +1,17 @@
 package com.wdm.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wdm.config.SecurityUser;
 import com.wdm.domain.QnA;
+import com.wdm.domain.Role;
 import com.wdm.service.QnAService;
 
 @Controller
@@ -24,36 +22,61 @@ public class QnAController {
 	private QnAService QnAService;
 	
 	@GetMapping("/QnA")
-	public String qnaView( @AuthenticationPrincipal SecurityUser principal, Model model) {
+	public String qnaView(@AuthenticationPrincipal SecurityUser principal, 
+						  @RequestParam(required = false, value = "id") String id,
+						 Model model) {
 		
-		
-		List<QnA> qnaListRefId = QnAService.getFindByRefId(principal.getUsername());
-		List<QnA> qnaListId = QnAService.getFindById(principal.getUsername());
-		
-		model.addAttribute("qnaList", qnaListRefId);
-		model.addAttribute("qnaListId", qnaListId);
-
+		if(principal.getMember().getRole().equals(Role.ROLE_ADMIN)) {
+			List<QnA> qnaListRefId = QnAService.getFindByRefId(id);
+			List<QnA> qnaListId = QnAService.getFindById(id);
+			
+			model.addAttribute("qnaList", qnaListRefId);
+			model.addAttribute("qnaListId", qnaListId);
+			
+			return  "QnA";
+		}else if (principal.getMember().getRole().equals(Role.ROLE_MEMBER)) {
+//		System.out.println("권한은" + principal.getMember().getRole());
+			List<QnA> qnaListRefId = QnAService.getFindByRefId(principal.getUsername());
+			List<QnA> qnaListId = QnAService.getFindById(principal.getUsername());
+			
+			model.addAttribute("qnaList", qnaListRefId);
+			model.addAttribute("qnaListId", qnaListId);
+		}
 		return "QnA";
 	}
-	
 	
 	//Qna 내용 저장
 	@GetMapping("/saveQnA")
 	public String saveQna(@AuthenticationPrincipal SecurityUser principal, QnA qna) {
 
-		qna.setQdepth(0);
 		qna.setQgrp(0L);
+		qna.setReplyyn("n");
 		QnAService.SaveQna(qna);
 		
 		QnA vo = new QnA();
 		vo = QnAService.findByqseq(qna.getQseq());
-		vo.setQgrp(qna.getQseq());
 		vo.setRefid(qna.getId());
+		vo.setQgrp(qna.getQseq());
 		QnAService.SaveQna(vo);
 		
 		return "redirect:QnA";
 	}
 
+	@GetMapping("/saveQnAReply")
+	public String saveQnaReply(@AuthenticationPrincipal SecurityUser principal, 
+								@RequestParam(required = false, value = "id") String id,
+								QnA qna) {
+
+		qna.setReplyyn("y");
+		QnAService.SaveQna(qna);
+		
+		QnA vo = new QnA();
+		vo = QnAService.findByqseq(qna.getQgrp());
+
+		QnAService.UpdateQna(vo);
+		
+		return "redirect:adminQnA";
+	}
 	
 //	@GetMapping("/qna/list")
 //	@ResponseBody

@@ -18,9 +18,16 @@ public interface RestaurantService {
 	//맛집등록하기
 	void insertRestaurant(Restaurant restaurant);
 
+	//전체 맛집 보기
 	Page<Restaurant> getRestaurantListPaging(Pageable paging);
 	
+	//키워드,추천,좋아요 순으로 맛집 보기
 	Page<Restaurant> getSearchCategoryList( String searchKeyword,String orderby,Pageable pageable);
+	
+	//키워드, 맛집 종류, 추천, 좋아요 순으로 맛집 보기
+	Page<Restaurant> getKindSearchKeywordList(String searchKeyword, String kind, String orderby, Pageable pageable);
+	
+	Page<Restaurant> getfindBykind(String kind, Pageable pageable);
 
 	int nameChk(String name);
 	

@@ -103,7 +103,19 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public Page<Restaurant> getRestaurantMyList(String id, Pageable pageable) {
+	public Page<Restaurant> getKindSearchKeywordList(String searchKeyword, String kind, String orderby, Pageable pageable) {
+		int page = pageable.getPageNumber();
+		Pageable paging = PageRequest.of(page, 8, Sort.by(Sort.Direction.DESC, orderby));
+		System.out.println("kind의 값은? = " + kind);
+		System.out.println("searchKeyword의 값은? = " + searchKeyword);
+	
+		Page<Restaurant> pageList = restRepo.getKindSearchKeywordList(searchKeyword, kind, paging);
+
+		return pageList;
+	}
+  
+@Override
+public Page<Restaurant> getRestaurantMyList(String id, Pageable pageable) {
 		int page = pageable.getPageNumber();
 		
 		Pageable paging = PageRequest.of(page, 8); 
@@ -113,15 +125,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return pageList;
 	}
 
+	@Override
+	public Page<Restaurant> getfindBykind(String kind, Pageable pageable){ 
+		
+		int page = pageable.getPageNumber();
+		Pageable paging = PageRequest.of(page, 8);
+		
+		Page<Restaurant> pageList = restRepo.findBykind(kind, paging);
+		return pageList;
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
 

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -234,26 +236,26 @@ public class RestaurantController {
 	@GetMapping("/restaurantList")
 	public String getDongAndMenuSearchList(@RequestParam(required = false, defaultValue = "regdate", value = "orderby")String orderby,
 										  @RequestParam(required = false, value = "searchKeyword") String searchKeyword,
+										  String kind,
 										  Model model, Pageable pageable) {
 				
 		Page<Restaurant> restaurantList = null;
 		
-		if(searchKeyword == null) {
-			restaurantList =  restaurantService.getRestaurantListPaging(pageable);
+		if(searchKeyword == null && kind != null) {
+			restaurantList = restaurantService.getfindBykind(kind,pageable);
+		}else if(searchKeyword != null && kind != null) {
+			restaurantList = restaurantService.getKindSearchKeywordList(searchKeyword,kind,orderby,pageable);
+		}else if(searchKeyword == null && kind == null) {
+			restaurantList = restaurantService.getSearchCategoryList(searchKeyword, orderby, pageable);
+		}else {
+			restaurantList = restaurantService.getRestaurantListPaging(pageable);
 		}
-		else {
-			restaurantList = restaurantService.getSearchCategoryList(searchKeyword,orderby,pageable);
-		}
-		
-
-		
 		int nowPage = restaurantList .getNumber() + 1;
 		model.addAttribute("restaurantList", restaurantList);
 		model.addAttribute("maxPage", 3);
 		model.addAttribute("nowPage", nowPage);
 
-		//model.addAttribute("image_path", "/Users/Admin/images/");
-		
+
 		return "WDMList";
 	}
 
