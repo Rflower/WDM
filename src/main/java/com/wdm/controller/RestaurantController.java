@@ -15,17 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wdm.config.SecurityUser;
-
-import com.wdm.domain.Member;
-
 import com.wdm.domain.Likes;
-
 import com.wdm.domain.Restaurant;
 import com.wdm.persistence.LikesRepository;
 import com.wdm.service.RestaurantService;
@@ -157,13 +154,16 @@ public class RestaurantController {
 	/*
 	 * 맛집 수정 페이지 열기
 	 */
-	@GetMapping("/updateRestaurant")
-	public String updateRestaurantView() {
+	@RequestMapping("/updateRestaurant")
+	public String updateRestaurantView(Restaurant restaurant, Model model) {
 
+		model.addAttribute("restaurant", restaurantService.WDMDetail(restaurant));
+		
+		System.out.println("rest: " + restaurantService.WDMDetail(restaurant));
+		
 		return "WDMupdate";
 		
 	}
-	
 	/*
 	 * 맛집 수정 하기
 	 */
@@ -171,7 +171,9 @@ public class RestaurantController {
 	public String updateRestaurant(@RequestParam(value="upload_image1", required=false)MultipartFile uploadFile1,
 			   @RequestParam(value="upload_image2", required=false)MultipartFile uploadFile2,
 			   @RequestParam(value="upload_image3", required=false)MultipartFile uploadFile3,
-			   @RequestParam(value="nonmakeImg") String org_image,
+			   @RequestParam(value="nonmakeImg1") String org_image1,
+			   @RequestParam(value="nonmakeImg2") String org_image2,
+			   @RequestParam(value="nonmakeImg3") String org_image3,
 			   @AuthenticationPrincipal SecurityUser principal,
 			   Restaurant restaurant) {
 		
@@ -183,7 +185,7 @@ public class RestaurantController {
 			saveFolder.mkdirs();
 		}
 		
-		if(!uploadFile1.isEmpty()) {
+		if(!uploadFile1.isEmpty()) { // 상품 이미지 수정한 경우
 			String fileName1 = uploadFile1.getOriginalFilename();
 			restaurant.setImage1(fileName1);
 			
@@ -193,7 +195,7 @@ public class RestaurantController {
 				e.printStackTrace();
 			}
 		} else { // 상품 이미지를 수정하지 않은 경우 기존 이미지 사용
-			restaurant.setImage1(org_image);
+			restaurant.setImage1(org_image1);
 		}
 		
 		if(!uploadFile2.isEmpty()) {
@@ -206,7 +208,7 @@ public class RestaurantController {
 				e.printStackTrace();
 			}
 		} else { // 상품 이미지를 수정하지 않은 경우 기존 이미지 사용
-			restaurant.setImage2(org_image);
+			restaurant.setImage2(org_image2);
 		}
 		
 		if(!uploadFile3.isEmpty()) {
@@ -219,15 +221,15 @@ public class RestaurantController {
 				e.printStackTrace();
 			}
 		} else { // 상품 이미지를 수정하지 않은 경우 기존 이미지 사용
-			restaurant.setImage3(org_image);
+			restaurant.setImage3(org_image3);
 		}
-			
+	
 		restaurant.setId(principal.getUsername());
-		System.out.println("restaurant:" + restaurant);
-		
+		System.out.println("restaurant update:" + restaurant);
+
 		restaurantService.updateRestaurant(restaurant);
 		
-		return "redirect:restaurantList";
+		return "redirect:myList";
 	}
 
 	//검색창 검색시 불러오는 리스트 처리
@@ -257,11 +259,42 @@ public class RestaurantController {
 		return "WDMList";
 	}
 
+	
+	@GetMapping("/myList")
+	public String getRestaurantMyList(@AuthenticationPrincipal SecurityUser principal, Model model
+										,Pageable pageable) {
+		Page<Restaurant> myList = null;
+		
+		Restaurant restaurant = new Restaurant();
+		restaurant.setId(principal.getUsername());
+		
+		myList = restaurantService.getRestaurantMyList(principal.getUsername(), pageable);
+		int nowPage = myList .getNumber() + 1;
+		
+		model.addAttribute("myList", myList);
+		model.addAttribute("maxPage", 3);
+		model.addAttribute("nowPage", nowPage);
+		
+		System.out.println("myList: " + myList);
+		
+		return "myList";
+
+	}
+	
+	@GetMapping("/myWDMDetail")
+	public String myWDMDetailView(Restaurant restaurant, Model model) {
+
+		model.addAttribute("restaurant", restaurantService.WDMDetail(restaurant));
+		
+		return "myWDMDetail";
+		
+	}
+	
 	/*
 	 * 맛집 삭제하기(Admin)
 	 */
 	@GetMapping("/deleteRestaurant")
-	public String insertRestaurant(Restaurant restaurant) {
+	public String deleteRestaurant(Restaurant restaurant) {
 		
 		restaurantService.deleteRestaurant(restaurant);
 		

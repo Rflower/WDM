@@ -1,4 +1,4 @@
-package com.wdm.controller;
+package com.wdm.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

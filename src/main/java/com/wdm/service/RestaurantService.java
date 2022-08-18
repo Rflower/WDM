@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
+import com.wdm.config.SecurityUser;
 import com.wdm.domain.Restaurant;
 
 public interface RestaurantService {
@@ -37,5 +39,9 @@ public interface RestaurantService {
 	
 	//추천 상위 4개 맛집 출력
 	List<Restaurant> getBestLikescntList();
+	
+	Page<Restaurant> getRestaurantMyList(String id, Pageable pageable);
+	
+	Restaurant myWDMDetail(Restaurant restaurant);
 
 }

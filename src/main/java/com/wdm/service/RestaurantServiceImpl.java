@@ -7,8 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import com.wdm.config.SecurityUser;
 import com.wdm.domain.Restaurant;
 import com.wdm.persistence.RestaurantRepository;
 
@@ -26,6 +28,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return restRepo.findById(restaurant.getRseq()).get();
 	}
 
+	@Override
+	public Restaurant myWDMDetail(Restaurant restaurant) {
+		
+		return restRepo.findById(restaurant.getRseq()).get();
+	}
+	
 	@Override
 	public void insertRestaurant(Restaurant restaurant) {
 		
@@ -102,6 +110,17 @@ public class RestaurantServiceImpl implements RestaurantService {
 		System.out.println("searchKeyword의 값은? = " + searchKeyword);
 	
 		Page<Restaurant> pageList = restRepo.getKindSearchKeywordList(searchKeyword, kind, paging);
+
+		return pageList;
+	}
+  
+@Override
+public Page<Restaurant> getRestaurantMyList(String id, Pageable pageable) {
+		int page = pageable.getPageNumber();
+		
+		Pageable paging = PageRequest.of(page, 8); 
+		
+		Page<Restaurant> pageList = restRepo.getRestaurantMyList(id, paging);
 
 		return pageList;
 	}

@@ -103,7 +103,6 @@
                 <h5 class="text-primary text-uppercase font-weight-bold">
                 	<a class="page-link" th:href="@{/restaurantList? (searchKeyword = ${param.searchKeyword}, orderby=regdate ) }">최신순</a></h5>
             </div>
-            
             <div class="row" >
                 <div class="col-lg-3 col-md-6" th:each ="restaurant : ${restaurantList}">
                     <div class="team card position-relative overflow-hidden border-0 mb-5">

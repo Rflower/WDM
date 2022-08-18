@@ -52,4 +52,8 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 	@Query(value="SELECT id, count(id) AS countById FROM restaurant group by id", nativeQuery=true)
 	List<CountById> getCountById();
 
+	@Query(value="SELECT * FROM restaurant WHERE id=?1", nativeQuery=true)
+	Page<Restaurant> getRestaurantMyList(String id, Pageable pageable);
+
+
 }

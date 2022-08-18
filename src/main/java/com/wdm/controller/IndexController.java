@@ -36,10 +36,10 @@ public class IndexController {
 //		return "myUpdateInfo";
 //	}
 	
-	@GetMapping("myList")
-	public String myList() {
-		return "myList";
-	}
+//	@GetMapping("myList")
+//	public String myList() {
+//		return "myList";
+//	}
 	
 //	@GetMapping("adminQnA")
 //	public String adminQnA() {
