@@ -1,11 +1,15 @@
 package com.wdm.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,6 +47,9 @@ public class Restaurant {
 	private String image2;
 	private String image3;
 	private String id;
+	
+	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
+	private List<Restaurant_Comment> commList = new ArrayList<Restaurant_Comment>();
 	
 }
 

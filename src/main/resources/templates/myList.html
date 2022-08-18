@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>맛집 리스트</title>
+    <title>내가 쓴 맛집 리스트</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -38,9 +40,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav m-auto py-0">
+                	
+					<a href="#" class="nav-item nav-link" th:text="${session.loginMember.nickname}" sec:authorize="isAuthenticated()"></a>
+					
+                    <a href="login" class="nav-item nav-link active" sec:authorize="!isAuthenticated()">로그인</a>
+                    <a href="contact" class="nav-item nav-link" sec:authorize="!isAuthenticated()">회원가입</a>
+                    <a href="/system/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">로그 아웃</a>
                
-
-               
+                </div>
             </div>
         </nav>
     </div>
@@ -48,188 +56,86 @@
 
 
     <!-- Header Start -->
-  <div class="jumbotron jumbotron-fluid mb-5">
+	<div class="jumbotron jumbotron-fluid mb-5">
         <div class="container text-center py-5">
-            <h1 class="text-white display-3">내가 쓴 글 보기</h1>
-            <div class="d-inline-flex align-items-center text-white">
-                <p class="m-0"><a class="text-white" href="contact">로그아웃</a></p>
-                <i class="fa fa-circle px-3"></i>
-                <p class="m-0"><a class="text-white" href="main">Home</a></p>
-            </div>
+            <h1 class="text-primary mb-4"></h1>
+            <h1 class="text-white display-3 mb-5">내가 쓴 글 보기</h1>
+            <!-- 검색창 -->
+			<form method="GET" th:action="restaurantList">
+            </form>
+            <!-- 검색창 종료 -->
         </div>
-    </div>
+	</div>
     <!-- Header End -->
 
-    <!-- Team Start -->
+    <!-- myList Start -->
     <div class="container-fluid pt-5">
         <div class="container">
-            <div class="text-center pb-2">
-
-
+        
+            <div class="pagination pagination-lg mb-0">
+				<h5 class="text-primary text-uppercase font-weight-bold">
+					<a class="page-link" th:href="@{/myList? (searchKeyword = ${param.searchKeyword}, orderby=likescnt) }">추천순</a></h5>
+												
+                <h5 class="text-primary text-uppercase font-weight-bold">
+                	<a class="page-link" th:href="@{/myList? (searchKeyword = ${param.searchKeyword}, orderby=regdate ) }">최신순</a></h5>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
+            
+            <div class="row" >
+                <div class="col-lg-3 col-md-6" th:each ="restaurant : ${myList}">
                     <div class="team card position-relative overflow-hidden border-0 mb-5">
-                        <img class="card-img-top" src="/static/bootstrap/img/team-1.jpg" alt="">
+                   
+                        <img class="card-img-top" th:src="@{/images/}+${restaurant.image1}" height="250" width="190" >
+
                         <div class="card-body text-center p-0">
                             <div class="team-text d-flex flex-column justify-content-center bg-secondary">
-                                <h5 class="font-weight-bold">Full Name</h5>
-                                <span>Designation</span>
+                                <h5 class="font-weight-bold"><span th:text="${restaurant.name}"></span></h5>
+                                <span th:text="${restaurant.menu}"></span>
                             </div>
                             <div class="team-social d-flex align-items-center justify-content-center bg-primary">
-                               <h5 class="font-weight-bold"> <a href="detail" style="color: black;">맛집 보러가기<h2 class="btn btn-outline-dark btn-social">-></h2></a></h5>
-                              
+                               <h5 class="font-weight-bold"> <a th:href="@{/myWDMDetail(rseq=${restaurant.rseq})}" style="color: black;">맛집 보러가기<h2 class="btn btn-outline-dark btn-social">→</h2></a></h5>                           
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team card position-relative overflow-hidden border-0 mb-5">
-                        <img class="card-img-top" src="/static/bootstrap/img/team-2.jpg" alt="">
-                        <div class="card-body text-center p-0">
-                            <div class="team-text d-flex flex-column justify-content-center bg-secondary">
-                                <h5 class="font-weight-bold">Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social d-flex align-items-center justify-content-center bg-primary">
-                               <a href="#">보러가기<h2 class="btn btn-outline-dark btn-social">-></h2></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team card position-relative overflow-hidden border-0 mb-5">
-                        <img class="card-img-top" src="/static/bootstrap/img/team-3.jpg" alt="">
-                        <div class="card-body text-center p-0">
-                            <div class="team-text d-flex flex-column justify-content-center bg-secondary">
-                                <h5 class="font-weight-bold">Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social d-flex align-items-center justify-content-center bg-primary">
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-outline-dark btn-social" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team card position-relative overflow-hidden border-0 mb-5">
-                        <img class="card-img-top" src="/static/bootstrap/img/team-4.jpg" alt="">
-                        <div class="card-body text-center p-0">
-                            <div class="team-text d-flex flex-column justify-content-center bg-secondary">
-                                <h5 class="font-weight-bold">Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social d-flex align-items-center justify-content-center bg-primary">
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-outline-dark btn-social" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team card position-relative overflow-hidden border-0 mb-5">
-                        <img class="card-img-top" src="/static/bootstrap/img/team-1.jpg" alt="">
-                        <div class="card-body text-center p-0">
-                            <div class="team-text d-flex flex-column justify-content-center bg-secondary">
-                                <h5 class="font-weight-bold">Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social d-flex align-items-center justify-content-center bg-primary">
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-outline-dark btn-social" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team card position-relative overflow-hidden border-0 mb-5">
-                        <img class="card-img-top" src="/static/bootstrap/img/team-2.jpg" alt="">
-                        <div class="card-body text-center p-0">
-                            <div class="team-text d-flex flex-column justify-content-center bg-secondary">
-                                <h5 class="font-weight-bold">Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social d-flex align-items-center justify-content-center bg-primary">
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-outline-dark btn-social" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team card position-relative overflow-hidden border-0 mb-5">
-                        <img class="card-img-top" src="/static/bootstrap/img/team-3.jpg" alt="">
-                        <div class="card-body text-center p-0">
-                            <div class="team-text d-flex flex-column justify-content-center bg-secondary">
-                                <h5 class="font-weight-bold">Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social d-flex align-items-center justify-content-center bg-primary">
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-outline-dark btn-social" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team card position-relative overflow-hidden border-0 mb-5">
-                        <img class="card-img-top" src="/static/bootstrap/img/team-4.jpg" alt="">
-                        <div class="card-body text-center p-0">
-                            <div class="team-text d-flex flex-column justify-content-center bg-secondary">
-                                <h5 class="font-weight-bold">Full Name</h5>
-                                <span>Designation</span>
-                            </div>
-                            <div class="team-social d-flex align-items-center justify-content-center bg-primary">
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-dark btn-social mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-outline-dark btn-social" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            	
-         
+              
             </div>
-        </div>
+        </div> 
     </div>
-    <!-- Team End -->
-                    <div class="row">
-                    <div class="col-12">
-                        <nav aria-label="Page navigation">
-                          <ul class="pagination pagination-lg justify-content-center mb-0">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                              </a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>
-                    </div>
-                </div>
+    <!-- myList End -->
     
-     <!-- Footer Start -->
+    <!-- 페이징 처리 -->
+	<div class="row">
+	       <div class="col-12">
+	           <nav aria-label="Page navigation">
+	             <ul class="pagination pagination-lg justify-content-center mb-0"
+	             	th:with="start=${(myList.number/maxPage)*maxPage + 1},
+	    			 		end=(${(myList.totalPages == 0) ? 1 : (start + (maxPage - 1) < myList.totalPages ? start + (maxPage - 1) : myList.totalPages)})">
+	
+	               <li class="page-item" th:classappend="${!myList.hasPrevious} ? 'disabled'">
+	                 <a class="page-link" th:href="@{/myList(page=${myList.number-1})}"  aria-label="Previous">
+	                   <span aria-hidden="true">&laquo;</span>
+	                   <span class="sr-only">Previous</span>
+	                 </a>
+	               </li>
+	               
+	               <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" >
+		               <a class="page-link" th:if="${page != nowPage}" th:href="@{/myList?(page=${page-1})}"  th:text="${page}"></a> 
+		               <strong class="page-link" th:if="${page==nowPage}"  th:text="${page}" style="color : red"></strong>             
+	               </li>
+	
+	               <li class="page-item" th:classappend="${!myList.hasNext} ? 'disabled'">
+	                 <a class="page-link" th:href="@{/myList(page=${myList.number+1})}" aria-label="Next">
+	                   <span aria-hidden="true">&raquo;</span>
+	                   <span class="sr-only">Next</span>
+	                 </a>
+	               </li>
+	             </ul>
+	           </nav>
+	       </div>
+    </div>
+    <!-- 페이징 처리 End -->
+    
+    <!-- Footer Start -->
 
     <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: #3E3E4E !important;">
         <div class="row">
@@ -249,7 +155,7 @@
                         <a class="nav-link text-white py-0" href="admin">관리자</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="QnA">문의하기</a>
+                        <a class="nav-link text-white py-0" href="/view">문의하기</a>
                     </li>                    
                 </ul>
             </div>
