@@ -245,7 +245,7 @@ public class RestaurantController {
 			restaurantList = restaurantService.getfindBykind(kind,pageable);
 		}else if(searchKeyword != null && kind != null) {
 			restaurantList = restaurantService.getKindSearchKeywordList(searchKeyword,kind,orderby,pageable);
-		}else if(searchKeyword == null && kind == null) {
+		}else if(searchKeyword != null && kind == null) {
 			restaurantList = restaurantService.getSearchCategoryList(searchKeyword, orderby, pageable);
 		}else {
 			restaurantList = restaurantService.getRestaurantListPaging(pageable);
@@ -303,46 +303,3 @@ public class RestaurantController {
 	
 
 }
-
-	/*
-	@GetMapping("/categoryList")
-	public String getSearchCategoryList(@RequestParam(required = false, value = "searchKeyword") String searchKeyword,
-										@RequestParam(required = false, value = "orderby")String orderby,
-										Model model, Pageable pageable) {
-		
-		Page<Restaurant> restaurantList = restaurantService.getSearchCategoryList(searchKeyword, orderby, pageable);
-
-		for(Restaurant item : restaurantList) {
-			System.out.println(item);
-		}	
-		int nowPage = restaurantList .getPageable().getPageNumber() + 1;
-		model.addAttribute("restaurantList", restaurantList);
-		model.addAttribute("maxPage", 3);
-		model.addAttribute("nowPage", nowPage);
-		
-		return "WDMList";
-	}
-	*/
-	
-	/*
-	@GetMapping("/{category_name}")
-	public String getSearchCategoryList(@PathVariable(required = false)String category_name,
-										@RequestParam(required = false, value = "searchKeyword") String searchKeyword,
-										@RequestParam(required = false, value = "orderby")String orderby,
-										Model model, Pageable pageable) {
-		
-		Page<Restaurant> restaurantList = restaurantService.getSearchCategoryList(category_name, searchKeyword,orderby, pageable);
-
-		for(Restaurant item : restaurantList) {
-			System.out.println(item);
-		}	
-		int nowPage = restaurantList .getPageable().getPageNumber() + 1;
-		model.addAttribute("restaurantList", restaurantList);
-		model.addAttribute("maxPage", 3);
-		model.addAttribute("nowPage", nowPage);
-		
-		return "WDMList";
-	}
-	*/
-	
-
