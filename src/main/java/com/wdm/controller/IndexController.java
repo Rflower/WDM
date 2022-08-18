@@ -21,10 +21,10 @@ public class IndexController {
 //		return "mypage";
 //	}
 	
-	@GetMapping("admin")
-	public String admin() {
-		return "adminpage";
-	}
+//	@GetMapping("admin")
+//	public String admin() {
+//		return "adminpage";
+//	}
 	
 //	@GetMapping("QnA")
 //	public String QnA() {
@@ -41,21 +41,22 @@ public class IndexController {
 		return "myList";
 	}
 	
-	@GetMapping("adminQnA")
-	public String adminQnA() {
-		return "adminQnAList";
-	}
+//	@GetMapping("adminQnA")
+//	public String adminQnA() {
+//		return "adminQnAList";
+//	}
 	
 	@GetMapping("adminDetail")
 	public String adminDetail() {
 		return "adminDetail";
 	}
-	@GetMapping("adminGetBoardList")
-	public String adminGetBoardList() {
-		return "adminGetBoardList";
-	}
-	@GetMapping("adminCheckPage")
-	public String adminCheckPage() {
-		return "adminCheckPage";
-	}
+//	@GetMapping("adminGetBoardList")
+//	public String adminGetBoardList() {
+//		return "adminGetBoardList";
+//	}
+	
+//	@GetMapping("adminCheckPage")
+//	public String adminCheckPage() {
+//		return "adminCheckPage";
+//	}
 }

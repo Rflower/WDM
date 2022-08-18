@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
-<html xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -11,7 +9,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="static/bootstrap/img/favicon.ico" rel="icon">
+    <link href="/static/bootstrap/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -21,10 +19,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="static/bootstrap/css/style.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -40,39 +38,23 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                <div class="navbar-nav m-auto py-0">
-                	
-					<a href="#" class="nav-item nav-link" th:text="${session.loginMember.nickname}" sec:authorize="isAuthenticated()"></a>
-					
-                    <a href="login" class="nav-item nav-link active" sec:authorize="!isAuthenticated()">로그인</a>
-                    <a href="contact" class="nav-item nav-link" sec:authorize="!isAuthenticated()">회원가입</a>
-                    <a href="/system/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">로그 아웃</a>
                
-                </div>
+
+               
             </div>
         </nav>
     </div>
     <!-- Navbar End -->
 
-
     <!-- Header Start -->
   <div class="jumbotron jumbotron-fluid mb-5">
         <div class="container text-center py-5">
-            <h1 class="text-primary mb-4"></h1>
-            <h1 class="text-white display-3 mb-5"></h1>
-            <!-- 검색창 -->
-            <form method="GET" th:action="restaurantList">
-	            <div class="mx-auto" style="width: 100%; max-width: 600px;">
-	                <div class="input-group">
-	                    <input type="text" name = "searchKeyword" class="form-control border-light" style="padding: 30px;" placeholder="장소 또는 메뉴를 입력하세요">
-		                 <input type="hidden" name = "kind" id ="kind" th:value="2">
-		                    <div class="input-group-append">
-		                        <button type ="submit" class="btn btn-primary px-3">검색</button>
-		                    </div>
-	                </div>
-	            </div>
-            </form>
-            <!-- 검색창 종료 -->
+            <h1 class="text-white display-3">전체 글 보기</h1>
+            <div class="d-inline-flex align-items-center text-white">
+                <p class="m-0"><a class="text-white" href="contact">로그아웃</a></p>
+                <i class="fa fa-circle px-3"></i>
+                <p class="m-0"><a class="text-white" href="main">Home</a></p>
+            </div>
         </div>
     </div>
     <!-- Header End -->
@@ -80,36 +62,12 @@
     <!-- RestaurantList Start -->
     <div class="container-fluid pt-5">
         <div class="container">
-			<div class="pagination pagination-lg mb-0">
-				<h5 class="text-primary text-uppercase font-weight-bold">
-					<a class="page-link" th:href="@{/restaurantList?}">전체</a></h5>
-												
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">한식</a></h5>   
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">양식</a></h5>
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">중식</a></h5>
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">일식</a></h5>
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">카페&디저트</a></h5>
-            </div>
-            
-            <div class="pagination pagination-lg mb-0">
-				<h5 class="text-primary text-uppercase font-weight-bold">
-					<a class="page-link" th:href="@{/restaurantList? (searchKeyword = ${param.searchKeyword}, orderby=likescnt) }">추천순</a></h5>
-												
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link" th:href="@{/restaurantList? (searchKeyword = ${param.searchKeyword}, orderby=regdate ) }">최신순</a></h5>
-            </div>
-            
+           
             <div class="row" >
-                <div class="col-lg-3 col-md-6" th:each ="restaurant : ${restaurantList}">
+                <div class="col-lg-3 col-md-6" th:each ="restaurant : ${adminWDMList}">
                     <div class="team card position-relative overflow-hidden border-0 mb-5">
                    
                         <img class="card-img-top" th:src="@{/images/}+${restaurant.image1}" height="250" width="190" >
-
                       <!-- <span th:style="'background-image:url('+ @{/images/sample-visual01.jpg} +');'"></span>
                      		 <img class="card-img-top" th:src="@{/bootstrap/img/}+${restaurant.image1}" height="250" width="190" alt=""> -->  
                         <div class="card-body text-center p-0">
@@ -135,23 +93,23 @@
 	       <div class="col-12">
 	           <nav aria-label="Page navigation">
 	             <ul class="pagination pagination-lg justify-content-center mb-0"
-	             	th:with="start=${(restaurantList.number/maxPage)*maxPage + 1},
-	    			 		end=(${(restaurantList.totalPages == 0) ? 1 : (start + (maxPage - 1) < restaurantList.totalPages ? start + (maxPage - 1) : restaurantList.totalPages)})">
+	             	th:with="start=${(adminWDMList.number/maxPage)*maxPage + 1},
+	    			 		end=(${(adminWDMList.totalPages == 0) ? 1 : (start + (maxPage - 1) < adminWDMList.totalPages ? start + (maxPage - 1) : adminWDMList.totalPages)})">
 	
-	               <li class="page-item" th:classappend="${!restaurantList.hasPrevious} ? 'disabled'">
-	                 <a class="page-link" th:href="@{/restaurantList(page=${restaurantList.number-1})}"  aria-label="Previous">
+	               <li class="page-item" th:classappend="${!adminWDMList.hasPrevious} ? 'disabled'">
+	                 <a class="page-link" th:href="@{/adminWDMList(page=${adminWDMList.number-1})}"  aria-label="Previous">
 	                   <span aria-hidden="true">&laquo;</span>
 	                   <span class="sr-only">Previous</span>
 	                 </a>
 	               </li>
 	               
 	               <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" >
-		               <a class="page-link" th:if="${page != nowPage}" th:href="@{/restaurantList?(page=${page-1}, searchKeyword = ${param.searchKeyword})}"  th:text="${page}"></a> 
+		               <a class="page-link" th:if="${page != nowPage}" th:href="@{/adminWDMList?(page=${page-1})}"  th:text="${page}"></a> 
 		               <strong class="page-link" th:if="${page==nowPage}"  th:text="${page}" style="color : red"></strong>             
 	               </li>
 	
-	               <li class="page-item" th:classappend="${!restaurantList.hasNext} ? 'disabled'">
-	                 <a class="page-link" th:href="@{/restaurantList(page=${restaurantList.number+1})}" aria-label="Next">
+	               <li class="page-item" th:classappend="${!adminWDMList.hasNext} ? 'disabled'">
+	                 <a class="page-link" th:href="@{/adminWDMList(page=${adminWDMList.number+1})}" aria-label="Next">
 	                   <span aria-hidden="true">&raquo;</span>
 	                   <span class="sr-only">Next</span>
 	                 </a>
@@ -182,7 +140,7 @@
                         <a class="nav-link text-white py-0" href="admin">관리자</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="/view">문의하기</a>
+                        <a class="nav-link text-white py-0" href="QnA">문의하기</a>
                     </li>                    
                 </ul>
             </div>

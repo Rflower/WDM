@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -219,56 +221,39 @@ public class RestaurantController {
 		} else { // 상품 이미지를 수정하지 않은 경우 기존 이미지 사용
 			restaurant.setImage3(org_image);
 		}
-		
-		//Member member = principal.getMember();
-	
+			
 		restaurant.setId(principal.getUsername());
-		//restaurant.setId("gdhong");
 		System.out.println("restaurant:" + restaurant);
 		
 		restaurantService.updateRestaurant(restaurant);
 		
 		return "redirect:restaurantList";
 	}
-	
-	
-//	//전체 글보기 
-//	@GetMapping("/restaurantList")
-//	public String getRestaurantListPaging( Model model, Pageable pageable) {
-//		
-//		Page<Restaurant> restaurantList =  restaurantService.getRestaurantListPaging(pageable);
-//		int nowPage = restaurantList .getPageable().getPageNumber() + 1;
-//		model.addAttribute("restaurantList", restaurantList);
-//		model.addAttribute("maxPage", 3);
-//		model.addAttribute("nowPage", nowPage);
-//		return "WDMList";
-//	}
-	
 
 	//검색창 검색시 불러오는 리스트 처리
 	@GetMapping("/restaurantList")
 	public String getDongAndMenuSearchList(@RequestParam(required = false, defaultValue = "regdate", value = "orderby")String orderby,
 										  @RequestParam(required = false, value = "searchKeyword") String searchKeyword,
+										  String kind,
 										  Model model, Pageable pageable) {
 				
 		Page<Restaurant> restaurantList = null;
 		
-		if(searchKeyword == null) {
-			restaurantList =  restaurantService.getRestaurantListPaging(pageable);
+		if(searchKeyword == null && kind != null) {
+			restaurantList = restaurantService.getfindBykind(kind,pageable);
+		}else if(searchKeyword != null && kind != null) {
+			restaurantList = restaurantService.getKindSearchKeywordList(searchKeyword,kind,orderby,pageable);
+		}else if(searchKeyword == null && kind == null) {
+			restaurantList = restaurantService.getSearchCategoryList(searchKeyword, orderby, pageable);
+		}else {
+			restaurantList = restaurantService.getRestaurantListPaging(pageable);
 		}
-		else {
-			restaurantList = restaurantService.getSearchCategoryList(searchKeyword,orderby,pageable);
-		}
-		
-
-		
 		int nowPage = restaurantList .getNumber() + 1;
 		model.addAttribute("restaurantList", restaurantList);
 		model.addAttribute("maxPage", 3);
 		model.addAttribute("nowPage", nowPage);
 
-		//model.addAttribute("image_path", "/Users/Admin/images/");
-		
+
 		return "WDMList";
 	}
 

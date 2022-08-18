@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>FASTER - Logistics Company Website Template</title>
+    <title>관리자 화면</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -33,19 +33,6 @@
             <a href="main" class="navbar-brand ml-lg-3">
                 <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>
-             <!-- 
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- 
-            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                <div class="navbar-nav m-auto py-0">
-                    <a href="login" class="nav-item nav-link">로그인</a>
-                    <a href="contact" class="nav-item nav-link active">회원가입</a>
-
-               
-                </div>
-            </div>-->
         </nav>
     </div>
     <!-- Navbar End -->
@@ -63,14 +50,87 @@
         </div>
     </div>
     <!-- Header End -->
-
-
-    <!-- Services Start -->
+    <!-- Chart Start -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$.ajax({
+			type: 'GET',
+			url: 'admin_chart',
+			contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+			success: function(result) {
+				console.log(result);
+				// 최신 버전의 구글 코어차트 패키지 로드해준다.
+				google.charts.load('current', {'packages':['corechart']});
+				
+				// Set a callback to run when the Google Visualization API is loaded.
+				google.charts.setOnLoadCallback(function() {
+					drawChart(result);
+				});
+			},
+			error: function() {
+				alert("Chart drawing error!");
+			}
+		});
+		
+		function drawChart(result) {
+			// 차트 그리는데 사용할 데이터 객체 생성
+			var data = new google.visualization.DataTable();
+			
+			data.addColumn("string", "id");
+			data.addColumn("number", "countById");
+			
+			// 콘트롤러에서 json타입으로 전달된 데이터를 
+			// 자바스크립트의 배열로 저장
+			var dataArray = [];
+			$.each(result, function(i, obj){
+				dataArray.push([obj.id, obj.countById]);
+			})
+			
+			// data객체에 dataArray의 내용을 저장
+			data.addRows(dataArray);
+			
+			// 파이차트 그리기
+			var piechart_options = {
+				title: '아이디별 맛집 등록 갯수',
+				width: 300,
+				height: 300
+			};
+			
+			var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+			
+			piechart.draw(data, piechart_options);
+			
+			// 바차트 그리기
+			var barchart_options = {
+				title: '아이디별 맛집 등록 갯수',
+				width: 300,
+				height: 300
+			}
+			
+			var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+			
+			barchart.draw(data, barchart_options);
+		}
+			
+	});
+	  </script>
+	<div align="center">
+	<h1>아이디별 맛집 등록갯수</h1>
+	<table>
+		<tr>
+			<td><div id="piechart_div" style="border:1px solid #ccc"></div></td>
+			<td><div id="barchart_div" style="border:1px solid #ccc"></div></td>
+		</tr>
+	</table>
+	</div>
     
-    <!-- Services End -->
+    <!-- Chart End -->
 
     <!-- Footer Start -->
-
+  
+    
     <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: #3E3E4E !important;">
         <div class="row">
             <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
