@@ -65,7 +65,7 @@
 	            <div class="mx-auto" style="width: 100%; max-width: 600px;">
 	                <div class="input-group">
 	                    <input type="text" name = "searchKeyword" class="form-control border-light" style="padding: 30px;" placeholder="장소 또는 메뉴를 입력하세요">
-		                 <input type="hidden" name = "kind" id ="kind" th:value="2">
+		               
 		                    <div class="input-group-append">
 		                        <button type ="submit" class="btn btn-primary px-3">검색</button>
 		                    </div>
@@ -79,23 +79,7 @@
 
     <!-- RestaurantList Start -->
     <div class="container-fluid pt-5">
-        <div class="container">
-			<div class="pagination pagination-lg mb-0">
-				<h5 class="text-primary text-uppercase font-weight-bold">
-					<a class="page-link" th:href="@{/restaurantList?}">전체</a></h5>
-												
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">한식</a></h5>   
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">양식</a></h5>
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">중식</a></h5>
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">일식</a></h5>
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link">카페&디저트</a></h5>
-            </div>
-            
+        <div class="container">            
             <div class="pagination pagination-lg mb-0">
 				<h5 class="text-primary text-uppercase font-weight-bold">
 					<a class="page-link" th:href="@{/restaurantList? (searchKeyword = ${param.searchKeyword}, orderby=likescnt) }">추천순</a></h5>
