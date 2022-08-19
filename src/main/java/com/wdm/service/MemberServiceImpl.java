@@ -22,6 +22,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void joinMember(Member member) {
 		member.setPwd(encoder.encode(member.getPwd()));
+
 		member.setRole(Role.ROLE_MEMBER);
 		
 		memberRepo.save(member);
@@ -72,6 +73,20 @@ public class MemberServiceImpl implements MemberService {
 		
 		memberRepo.save(member);
 		
+	}
+	
+	@Override
+	public String updateNicknameCheck(String id) {
+		String result = memberRepo.updateNicknameCheck(id);
+		
+		return result;
+	}
+	
+	@Override
+	public String updateEmailCheck(String id) {
+		String result = memberRepo.updateEmailCheck(id);
+		
+		return result;
 	}
 
 }

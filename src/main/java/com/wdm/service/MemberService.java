@@ -18,4 +18,7 @@ public interface MemberService {
 
 	void changePwd(String pwd, String id);
 	
+	String updateNicknameCheck(String id);
+
+	String updateEmailCheck(String id);
 }

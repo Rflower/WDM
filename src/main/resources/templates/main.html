@@ -62,10 +62,24 @@
              <form method="GET" th:action="restaurantList">
 	            <div class="mx-auto" style="width: 100%; max-width: 600px;">
 	                <div class="input-group">
-	                    <input type="text" name = "searchKeyword" class="form-control border-light" style="padding: 30px;" placeholder="장소 또는 메뉴를 입력하세요">
+	                    <input type="text" name = "searchKeyword" id = "searchKeyword"class="form-control border-light" style="padding: 30px;" placeholder="장소 또는 메뉴를 입력하세요">
 	                    <div class="input-group-append">
-	                        <button type="submit" class="btn btn-primary px-3">검색</button>
+	                        <button class="btn btn-primary px-3" th:onclick="return checkKeyword()" type="submit" >검색</button>
 	                    </div>
+	                    
+	                    <script type="text/javascript">
+	                    	function checkKeyword(){
+	                    		var keyword = document.getElementById("searchKeyword").value;
+	                    		if(keyword==""){
+	                    			alert("검색하고 싶은 지역이나 메뉴를 입력하세요.");
+	                    			document.getElementById("searchKeyword").focus();
+	                    			return false;
+	                    		}else{
+	                    			return true; 
+	                    		}
+	                    	}
+	                    </script>
+	                    
 	                </div>
 	            </div>
             </form>
