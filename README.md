@@ -39,68 +39,72 @@
 
 
 ## 5. 페이지 설명
-본인이 구현한 페이지에 ✅표시
+박상욱 구현페이지🟢
 
-**main.html**
+김보애 구현페이지🟣
+
+박선영 구현페이지🔴
+
+**main.html**🟢🟣🔴
 > 사이트 메인 페이지
 > 로그인, 회원가입 및 상위 4개 맛집 조회 가능
-
-**adminCheckPage.html**
+> 새로운 맛집 등록하기 가능
+**adminCheckPage.html**🟣
 >페이지 설명
 
-**adminQnAList.html**
+**adminQnAList.html**🟣
 >페이지 설명
 
-**adminWDMList.html**
+**adminWDMList.html**🟣
 >페이지 설명
 
-**adminQnAList.html**
+**adminQnAList.html**🟣
 >페이지 설명
 
-**join.html**
+**join.html**🟢
 >페이지 설명
 
-**login.html**
+**login.html**🟢
 >페이지 설명
 
-**myList.html**✅
+**myList.html**🔴
 > 회원이 작성한 글 리스트 조회
 
-**myUpdateInfo.html**
+**myUpdateInfo.html**🟢
 >페이지 설명
 
-**myWDMDetail.html**✅
+**myWDMDetail.html**🔴
 > 회원이 작성한 글 상세보기
 > 수정하기 기능 이동 가능 페이지
 
-**QnA.html**
+**QnA.html**🟣
 >페이지 설명
 
-**WDMComment.html**
+**WDMComment.html**🟣
 >페이지 설명
 
-**WDMDetail.html**✅
+**WDMDetail.html**🔴
 > 맛집 상세보기 기능
 > 추천하기 기능 및 지도API
 
-**WDMInsert.html**✅
+**WDMInsert.html**🔴
 > 내가 직접 맛집 소개하기
 > 중복된 식당명 없는지 유효성 확인
 
-**WDMList.html**
+**WDMList.html**🟣
 > 페이지 설명
 
-**WDMupdate.html**✅
-> 회원이 올린 맛집
+**WDMupdate.html**🔴
+> 회원이 올린 맛집 수정하기 페이지
 
-**404.html**✅
+**404.html**🔴
 > 404 Not Found Error 페이지
 
-**405.html**✅
+**405.html**🔴
 > 405 Method Not Allowed Error 페이지
 
-**500.html**✅
+**500.html**🔴
 > 500 Internal Server Error 페이지
 
-**globalError.html**✅
+**globalError.html**🔴
 > 정의한 에러 외 모든 에러페이지
