@@ -67,6 +67,18 @@
 **login.html**🟢<br/>
 >페이지 설명<br/>
 
+**findMember**🔴
+>**changePwdOk.html**<br/>
+> 페이지 설명<br/>
+>**findIdForm.html**<br/>
+> 페이지 설명<br/>
+>**findIdResult.html**<br/>
+> 페이지 설명<br/>
+>**findPwdForm.html**<br/>
+> 비밀번호 찾기 폼<br/>
+>**findPwdResult.html**<br/>
+> 페이지 설명<br/>
+
 **myList.html**🔴<br/>
 > 회원이 작성한 글 리스트 조회<br/>
 
@@ -105,5 +117,5 @@
 > 405 Method Not Allowed Error 페이지<br/>
 >**500.html**<br/>
 > 500 Internal Server Error 페이지<br/>
->**globalError.html**🔴
+>**globalError.html**<br/>
 > 정의한 에러 외 모든 에러페이지
