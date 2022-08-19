@@ -1,6 +1,9 @@
 package com.wdm.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.wdm.config.SecurityUser;
 import com.wdm.domain.Member;
 import com.wdm.service.MemberService;
 
@@ -82,9 +86,44 @@ public class MemberController {
 	
 	@PostMapping("updateMember")
 	public String updateMember(Member member) {
-		memberService.joinMember(member);
+		memberService.joinMember(member);		
 		
-		return "/system/logoutForm";
+		return "redirect:/system/logout";
 	}
 	
+	@PostMapping("/updateNicknameCheck")
+	@ResponseBody
+	public int updateNicknameCheck(@RequestParam("nickname") String nickname,
+							@AuthenticationPrincipal SecurityUser member) {
+		
+		int cnt = 0;
+		String chkId = memberService.updateNicknameCheck(member.getUsername());
+		int chkNick = memberService.nicknameCheck(nickname);
+	
+		if(chkNick == 0 && chkId.equals(nickname)) {
+			cnt = 0;
+		}else if(chkNick != 0 && !chkId.equals(nickname)) {
+			cnt = 1;
+		}
+		return cnt;
+
+	}
+	
+	@PostMapping("/updateEmailCheck")
+	@ResponseBody
+	public int updateEmailCheck(@RequestParam("email") String email,
+							@AuthenticationPrincipal SecurityUser member) {
+		
+		int cnt = 0;
+		String chkId = memberService.updateEmailCheck(member.getUsername());
+		int chkEmail = memberService.emailCheck(email);	
+		
+		if(chkEmail == 0 && chkId.equals(email)) {
+			cnt = 0;
+		}else if(chkEmail != 0 && !chkId.equals(email)) {
+			cnt = 1;
+		}
+		return cnt;
+
+	}
 }

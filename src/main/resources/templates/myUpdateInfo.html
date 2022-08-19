@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">">
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 
 
 <head>
@@ -63,7 +63,7 @@
                     <h1 class="mb-4">회원정보수정</h1>
                     <div class="contact-form bg-secondary" style="padding: 30px;">
                         <div id="success"></div>
-                        <form action="updateMember" method="post" name="/updateMember" id="/updateMember">
+                        <form action="updateMember" method="post" name="updateMember" id="updateMember">
                        
                             <div class="control-group">
                                 <input type="text" class="form-control border-0 p-4" id="name" name="name" placeholder="이름은 한글만 입력 가능합니다."
@@ -88,17 +88,17 @@
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="pwd" name="pwd" placeholder="비밀번호는 특수문자, 문자, 숫자 포함 8~20 자리 가능합니다."
+                                <input type="password" class="form-control border-0 p-4" id="pwd" name="pwd" placeholder="비밀번호는 특수문자, 문자, 숫자 포함 8~20 자리 가능합니다."
                                     required="required" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="pwd_chk" name="pwd_chk" placeholder="비밀번호를 다시 확인해주세요"
+                                <input type="password" class="form-control border-0 p-4" id="pwd_chk" name="pwd_chk" placeholder="비밀번호를 다시 확인해주세요"
                                     required="required" />
                                 <p class="help-block text-danger"></p>
                             </div>                           
                             <div class="control-group">
-                                <input type="email" class="form-control border-0 p-4" id="email" name="email" placeholder="Email을 입력해주세요"
+                                <input type="text" class="form-control border-0 p-4" id="email" name="email" placeholder="Email을 입력해주세요"
                                     required oninput="checkEmail()" th:value="${session.loginMember.email}" />	
                                	<button class="btn btn-primary px-3">인증하기</button>
                                	<input type="hidden" class="btn btn-primary px-3" value="중복 검사" />
@@ -130,19 +130,21 @@
                                 <p class="help-block text-danger"></p>
                             </div>  
                             <div>
-                                <button class="btn btn-primary py-3 px-4" onclick="checkJoin()" type="submit" id="sendButton" disabled="disabled">회원가입</button>
+                                <button class="btn btn-primary py-3 px-4" onclick="return checkJoin()" type="submit" id="sendButton" disabled="disabled">정보 수정</button>
                             </div>
                         </form>
                         <script type="text/javascript">
                        				 /* id, email, nickname 중복 검사*/
 								function checkNickname(){
+                       				
 							        var nickname = $('#nickname').val();
+							        var id = $('id').val();
 							        $.ajax({
-							            url:'/nicknameCheck', 
+							            url:'/updateNicknameCheck', 
 							            type:'post', 
 							            data:{nickname:nickname},
 							            success:function(cnt){
-											if(cnt == '0'){
+							            	if(cnt == '0'){
 												$('#resultNickname').text('사용 가능한 닉네임입니다.').css("color", "#757575");
 												$(".btn").removeAttr("disabled");
 								            }else{
@@ -162,12 +164,13 @@
 								
 								function checkEmail(){
 							        var email = $('#email').val();
+							        var id = $('id').val();
 							        $.ajax({
-							            url:'/emailCheck', 
+							            url:'/updateEmailCheck', 
 							            type:'post', 
 							            data:{email:email},
 							            success:function(cnt){
-											if(cnt == '0'){
+							            	if(cnt == '0'){
 												$('#resultEmail').text('사용 가능한 이메일입니다.').css("color", "#757575");
 												$(".btn").removeAttr("disabled");
 								            }else{
@@ -184,6 +187,8 @@
 								        }
 								    });
 								};
+
+								
 								
 								/* 유효성 검사  */
 								function checkJoin(){
@@ -214,11 +219,6 @@
 										return false;
 									};
 									
-									if(id.value == "" || !idCheck.test(id.value)){
-										alert("아이디는 영문 시작 + 숫자, 언더바/하이픈 4~20자리 가능합니다.");
-										id.focus();
-										return false;
-									};
 									
 									if(pwd.value == "" || !pwdCheck.test(pwd.value)){
 										alert("비밀번호는 특수문자, 문자, 숫자 포함 8~20 자리 가능합니다.");
@@ -243,7 +243,14 @@
 										phone.focus();
 										return false;
 									};
-								}
+								
+									alert("회원정보 수정 성공");
+									return true;
+									/*
+									
+									document.getElementById("updateMember").action="updateMember";
+									document.getElementById("updateMember").submit();
+								*/}
 								
 								
 								</script>
