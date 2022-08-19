@@ -74,5 +74,19 @@ public class MemberServiceImpl implements MemberService {
 		memberRepo.save(member);
 		
 	}
+	
+	@Override
+	public String updateNicknameCheck(String id) {
+		String result = memberRepo.updateNicknameCheck(id);
+		
+		return result;
+	}
+	
+	@Override
+	public String updateEmailCheck(String id) {
+		String result = memberRepo.updateEmailCheck(id);
+		
+		return result;
+	}
 
 }

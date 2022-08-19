@@ -25,5 +25,10 @@ public interface MemberRepository extends CrudRepository<Member, String> {
 	@Query(value="SELECT pwd From member WHERE id=?1 AND name=?2 AND email=?3", nativeQuery = true)
 	public String findPwdResult(String id, String name, String email);
 
+	@Query(value = "SELECT nickname FROM member WHERE id=?1", nativeQuery = true)
+	public String updateNicknameCheck(String id);
+	
+	@Query(value = "SELECT email FROM member WHERE id=?1", nativeQuery = true)
+	public String updateEmailCheck(String id);
 
 }
