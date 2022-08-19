@@ -48,7 +48,7 @@
 > 새로운 맛집 등록하기 가능<br/>
 
 **adminCheckPage.html**🟣<br/>
-> **관리자 차트 페이지**
+> **관리자 차트 페이지**<br/>
 > 관리자가 원하는 데이터 차트로 구현<br/>
 
 **adminQnAList.html**🟣<br/>
@@ -64,10 +64,10 @@
 >페이지 설명 <br/>
 
 **login.html**🟢<br/>
->**로그인 페이지**
+>**로그인 페이지**<br/>
 >페이지 설명<br/>
 
-**findMember**🟢
+**findMember**🟢<br/>
 >**changePwdOk.html**<br/>
 > 페이지 설명<br/>
 >**findIdForm.html**<br/>
@@ -108,15 +108,15 @@
 > 내가 직접 맛집 소개하기<br/>
 > 중복된 식당명 없는지 유효성 확인<br/>
 
-**WDMList.html**🟣
-> 페이지 설명
+**WDMList.html**🟣<br/>
+> 페이지 설명<br/>
 
-**WDMupdate.html**🔴
-> **맛집 수정하기 페이지**<br/> 
-> 회원이 올린 맛집 수정가능
-> 이미지 미첨부시 기존 이미지 그대로 유지하게 구현.
+**WDMupdate.html**🔴<br/>
+> **맛집 수정하기 페이지**<br/>
+> 회원이 올린 맛집 수정가능<br/>
+> 이미지 미첨부시 기존 이미지 그대로 유지하게 구현.<br/>
 
-**Errors**🔴
+**Errors**🔴<br/>
 >**404.html**<br/>
 > 404 Not Found Error 페이지<br/>
 >**405.html**<br/>
@@ -124,4 +124,4 @@
 >**500.html**<br/>
 > 500 Internal Server Error 페이지<br/>
 >**globalError.html**<br/>
-> 정의한 에러 외 모든 에러페이지
+> 정의한 에러 외 모든 에러페이지<br/>
