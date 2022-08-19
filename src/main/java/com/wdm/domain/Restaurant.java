@@ -48,6 +48,5 @@ public class Restaurant {
 	private String image3;
 	private String id;
 	
-	
 }
 
