@@ -39,56 +39,54 @@
 
 
 ## 5. 페이지 설명
-박상욱 구현페이지🟢
+박상욱 구현페이지🟢<br/>
+김보애 구현페이지🟣<br/>
+박선영 구현페이지🔴<br/>
 
-김보애 구현페이지🟣
+**main.html**🟢🟣🔴<br/>
+> 사이트 메인 페이지<br/>
+> 로그인, 회원가입 및 상위 4개 맛집 조회 가능<br/>
+> 새로운 맛집 등록하기 가능<br/>
 
-박선영 구현페이지🔴
+**adminCheckPage.html**🟣<br/>
+> 관리자가 원하는 데이터 차트로 구현<br/>
 
-**main.html**🟢🟣🔴
-> 사이트 메인 페이지
-> 로그인, 회원가입 및 상위 4개 맛집 조회 가능
-> 새로운 맛집 등록하기 가능
+**adminQnAList.html**🟣<br/>
+> 유저가 남긴 질문 리스트 전체 조회<br/>
+> 제목을 누르면 유저의 QnA 화면으로 이동<br/>
 
-**adminCheckPage.html**🟣
-> 관리자가 원하는 데이터 차트로 구현
+**adminWDMList.html**🟣<br/>
+> 유저가 등록한 맛집 리스트 전체 조회<br/>
 
-**adminQnAList.html**🟣
-> 유저가 남긴 질문 리스트 전체 조회
-> 제목을 누르면 유저의 QnA 화면으로 이동
+**adminDtail.html**🔴<br/>
+>페이지 설명<br/>
 
-**adminWDMList.html**🟣
-> 유저가 등록한 맛집 리스트 전체 조회
+**join.html**🟢<br/>
+>페이지 설명<br/>
 
-**adminDtail.html**🔴
->페이지 설명
+**login.html**🟢<br/>
+>페이지 설명<br/>
 
-**join.html**🟢
->페이지 설명
+**myList.html**🔴<br/>
+> 회원이 작성한 글 리스트 조회<br/>
 
-**login.html**🟢
->페이지 설명
+**myUpdateInfo.html**🟢<br/>
+>페이지 설명<br/>
 
-**myList.html**🔴
-> 회원이 작성한 글 리스트 조회
+**myWDMDetail.html**🔴<br/>
+> 회원이 작성한 글 상세보기<br/>
+> 수정하기 기능 이동 가능 페이지<br/>
 
-**myUpdateInfo.html**🟢
->페이지 설명
+**QnA.html**🟣<br/>
+> 유저 본인의 질문만 조회 가능<br/>
+> 관리자는 유저의 질문에 대댓글로 답변 가능<br/>
 
-**myWDMDetail.html**🔴
-> 회원이 작성한 글 상세보기
-> 수정하기 기능 이동 가능 페이지
+**WDMComment.html**🟣<br/>
+>페이지 설명<br/>
 
-**QnA.html**🟣
-> 유저 본인의 질문만 조회 가능
-> 관리자는 유저의 질문에 대댓글로 답변 가능
-
-**WDMComment.html**🟣
->페이지 설명
-
-**WDMDetail.html**🔴
-> 맛집 상세보기 기능
-> 추천하기 기능 및 지도API
+**WDMDetail.html**🔴<br/>
+> 맛집 상세보기 기능<br/>
+> 추천하기 기능 및 지도API<br/>
 
 **WDMInsert.html**🔴
 > 내가 직접 맛집 소개하기
