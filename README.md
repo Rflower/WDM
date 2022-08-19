@@ -12,30 +12,29 @@
 - 팀 프로젝트(3명)
 
 ## 2. 개발환경
-**공통**
+◾**공통**
 - Window 10
 - Eclipse IDE for Enterprise Java and Web Developers
 - Oracle SQL Developer
 - Git Hub
 
-**Back end**
+◾**Back end**
 - Spring Boot
 - Spring Security
 - Spring JPA
 - Java 11
 
-**Front end**
+◾**Front end**
 - HTML, CSS3
 - JavaScript, jQuery
 - Boot Strap
 
-## 3. ERD 설계
+## 3. ERD 설계<br/>
+![er다이어그램](https://user-images.githubusercontent.com/57398610/185556219-f88b3fb3-563e-4b0a-b434-2f3c643bd600.JPG)<br/>
 
-![er다이어그램](https://user-images.githubusercontent.com/57398610/185556219-f88b3fb3-563e-4b0a-b434-2f3c643bd600.JPG)
 
-
-## 4. 요구사항
-🔗[요구사항정의서_우동맛.xlsx](https://github.com/Rflower/WDM/files/9379629/_.xlsx)
+## 4. 요구사항<br/>
+🔗[요구사항정의서_우동맛.xlsx](https://github.com/Rflower/WDM/files/9379629/_.xlsx)<br/>
 
 
 ## 5. 페이지 설명
