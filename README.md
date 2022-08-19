@@ -12,19 +12,19 @@
 - 팀 프로젝트(3명)
 
 ## 2. 개발환경
-◾**공통**
+🔅**공통**
 - Window 10
 - Eclipse IDE for Enterprise Java and Web Developers
 - Oracle SQL Developer
 - Git Hub
 
-◾**Back end**
+🔅**Back end**
 - Spring Boot
 - Spring Security
 - Spring JPA
 - Java 11
 
-◾**Front end**
+🔅**Front end**
 - HTML, CSS3
 - JavaScript, jQuery
 - Boot Strap
@@ -37,7 +37,7 @@
 🔗[요구사항정의서_우동맛.xlsx](https://github.com/Rflower/WDM/files/9379629/_.xlsx)<br/>
 
 
-## 5. 페이지 설명
+## 5. 페이지 설명<br/>
 박상욱 구현페이지🟢<br/>
 김보애 구현페이지🟣<br/>
 박선영 구현페이지🔴<br/>
@@ -79,36 +79,42 @@
 >**findPwdResult.html**<br/>
 > 페이지 설명<br/>
 
-**myList.html**🔴<br/>
-> 회원이 작성한 글 리스트 조회<br/>
-
 **myUpdateInfo.html**🟢<br/>
 >페이지 설명<br/>
 
+**myList.html**🔴<br/>
+> **회원이 작성한 글 리스트 페이지<br/>
+
 **myWDMDetail.html**🔴<br/>
+> **작성 글 상세보기 페이지**<br/>
 > 회원이 작성한 글 상세보기<br/>
 > 수정하기 기능 이동 가능 페이지<br/>
 
 **QnA.html**🟣<br/>
+> **QnA 페이지**<br/>
 > 유저 본인의 질문만 조회 가능<br/>
 > 관리자는 유저의 질문에 대댓글로 답변 가능<br/>
 
 **WDMComment.html**🟣<br/>
->페이지 설명<br/>
+> **댓글 페이지**<br/>
+> 페이지 내용<br/>
 
 **WDMDetail.html**🔴<br/>
 > 맛집 상세보기 기능<br/>
 > 추천하기 기능 및 지도API<br/>
 
-**WDMInsert.html**🔴
-> 내가 직접 맛집 소개하기
-> 중복된 식당명 없는지 유효성 확인
+**WDMInsert.html**🔴<br/>
+> **맛집 등록하기 페이지**<br/>
+> 내가 직접 맛집 소개하기<br/>
+> 중복된 식당명 없는지 유효성 확인<br/>
 
 **WDMList.html**🟣
 > 페이지 설명
 
 **WDMupdate.html**🔴
-> 회원이 올린 맛집 수정하기 페이지
+> **맛집 수정하기 페이지**<br/> 
+> 회원이 올린 맛집 수정가능
+> 이미지 미첨부시 기존 이미지 그대로 유지하게 구현.
 
 **Errors**🔴
 >**404.html**<br/>
