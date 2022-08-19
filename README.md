@@ -49,25 +49,26 @@
 > 새로운 맛집 등록하기 가능<br/>
 
 **adminCheckPage.html**🟣<br/>
+> **관리자 차트 페이지**
 > 관리자가 원하는 데이터 차트로 구현<br/>
 
 **adminQnAList.html**🟣<br/>
+> **QnA 리스트 페이지**<br/>
 > 유저가 남긴 질문 리스트 전체 조회<br/>
 > 제목을 누르면 유저의 QnA 화면으로 이동<br/>
 
 **adminWDMList.html**🟣<br/>
-> 유저가 등록한 맛집 리스트 전체 조회<br/>
-
-**adminDtail.html**🔴<br/>
->페이지 설명<br/>
+> **맛집 리스트 전체 조회 페이지<br/>
 
 **join.html**🟢<br/>
->페이지 설명<br/>
+>**회원가입 페이지**<br/>
+>페이지 설명 <br/>
 
 **login.html**🟢<br/>
+>**로그인 페이지**
 >페이지 설명<br/>
 
-**findMember**🔴
+**findMember**🟢
 >**changePwdOk.html**<br/>
 > 페이지 설명<br/>
 >**findIdForm.html**<br/>
