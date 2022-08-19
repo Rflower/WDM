@@ -98,14 +98,12 @@
 **WDMupdate.html**🔴
 > 회원이 올린 맛집 수정하기 페이지
 
-**404.html**🔴
-> 404 Not Found Error 페이지
-
-**405.html**🔴
-> 405 Method Not Allowed Error 페이지
-
-**500.html**🔴
-> 500 Internal Server Error 페이지
-
-**globalError.html**🔴
+**Errors**🔴
+>**404.html**<br/>
+> 404 Not Found Error 페이지<br/>
+>**405.html**<br/>
+> 405 Method Not Allowed Error 페이지<br/>
+>**500.html**<br/>
+> 500 Internal Server Error 페이지<br/>
+>**globalError.html**🔴
 > 정의한 에러 외 모든 에러페이지
