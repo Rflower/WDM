@@ -34,7 +34,6 @@ public class QnA {
 	private String refid;
 	@Column(columnDefinition="CHAR(1) DEFAULT 'N'")
 	private String replyyn;
-	private int qdepth;
 	private Long qgrp;
 	@Temporal(TemporalType.DATE)
 	private Date regdate = new Date();

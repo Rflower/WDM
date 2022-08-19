@@ -48,8 +48,5 @@ public class Restaurant {
 	private String image3;
 	private String id;
 	
-	@OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
-	private List<Restaurant_Comment> commList = new ArrayList<Restaurant_Comment>();
-	
 }
 
