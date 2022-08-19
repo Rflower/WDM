@@ -37,8 +37,5 @@ public class Restaurant_Comment {
 	@Temporal(TemporalType.DATE)
 	private Date regdate = new Date();
 
-	@ManyToOne
-	@JoinColumn(name="RESTAURANT_RSEQ")
-	private Restaurant restaurant;
 }
 

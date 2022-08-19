@@ -15,17 +15,14 @@ import com.wdm.domain.Restaurant;
 public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
 	
 	//관리자 화면에서 전체 글 불러오기 할때 필요
-	@Query("SELECT r FROM Restaurant r ORDER BY r.rseq desc")
+	@Query("SELECT r FROM Restaurant r")
 	Page<Restaurant> getRestaurantListPaging(Pageable paging);
 	
-	@Query(value="SELECT * FROM Restaurant  WHERE MENU LIKE '%'||?1||'%' OR DONG LIKE'%'||?1||'%' ", nativeQuery=true)
+	@Query(value="SELECT * FROM Restaurant  WHERE MENU LIKE '%'||?1||'%' OR DONG LIKE'%'||?1||'%'", nativeQuery=true)
 	Page<Restaurant> getSearchCategoryList(String searchKeyword, Pageable pageable);
 	
 	@Query(value="SELECT * FROM Restaurant  WHERE MENU LIKE '%'||?1||'%' OR DONG LIKE'%'||?1||'%' AND KIND=?2", nativeQuery=true)
 	Page<Restaurant> getKindSearchKeywordList(String searchKeyword, String kind, Pageable pageable);
-	
-	@Query(value="SELECT * FROM Restaurant  WHERE kind=?1", nativeQuery=true)
-	Page<Restaurant> findBykind(String kind, Pageable pageable);
 	
 	//추천 상위 4개 맛집 불러오기
 	@Query(value="SELECT * FROM (SELECT * from restaurant order by likescnt desc) WHERE rownum<=4", nativeQuery=true)

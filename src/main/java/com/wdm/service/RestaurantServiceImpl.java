@@ -7,10 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
-import com.wdm.config.SecurityUser;
 import com.wdm.domain.Restaurant;
 import com.wdm.persistence.RestaurantRepository;
 
@@ -42,10 +40,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	//관리자화면에서 사용할 맛집 전체 보기 리스트
 	@Override
-	public Page<Restaurant> getRestaurantListPaging(Pageable pageable) {
+	public Page<Restaurant> getRestaurantListPaging( String orderby, Pageable pageable) {
 		int page = pageable.getPageNumber();
 		
-		Pageable paging = PageRequest.of(page, 8); 
+		Pageable paging = PageRequest.of(page, 8, Sort.by(Sort.Direction.DESC, orderby)); 
 		
 		Page<Restaurant> pageList = restRepo.getRestaurantListPaging(paging);
 
@@ -122,16 +120,6 @@ public Page<Restaurant> getRestaurantMyList(String id, Pageable pageable) {
 		
 		Page<Restaurant> pageList = restRepo.getRestaurantMyList(id, paging);
 
-		return pageList;
-	}
-
-	@Override
-	public Page<Restaurant> getfindBykind(String kind, Pageable pageable){ 
-		
-		int page = pageable.getPageNumber();
-		Pageable paging = PageRequest.of(page, 8);
-		
-		Page<Restaurant> pageList = restRepo.findBykind(kind, paging);
 		return pageList;
 	}
 

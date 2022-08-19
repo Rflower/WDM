@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -129,15 +127,15 @@ public class RestaurantController {
                e.printStackTrace();
             }
         }
-        //Member member = principal.getMember();
-      
+    
         restaurant.setId(principal.getUsername());
          
         System.out.println("restaurant:" + restaurant);
         
         restaurantService.insertRestaurant(restaurant);
-      
-	return "redirect:restaurantList";
+     
+        
+	return "redirect:main";
 	}
 	
 	
@@ -235,30 +233,42 @@ public class RestaurantController {
 	//검색창 검색시 불러오는 리스트 처리
 	@GetMapping("/restaurantList")
 	public String getDongAndMenuSearchList(@RequestParam(required = false, defaultValue = "regdate", value = "orderby")String orderby,
-										  @RequestParam(required = false, value = "searchKeyword") String searchKeyword,
-										  String kind,
+										  @RequestParam(value = "searchKeyword") String searchKeyword,
+										  @RequestParam(required = false,defaultValue = "1" , value = "kind")String kind,
 										  Model model, Pageable pageable) {
 				
 		Page<Restaurant> restaurantList = null;
 		
-		if(searchKeyword == null && kind != null) {
-			restaurantList = restaurantService.getfindBykind(kind,pageable);
-		}else if(searchKeyword != null && kind != null) {
-			restaurantList = restaurantService.getKindSearchKeywordList(searchKeyword,kind,orderby,pageable);
-		}else if(searchKeyword != null && kind == null) {
+		if(kind==null) {
 			restaurantList = restaurantService.getSearchCategoryList(searchKeyword, orderby, pageable);
-		}else {
-			restaurantList = restaurantService.getRestaurantListPaging(pageable);
 		}
+		else if(kind != null){
+			restaurantList = restaurantService.getKindSearchKeywordList(searchKeyword,kind,orderby,pageable);
+
+		}	
+		
 		int nowPage = restaurantList .getNumber() + 1;
 		model.addAttribute("restaurantList", restaurantList);
 		model.addAttribute("maxPage", 3);
 		model.addAttribute("nowPage", nowPage);
 
-
 		return "WDMList";
 	}
 
+//	//필터별 리스트 호출
+//	@GetMapping("/category")
+//	public String getKindList(String kind, Model model, Pageable pageable ) {
+//		
+//		Page<Restaurant> restaurantList = restaurantService.getfindBykind(kind, pageable);
+//		
+//		int nowPage = restaurantList .getNumber() + 1;
+//		model.addAttribute("restaurantList", restaurantList);
+//		
+//		model.addAttribute("maxPage", 3);
+//		model.addAttribute("nowPage", nowPage);
+//		
+//		return "WDMList";
+//	}
 	
 	@GetMapping("/myList")
 	public String getRestaurantMyList(@AuthenticationPrincipal SecurityUser principal, Model model

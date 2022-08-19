@@ -44,8 +44,9 @@ public class AdminController {
 	
 	
 	@GetMapping("adminWDMList")
-	public String adminWDMList(Pageable pageable,Model model) {
-		Page<Restaurant> adminWDMList = restaurantService.getRestaurantListPaging(pageable);
+	public String adminWDMList(String orderby,Pageable pageable,Model model) {
+		
+		Page<Restaurant> adminWDMList = restaurantService.getRestaurantListPaging("regdate", pageable);
 		
 		int nowPage = adminWDMList .getNumber() + 1;
 		model.addAttribute("adminWDMList", adminWDMList);
