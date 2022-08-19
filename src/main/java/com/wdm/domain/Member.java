@@ -21,7 +21,6 @@ public class Member {
 	private String address;
 	private String address_detail;
 	private String phone;
-	private char socialyn;
 	@Enumerated(EnumType.STRING)
 	private Role role;
 

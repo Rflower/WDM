@@ -85,7 +85,7 @@
 				</p>
 				<i class="fa fa-circle px-3"></i>
 				<p class="m-0">
-					<a class="text-white" th:href="@{/restaurantList}">맛집목록보기</a>
+					<a class="text-white" href="javascript:history.back();">맛집목록보기</a>
 				</p>
 				<p class="m-0">			
 				<a th:href="@{/deleteRestaurant(rseq=${restaurant.rseq})}" sec:authorize="hasRole('ROLE_ADMIN')"

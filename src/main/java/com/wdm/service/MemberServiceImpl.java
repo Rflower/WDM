@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void joinMember(Member member) {
 		member.setPwd(encoder.encode(member.getPwd()));
-		member.setSocialyn('n');
+
 		member.setRole(Role.ROLE_MEMBER);
 		
 		memberRepo.save(member);

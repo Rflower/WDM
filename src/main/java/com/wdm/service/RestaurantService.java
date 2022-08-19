@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
-import com.wdm.config.SecurityUser;
 import com.wdm.domain.Restaurant;
 
 public interface RestaurantService {
@@ -19,15 +17,13 @@ public interface RestaurantService {
 	void insertRestaurant(Restaurant restaurant);
 
 	//전체 맛집 보기
-	Page<Restaurant> getRestaurantListPaging(Pageable paging);
+	Page<Restaurant> getRestaurantListPaging(String orderby,Pageable paging);
 	
 	//키워드,추천,좋아요 순으로 맛집 보기
-	Page<Restaurant> getSearchCategoryList( String searchKeyword,String orderby,Pageable pageable);
+	Page<Restaurant> getSearchCategoryList( String searchKeyword, String orderby,Pageable pageable);
 	
 	//키워드, 맛집 종류, 추천, 좋아요 순으로 맛집 보기
 	Page<Restaurant> getKindSearchKeywordList(String searchKeyword, String kind, String orderby, Pageable pageable);
-	
-	Page<Restaurant> getfindBykind(String kind, Pageable pageable);
 
 	int nameChk(String name);
 	
