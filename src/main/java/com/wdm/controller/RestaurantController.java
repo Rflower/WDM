@@ -308,7 +308,7 @@ public class RestaurantController {
 		
 		restaurantService.deleteRestaurant(restaurant);
 		
-		return "forward:restaurantList";
+		return "forward:adminWDMList";
 	}
 	
 
