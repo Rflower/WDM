@@ -234,7 +234,7 @@ public class RestaurantController {
 	@GetMapping("/restaurantList")
 	public String getDongAndMenuSearchList(@RequestParam(required = false, defaultValue = "regdate", value = "orderby")String orderby,
 										  @RequestParam(value = "searchKeyword") String searchKeyword,
-										  @RequestParam(required = false,defaultValue = "1" , value = "kind")String kind,
+										  @RequestParam(required = false, value = "kind")String kind,
 										  Model model, Pageable pageable) {
 				
 		Page<Restaurant> restaurantList = null;
@@ -251,24 +251,9 @@ public class RestaurantController {
 		model.addAttribute("restaurantList", restaurantList);
 		model.addAttribute("maxPage", 3);
 		model.addAttribute("nowPage", nowPage);
-
+		System.out.println("kind의 값은 ========================" + kind );
 		return "WDMList";
 	}
-
-//	//필터별 리스트 호출
-//	@GetMapping("/category")
-//	public String getKindList(String kind, Model model, Pageable pageable ) {
-//		
-//		Page<Restaurant> restaurantList = restaurantService.getfindBykind(kind, pageable);
-//		
-//		int nowPage = restaurantList .getNumber() + 1;
-//		model.addAttribute("restaurantList", restaurantList);
-//		
-//		model.addAttribute("maxPage", 3);
-//		model.addAttribute("nowPage", nowPage);
-//		
-//		return "WDMList";
-//	}
 	
 	@GetMapping("/myList")
 	public String getRestaurantMyList(@AuthenticationPrincipal SecurityUser principal, Model model
