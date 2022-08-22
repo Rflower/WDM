@@ -105,14 +105,17 @@
                 	<a class="page-link" th:href="@{/restaurantList?(kind=5, searchKeyword = ${param.searchKeyword})}">카페&디저트</a></h5>           
             </div>   
              
-            <div class="pagination pagination-lg mb-0">
-            
-				<h5 class="text-primary text-uppercase font-weight-bold">
-					<a class="page-link" th:href="@{/restaurantList? (kind=${param.kind}, searchKeyword = ${param.searchKeyword}, orderby=likescnt)}">추천순</a></h5>
-												
-                <h5 class="text-primary text-uppercase font-weight-bold">
-                	<a class="page-link" th:href="@{/restaurantList? (kind=${param.kind}, searchKeyword = ${param.searchKeyword}, orderby=regdate)}">최신순</a></h5>
-            </div>
+			<div class="pagination pagination-lg mb-0">
+  
+				<h5 class="text-primary text-uppercase font-weight-bold" th:switch="${param.kind}">
+					<a class="page-link" th:case="null" th:href="@{/restaurantList? (searchKeyword = ${param.searchKeyword}, orderby=likescnt)}">추천순</a>
+					<a class="page-link" th:case="*" th:href="@{/restaurantList? (kind=${param.kind}, searchKeyword = ${param.searchKeyword}, orderby=likescnt)}">추천순</a>
+				</h5>								
+                <h5 class="text-primary text-uppercase font-weight-bold" th:switch="${param.kind}">
+                	<a class="page-link" th:case="null" th:href="@{/restaurantList? (searchKeyword = ${param.searchKeyword}, orderby=regdate)}">최신순</a>
+					<a class="page-link" th:case="*" th:href="@{/restaurantList? (kind=${param.kind},searchKeyword = ${param.searchKeyword}, orderby=regdate)}">최신순</a></h5>
+	     </div>
+
             
             <div class="row" >
                 <div class="col-lg-3 col-md-6" th:each ="restaurant : ${restaurantList}">
@@ -146,20 +149,29 @@
 	             	th:with="start=${(restaurantList.number/maxPage)*maxPage + 1},
 	    			 		end=(${(restaurantList.totalPages == 0) ? 1 : (start + (maxPage - 1) < restaurantList.totalPages ? start + (maxPage - 1) : restaurantList.totalPages)})">
 	
-	               <li class="page-item" th:classappend="${!restaurantList.hasPrevious} ? 'disabled'">
-	                 <a class="page-link" th:href="@{/restaurantList(page=${restaurantList.number-1},kind =${param.kind}, searchKeyword = ${param.searchKeyword}, orderby=${param.orderby})}"  aria-label="Previous">
+	               <li class="page-item" th:classappend="${!restaurantList.hasPrevious} ? 'disabled'"  th:switch="${param.kind}">
+	                 <a class="page-link" th:case="null" th:href="@{/restaurantList(page=${restaurantList.number-1}, searchKeyword = ${param.searchKeyword}, orderby=${param.orderby})}"  aria-label="Previous">
+	                 	<span aria-hidden="true">&laquo;</span>
+	                   <span class="sr-only">Previous</span>
+	                 </a>
+	                 <a class="page-link" th:case="*" th:href="@{/restaurantList(page=${restaurantList.number-1},kind =${param.kind}, searchKeyword = ${param.searchKeyword}, orderby=${param.orderby})}"  aria-label="Previous">
 	                   <span aria-hidden="true">&laquo;</span>
 	                   <span class="sr-only">Previous</span>
 	                 </a>
 	               </li>
 	               
-	               <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" >
-		               <a class="page-link" th:if="${page != nowPage}" th:href="@{/restaurantList?(page=${page-1}, kind =${param.kind}, searchKeyword = ${param.searchKeyword}, orderby=${param.orderby})}"  th:text="${page}"></a> 
+	               <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:switch="${param.kind}">
+		               <a class="page-link" th:case="null" th:if="${page != nowPage}" th:href="@{/restaurantList?(page=${page-1}, searchKeyword = ${param.searchKeyword}, orderby=${param.orderby})}"  th:text="${page}"></a>
+		               <a class="page-link" th:case="*" th:if="${page != nowPage}" th:href="@{/restaurantList?(page=${page-1}, kind =${param.kind}, searchKeyword = ${param.searchKeyword}, orderby=${param.orderby})}"  th:text="${page}"></a> 
 		               <strong class="page-link" th:if="${page==nowPage}"  th:text="${page}" style="color : red"></strong>             
 	               </li>
 	
-	               <li class="page-item" th:classappend="${!restaurantList.hasNext} ? 'disabled'">
-	                 <a class="page-link" th:href="@{/restaurantList(page=${restaurantList.number+1},kind =${param.kind}, searchKeyword = ${param.searchKeyword}, orderby=${param.orderby})}" aria-label="Next">
+	               <li class="page-item" th:classappend="${!restaurantList.hasNext} ? 'disabled'" th:switch="${param.kind}">
+	                 <a class="page-link" th:case="null" th:href="@{/restaurantList(page=${restaurantList.number+1},searchKeyword = ${param.searchKeyword}, orderby=${param.orderby})}" aria-label="Next">
+	                 	<span aria-hidden="true">&raquo;</span>
+	                   <span class="sr-only">Next</span>
+	                 </a>
+	                 <a class="page-link" th:case="*" th:href="@{/restaurantList(page=${restaurantList.number+1},kind =${param.kind}, searchKeyword = ${param.searchKeyword}, orderby=${param.orderby})}" aria-label="Next">
 	                   <span aria-hidden="true">&raquo;</span>
 	                   <span class="sr-only">Next</span>
 	                 </a>
