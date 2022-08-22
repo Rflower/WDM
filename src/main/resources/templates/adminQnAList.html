@@ -74,7 +74,8 @@
 	                	<td th:text="${state.count}"></td>
 	                	<td th:text="${adminQnAList.id}"></td>
 	                	<td><a th:href="@{/QnA(id=${adminQnAList.id})}" th:text="${adminQnAList.content}"></a></td>
-	                	<td th:text="${adminQnAList.replyyn}"></td>
+	                	<td th:if="${adminQnAList.replyyn=='n'}" th:text="${adminQnAList.replyyn}" style="color : red; font-weight:bold "></td>
+	                	<td th:unless="${adminQnAList.replyyn=='n'}" th:text="${adminQnAList.replyyn}"></td>
 	                	</tr>
 	             </table>
 	          	<!-- 테이블 End -->
