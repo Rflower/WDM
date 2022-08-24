@@ -39,7 +39,7 @@
 🔗[요구사항정의서_우동맛.xlsx](https://github.com/Rflower/WDM/files/9379629/_.xlsx)<br/>
 
 ## 5. 포트폴리오<br/>
-🔗[우동맛-프로젝트-포폴_최종본.pdf](https://github.com/Rflower/WDM/files/9400906/-.-._.pdf)<br/>
+🔗[우동맛-프로젝트-포폴.pdf](https://github.com/Rflower/WDM/files/9414359/-.-.pdf)<br/>
 
 ## 6. 페이지 설명<br/>
 박상욱 구현페이지🟢<br/>
