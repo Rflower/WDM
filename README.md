@@ -32,14 +32,15 @@
 - Thymeleaf
 
 ## 3. ERD 설계<br/>
-![er다이어그램](https://user-images.githubusercontent.com/57398610/185556219-f88b3fb3-563e-4b0a-b434-2f3c643bd600.JPG)<br/>
+![다이어그램](https://user-images.githubusercontent.com/57398610/186559256-e0e55416-ca71-4e34-b122-a6ad089915df.JPG)<br/>
 
 
 ## 4. 요구사항<br/>
 🔗[요구사항정의서_우동맛.xlsx](https://github.com/Rflower/WDM/files/9379629/_.xlsx)<br/>
 
 ## 5. 포트폴리오<br/>
-🔗[우동맛-프로젝트-포폴.pdf](https://github.com/Rflower/WDM/files/9414359/-.-.pdf)<br/>
+🔗[우동맛-프로젝트-포폴_최종.pdf](https://github.com/Rflower/WDM/files/9420775/-.-._.pdf)
+<br/>
 
 ## 6. 페이지 설명<br/>
 박상욱 구현페이지🟢<br/>
