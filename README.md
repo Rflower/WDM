@@ -13,7 +13,7 @@
 
 ## 2. 개발환경
 🔅**공통**
-- Window 10
+- Windows 10
 - Eclipse IDE for Enterprise Java and Web Developers
 - Oracle SQL Developer
 - Git Hub
@@ -26,7 +26,7 @@
 - Oracle DB
 
 🔅**Front end**
-- HTML, CSS3
+- HTML5, CSS3
 - JavaScript, jQuery
 - Boot Strap
 - Thymeleaf
