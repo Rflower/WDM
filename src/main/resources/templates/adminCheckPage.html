@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>FASTER - Logistics Company Website Template</title>
+    <title>관리자 화면</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="/bootstrap/img/favicon.ico" rel="icon">
+    <link href="/static/bootstrap/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,10 +20,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="/bootstrap/css/style.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -31,21 +32,8 @@
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
             <a href="main" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
             </a>
-             <!-- 
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- 
-            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                <div class="navbar-nav m-auto py-0">
-                    <a href="login" class="nav-item nav-link">로그인</a>
-                    <a href="contact" class="nav-item nav-link active">회원가입</a>
-
-               
-                </div>
-            </div>-->
         </nav>
     </div>
     <!-- Navbar End -->
@@ -56,45 +44,95 @@
         <div class="container text-center py-5">
             <h1 class="text-white display-3">관리 페이지</h1>
             <div class="d-inline-flex align-items-center text-white">
-                <p class="m-0"><a class="text-white" href="">로그아웃</a></p>
+                <p class="m-0"><a class="text-white" href="/system/logout">로그아웃</a></p>
                 <i class="fa fa-circle px-3"></i>
                 <p class="m-0"><a class="text-white" href="main">Home</a></p>
             </div>
         </div>
     </div>
     <!-- Header End -->
-
-
-    <!-- Services Start -->
+    <!-- Chart Start -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$.ajax({
+			type: 'GET',
+			url: 'admin_chart',
+			contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+			success: function(result) {
+				console.log(result);
+				// 최신 버전의 구글 코어차트 패키지 로드해준다.
+				google.charts.load('current', {'packages':['corechart']});
+				
+				// Set a callback to run when the Google Visualization API is loaded.
+				google.charts.setOnLoadCallback(function() {
+					drawChart(result);
+				});
+			},
+			error: function() {
+				alert("Chart drawing error!");
+			}
+		});
+		
+		function drawChart(result) {
+			// 차트 그리는데 사용할 데이터 객체 생성
+			var data = new google.visualization.DataTable();
+			
+			data.addColumn("string", "id");
+			data.addColumn("number", "countById");
+			
+			// 콘트롤러에서 json타입으로 전달된 데이터를 
+			// 자바스크립트의 배열로 저장
+			var dataArray = [];
+			$.each(result, function(i, obj){
+				dataArray.push([obj.id, obj.countById]);
+			})
+			
+			// data객체에 dataArray의 내용을 저장
+			data.addRows(dataArray);
+			
+			// 파이차트 그리기
+			var piechart_options = {
+				title: '아이디별 맛집 등록 갯수',
+				width: 300,
+				height: 300
+			};
+			
+			var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+			
+			piechart.draw(data, piechart_options);
+			
+			// 바차트 그리기
+			var barchart_options = {
+				title: '아이디별 맛집 등록 갯수',
+				width: 300,
+				height: 300
+			}
+			
+			var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+			
+			barchart.draw(data, barchart_options);
+		}
+			
+	});
+	  </script>
+	<div align="center">
+	<h1>아이디별 맛집 등록갯수</h1>
+	<table>
+		<tr>
+			<td><div id="piechart_div" style="border:1px solid #ccc"></div></td>
+			<td><div id="barchart_div" style="border:1px solid #ccc"></div></td>
+		</tr>
+	</table>
+	</div>
     
-    <!-- Services End -->
+    <!-- Chart End -->
 
     <!-- Footer Start -->
-
-    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: #3E3E4E !important;">
-        <div class="row">
-            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
-                <p class="m-0 text-white">&copy; <a href="#">우동맛</a>. All Rights Reserved. 
-				
-				<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-				Designed by <a href="https://htmlcodex.com">HTML Codex</a>
-                </p>
-            </div>
-            <div class="col-lg-6 text-center text-md-right">
-                <ul class="nav d-inline-flex">
-                    <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="mypage">마이페이지</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="admin">관리자</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="QnA">문의하기</a>
-                    </li>                    
-                </ul>
-            </div>
-        </div>
-    </div>
+  
+    
+    <th:block th:replace="~{footer :: footer1}"></th:block>
     <!-- Footer End -->
 
 
@@ -105,17 +143,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="bootstrap/lib/easing/easing.min.js"></script>
-    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
-    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
-    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="static/bootstrap/lib/easing/easing.min.js"></script>
+    <script src="static/bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="static/bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
-    <script src="bootstrap/mail/contact.js"></script>
+    <script src="static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/bootstrap/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="bootstrap/js/main.js"></script>
+    <script src="static/bootstrap/js/main.js"></script>
 </body>
 
 </html>

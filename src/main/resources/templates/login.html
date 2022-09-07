@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -19,46 +21,20 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/static/bootstrap/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="bootstrap/css/style.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Topbar Start -->
-
-    <!-- Topbar End -->
-
 
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
             <a href="main" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
-            </a>
-            <!--  
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
-                <div class="navbar-nav m-auto py-0">
-                    <a href="main.html" class="nav-item nav-link">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="service.html" class="nav-item nav-link">Service</a>
-                    <a href="price.html" class="nav-item nav-link">Price</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                            <a href="single.html" class="dropdown-item">Blog Detail</a>
-                        </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link active">Contact</a>
-                </div>
-                <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Get A Quote</a>
-            </div>
-            -->
+                <h1 class="m-0 display-5 text-uppercase text-primary"><img src ="/static/bootstrap/img/WDM.jpg" height="90" width="100">우동맛</h1>
+            </a>         
         </nav>
     </div> 
     <!-- Navbar End -->
@@ -82,39 +58,48 @@
     <div class="container-fluid py-5">
         <div class="container">
             <div class="row">
-            <!--  
-                <div class="col-lg-5 pb-4 pb-lg-0">
-                    <div class="bg-primary text-dark text-center p-4">
-                        <h4 class="m-0"><i class="fa fa-map-marker-alt text-white mr-2"></i>123 Street, New York, USA</h4>
-                    </div>
--->
                 </div>
                 <div class="col-lg-7">
-                    <h6 class="text-primary text-uppercase font-weight-bold">로그인</h6>
                     <h1 class="mb-4">로그인</h1>
                     <div class="contact-form bg-secondary" style="padding: 30px;">
                         <div id="success"></div>
-                        <form name="login" id="login" novalidate="novalidate">
-
+                        <form action="/login" method="post" name="login" id="login">
+							<div th:if="${param.error}">
+						        <div style="color: red;">
+						           사용자ID 또는 비밀번호를 확인해 주세요.
+						        </div>
+						    </div>
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="id" placeholder="ID"
-                                    required="required" data-validation-required-message="Please enter your id" />
+                                <input type="text" class="form-control border-0 p-4" name="username" id="username" placeholder="ID"
+                                    required="required" />
 
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="pwd" placeholder="비밀번호"
-                                    required="required" data-validation-required-message="Please enter your password" />
+                                <input type="password" class="form-control border-0 p-4" name="password" id="password" placeholder="비밀번호"
+                                    required="required" />
                                 <p class="help-block text-danger"></p>
                             </div>
-
-                        
-                            <div>
+                            
                             <button class="btn btn-primary px-3" type="submit" id="sendButton">로그인</button>
                        
-							<button class="btn btn-primary px-3">ID찾기</button>
-							<button class="btn btn-primary px-3">비밀번호찾기</button>
-							 </div>
+							<input class="btn btn-primary px-3" type="button" value="ID찾기" onclick="findIdForm()"></input>
+							<input class="btn btn-primary px-3" type="button" value="비밀번호 찾기" onclick="findPwdForm()" ></input>
+							
+							<script type="text/javascript">
+							function findIdForm(){
+								var url = "findIdForm";
+								window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=500, height=300");
+							}
+							
+							function findPwdForm(){
+								var url = "findPwdForm";
+								window.open(url, "_blank_", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=600, height=450");
+							}
+							</script>
+							
+							<div> 
+							</div>
                         </form>
                     </div>
                 </div>
@@ -126,51 +111,27 @@
 
     <!-- Footer Start -->
 
-    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: #3E3E4E !important;">
-        <div class="row">
-            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
-                <p class="m-0 text-white">&copy; <a href="#">우동맛</a>. All Rights Reserved. 
-				
-				<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-				Designed by <a href="https://htmlcodex.com">HTML Codex</a>
-                </p>
-            </div>
-            <div class="col-lg-6 text-center text-md-right">
-                <ul class="nav d-inline-flex">
-                    <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="mypage">마이페이지</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="admin">관리자</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white py-0" href="QnA">문의하기</a>
-                    </li>                    
-                </ul>
-            </div>
-        </div>
-    </div>
+    <th:block th:replace="~{footer :: footer1}"></th:block>
     <!-- Footer End -->
 
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
+    
+    
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="bootstrap/lib/easing/easing.min.js"></script>
-    <script src="bootstrap/lib/waypoints/waypoints.min.js"></script>
-    <script src="bootstrap/lib/counterup/counterup.min.js"></script>
-    <script src="bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/static/bootstrap/lib/easing/easing.min.js"></script>
+    <script src="/static/bootstrap/lib/waypoints/waypoints.min.js"></script>
+    <script src="/static/bootstrap/lib/counterup/counterup.min.js"></script>
+    <script src="/static/bootstrap/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="bootstrap/mail/jqBootstrapValidation.min.js"></script>
-    <script src="bootstrap/mail/contact.js"></script>
+    <script src="/static/bootstrap/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/static/bootstrap/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="bootstrap/js/main.js"></script>
+    <script src="/static/bootstrap/js/main.js"></script>
 </body>
 
 </html>
